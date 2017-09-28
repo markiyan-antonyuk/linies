@@ -5,7 +5,7 @@ import android.graphics.Color
 import com.markantoni.linies.Key
 
 object PreferenceHelper {
-    private val DEFAULT_COLOR = Color.parseColor("#9e9e9e")
+    private val DEFAULT_COLOR = Color.WHITE
     private val PREF_NAME_TYPE = "pref.type."
 
     private fun getPreferencesFor(context: Context, type: Int) = context.getSharedPreferences("$PREF_NAME_TYPE$type", Context.MODE_PRIVATE)
