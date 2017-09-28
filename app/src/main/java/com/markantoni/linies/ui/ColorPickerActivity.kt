@@ -72,12 +72,9 @@ class ColorPickerActivity : Activity() {
 
     private fun sendUpdatedColor(color: Int) {
         logd("Sending new color for $type")
-        dataSender.createDataMapRequest().apply {
-            dataMap.apply {
-                putInt(Key.TYPE, type)
-                putInt(Key.COLOR, color)
-            }
-            dataSender.send(this)
-        }
+        dataSender.send(Bundle().apply {
+            putInt(Key.TYPE, type)
+            putInt(Key.COLOR, color)
+        })
     }
 }

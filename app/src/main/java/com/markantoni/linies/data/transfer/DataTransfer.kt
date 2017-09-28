@@ -8,6 +8,7 @@ import com.markantoni.linies.util.logd
 interface DataTransfer : GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     companion object {
         const val URI_PATH = "/com.markantoni.linies.data_transfer"
+        const val KEY_DATA_MAP = "key.data.map"
     }
 
     fun connect()

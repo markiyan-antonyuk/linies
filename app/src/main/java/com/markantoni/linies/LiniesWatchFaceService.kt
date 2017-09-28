@@ -3,10 +3,10 @@ package com.markantoni.linies
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
+import android.os.Bundle
 import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
-import com.google.android.gms.wearable.DataMap
 import com.markantoni.linies.data.transfer.DataReceiver
 import com.markantoni.linies.preference.PreferenceHelper
 import com.markantoni.linies.ui.watch.linies.LiniesDrawers
@@ -100,11 +100,13 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
             if (invalidate) invalidate()
         }
 
-        private fun onNewData(dataMap: DataMap) {
-            val type = dataMap.getInt(Key.TYPE, Type.UNKNOWN)
-            val color = dataMap.getInt(Key.COLOR, PreferenceHelper.getColor(this@LiniesWatchFaceService, type))
-            val visible = dataMap.getBoolean(Key.VISIBLE, PreferenceHelper.isVisible(this@LiniesWatchFaceService, type))
-            updateDrawerConfiguration(type, color, visible)
+        private fun onNewData(bundle: Bundle) {
+            bundle.apply {
+                val type = getInt(Key.TYPE, Type.UNKNOWN)
+                val color = getInt(Key.COLOR, PreferenceHelper.getColor(this@LiniesWatchFaceService, type))
+                val visible = getBoolean(Key.VISIBLE, PreferenceHelper.isVisible(this@LiniesWatchFaceService, type))
+                updateDrawerConfiguration(type, color, visible)
+            }
         }
 
         private fun updateDrawerConfiguration(type: Int, color: Int, visible: Boolean) {

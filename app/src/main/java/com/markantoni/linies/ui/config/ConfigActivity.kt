@@ -42,13 +42,10 @@ class ConfigActivity : Activity() {
 
     @Subscribe
     fun onVisibilityChangeEvent(event: VisiblityChangeEvent) {
-        dataSender.createDataMapRequest().apply {
-            dataMap.apply {
-                putInt(Key.TYPE, event.type)
-                putBoolean(Key.VISIBLE, event.visible)
-            }
-            dataSender.send(this)
-        }
+        dataSender.send(Bundle().apply {
+            putInt(Key.TYPE, event.type)
+            putBoolean(Key.VISIBLE, event.visible)
+        })
     }
 
     override fun onStart() {
