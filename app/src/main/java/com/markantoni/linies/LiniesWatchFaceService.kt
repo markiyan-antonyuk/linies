@@ -26,13 +26,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         private var ambientMode = false
 
         private val secondsTimer = SecondsTimer({ invalidate() })
-        private val drawers = listOf(
-                LiniesDrawers.createSecondsDrawer(this@LiniesWatchFaceService),
-                LiniesDrawers.createMinutesDrawer(this@LiniesWatchFaceService),
-                LiniesDrawers.createHoursDrawer(this@LiniesWatchFaceService),
-                LiniesDrawers.createDateDrawer(this@LiniesWatchFaceService),
-                LiniesDrawers.createDigitalDrawer(this@LiniesWatchFaceService)
-        )
+        private val drawers = LiniesDrawers.createDrawers(this@LiniesWatchFaceService)
 
         override fun onCreate(holder: SurfaceHolder) {
             super.onCreate(holder)
