@@ -1,28 +1,19 @@
-package com.markantoni.linies.ui.watch
+package com.markantoni.linies.ui.watch.drawers
 
 import android.graphics.Canvas
-import android.graphics.Paint
 import android.graphics.Rect
+import com.markantoni.linies.Type
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateWatchDrawer(private val color: Int, private var visible: Boolean,
-                      private val strokeWidth: Float, private val textSizeCoefficient: Float,
-                      private val yCoefficient: Float, formatPattern: String) : WatchDrawer {
+class DateWatchDrawer(color: Int, strokeWidth: Float,
+                      private var visible: Boolean,
+                      private val textSizeCoefficient: Float,
+                      private val yCoefficient: Float, formatPattern: String) : WatchDrawer(Type.DATE, color, strokeWidth) {
 
-    private val paint = Paint()
     private val bounds = Rect()
-    private var formatter: SimpleDateFormat //todo format configuration
+    private var formatter: SimpleDateFormat = SimpleDateFormat(formatPattern, Locale.getDefault())
     private var radius = 0f
-
-    init {
-        paint.apply {
-            strokeWidth = this@DateWatchDrawer.strokeWidth
-            color = this@DateWatchDrawer.color
-            isAntiAlias = true
-        }
-        formatter = SimpleDateFormat(formatPattern, Locale.getDefault())
-    }
 
     override fun updateSize(radius: Float, circleLength: Float) {
         this.radius = radius
@@ -38,10 +29,10 @@ class DateWatchDrawer(private val color: Int, private var visible: Boolean,
         this.visible = visible
     }
 
-    fun draw(canvas: Canvas, date: Date) {
+    override fun draw(canvas: Canvas, calendar: Calendar) {
         if (!visible) return
 
-        val date = formatter.format(date)
+        val date = formatter.format(calendar.time)
         paint.getTextBounds(date, 0, date.length, bounds)
 
         canvas.apply {
