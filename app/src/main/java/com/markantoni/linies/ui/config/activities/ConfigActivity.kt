@@ -1,4 +1,4 @@
-package com.markantoni.linies.ui.config
+package com.markantoni.linies.ui.config.activities
 
 import android.app.Activity
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.support.v7.widget.PagerSnapHelper
 import com.markantoni.linies.Key
 import com.markantoni.linies.R
 import com.markantoni.linies.data.transfer.DataSender
-import com.markantoni.linies.ui.ColorPickerActivity
+import com.markantoni.linies.ui.config.ConfigAdapter
 import com.markantoni.linies.ui.config.events.OpenColorPickerEvent
 import com.markantoni.linies.ui.config.events.VisibilityChangeEvent
 import com.markantoni.linies.util.registerEventBus

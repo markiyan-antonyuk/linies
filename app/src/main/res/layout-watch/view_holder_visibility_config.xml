@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_box="top">
+
+        <TextView
+            style="@style/ConfigTitle"
+            android:text="@string/config_title_visibility" />
+
+        <Switch
+            android:id="@+id/digitalSwitch"
+            style="@style/ConfigItem.Switch"
+            android:text="@string/config_digital" />
+
+        <Switch
+            android:id="@+id/dateSwitch"
+            style="@style/ConfigItem.Switch"
+            android:text="@string/config_date" />
+    </LinearLayout>
+</android.support.wearable.view.BoxInsetLayout>

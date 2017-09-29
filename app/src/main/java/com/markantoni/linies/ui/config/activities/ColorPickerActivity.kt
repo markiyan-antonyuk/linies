@@ -1,4 +1,4 @@
-package com.markantoni.linies.ui
+package com.markantoni.linies.ui.config.activities
 
 import android.app.Activity
 import android.content.Context

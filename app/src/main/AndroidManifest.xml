@@ -42,7 +42,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name="com.markantoni.linies.ui.config.ConfigActivity">
+        <activity android:name="com.markantoni.linies.ui.config.activities.ConfigActivity">
             <intent-filter>
                 <action android:name="com.markantoni.linies.CONFIG" />
 
@@ -50,6 +50,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ColorPickerActivity" />
+        <activity android:name=".ui.config.activities.ColorPickerActivity" />
     </application>
 </manifest>

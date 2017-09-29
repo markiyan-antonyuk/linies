@@ -9,23 +9,23 @@ import com.markantoni.linies.ui.config.events.OpenColorPickerEvent
 import com.markantoni.linies.util.sendEvent
 import kotlinx.android.synthetic.main.view_holder_colors_config.view.*
 
-class ColorsConfigViewHolder(parent: ViewGroup) : BaseViewHolder(parent, R.layout.view_holder_colors_config) {
+class ColorsConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(parent, R.layout.view_holder_colors_config) {
     companion object : HolderType {
         override fun getType() = 0
     }
 
     init {
         itemView.apply {
-            bindToColor(secondsTv, Type.SECOND)
-            bindToColor(minutesTv, Type.MINUTE)
-            bindToColor(hoursTv, Type.HOUR)
-            bindToColor(digitalTv, Type.DIGITAL)
-            bindToColor(dateTv, Type.DATE)
+            bind(secondsTv, Type.SECOND)
+            bind(minutesTv, Type.MINUTE)
+            bind(hoursTv, Type.HOUR)
+            bind(digitalTv, Type.DIGITAL)
+            bind(dateTv, Type.DATE)
         }
     }
 
-    private fun bindToColor(view: TextView, type: Int) = view.apply {
+    private fun bind(view: TextView, type: Int) = view.apply {
         setOnClickListener { sendEvent(OpenColorPickerEvent(type)) }
-        setTextColor(PreferenceHelper.getColor(itemView.context, type))
+        setTextColor(PreferenceHelper.getColor(context, type))
     }
 }
