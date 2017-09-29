@@ -1,13 +1,12 @@
 <resources>
     <string name="app_name">Linies</string>
-    <string name="service_name">Linies</string>
-    <!-- config titles -->
-    <string name="config_hour">Hour</string>
-    <string name="config_minute">Minute</string>
-    <string name="config_second">Second</string>
+    <string name="service_name">@string/app_name</string>
+    <!-- Config titles items -->
+    <string name="config_title_colors">Colors</string>
+    <!-- config items -->
+    <string name="config_hours">Hour</string>
+    <string name="config_minutes">Minute</string>
+    <string name="config_seconds">Second</string>
     <string name="config_digital">Digital</string>
     <string name="config_date">Date</string>
-    <!-- Config items -->
-    <string name="config_color">Color</string>
-    <string name="config_visible">Visible</string>
 </resources>

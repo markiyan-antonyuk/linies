@@ -6,26 +6,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import com.markantoni.linies.Key
 import com.markantoni.linies.R
-import com.markantoni.linies.Type
-import com.markantoni.linies.data.events.VisiblityChangeEvent
 import com.markantoni.linies.data.transfer.DataSender
+import com.markantoni.linies.ui.ColorPickerActivity
+import com.markantoni.linies.ui.config.events.OpenColorPickerEvent
+import com.markantoni.linies.ui.config.events.VisibilityChangeEvent
 import com.markantoni.linies.util.registerEventBus
+import com.markantoni.linies.util.startActivityWithRevealAnimation
 import com.markantoni.linies.util.unregisterEventBus
 import kotlinx.android.synthetic.main.activity_config.*
 import org.greenrobot.eventbus.Subscribe
 
 
 class ConfigActivity : Activity() {
-    private val CONFIG_ITEMS by lazy {
-        listOf(
-                ConfigItem(getString(R.string.config_hour), Type.HOUR, false),
-                ConfigItem(getString(R.string.config_minute), Type.MINUTE, false),
-                ConfigItem(getString(R.string.config_second), Type.SECOND, false),
-                ConfigItem(getString(R.string.config_digital), Type.DIGITAL, true),
-                ConfigItem(getString(R.string.config_date), Type.DATE, true)
-        )
-    }
-
     private lateinit var dataSender: DataSender
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,20 +28,21 @@ class ConfigActivity : Activity() {
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@ConfigActivity)
             PagerSnapHelper().attachToRecyclerView(this)
-            adapter = ConfigAdapter(CONFIG_ITEMS)
         }
     }
 
     @Subscribe
-    fun onVisibilityChangeEvent(event: VisiblityChangeEvent) {
-        dataSender.send(Bundle().apply {
-            putInt(Key.TYPE, event.type)
-            putBoolean(Key.VISIBLE, event.visible)
-        })
-    }
+    fun onOpenColorPickerEvent(event: OpenColorPickerEvent) = startActivityWithRevealAnimation(ColorPickerActivity.newIntent(this, event.type))
 
-    override fun onStart() {
-        super.onStart()
+    @Subscribe
+    fun onVisibilityChangeEvent(event: VisibilityChangeEvent) = dataSender.send(Bundle().apply {
+        putInt(Key.TYPE, event.type)
+        putBoolean(Key.VISIBLE, event.visible)
+    })
+
+    override fun onResume() {
+        super.onResume()
+        recyclerView.adapter = ConfigAdapter() //reload adapter
         dataSender.connect()
         registerEventBus()
     }

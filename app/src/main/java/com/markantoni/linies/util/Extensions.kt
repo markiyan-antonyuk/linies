@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 import android.widget.Toast
 import org.greenrobot.eventbus.EventBus
@@ -23,6 +24,12 @@ fun Context.startActivityForResult(intent: Intent, requestCode: Int, options: Bu
 fun <T> MutableList<T>.moveToStart(index: Int) {
     val item = removeAt(index)
     add(0, item)
+}
+
+fun Activity.startActivityWithRevealAnimation(intent: Intent) {
+    val screenCenter = getCenterOfScreen(this)
+    val options = ActivityOptionsCompat.makeClipRevealAnimation(window.decorView, screenCenter[0], screenCenter[1], 0, 0).toBundle()
+    startActivity(intent, options)
 }
 
 fun Any.sendEvent(event: Any) = EventBus.getDefault().post(event)

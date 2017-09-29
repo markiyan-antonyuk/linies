@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/ConfigTitle"
+        android:text="@string/config_title_colors" />
+
+    <TextView
+        android:id="@+id/secondsTv"
+        style="@style/ConfigItem.Text"
+        android:text="@string/config_seconds" />
+
+    <TextView
+        android:id="@+id/minutesTv"
+        style="@style/ConfigItem.Text"
+        android:text="@string/config_minutes" />
+
+    <TextView
+        android:id="@+id/hoursTv"
+        style="@style/ConfigItem.Text"
+        android:text="@string/config_hours" />
+
+    <TextView
+        android:id="@+id/digitalTv"
+        style="@style/ConfigItem.Text"
+        android:text="@string/config_digital" />
+
+    <TextView
+        android:id="@+id/dateTv"
+        style="@style/ConfigItem.Text"
+        android:text="@string/config_date" />
+</LinearLayout>
