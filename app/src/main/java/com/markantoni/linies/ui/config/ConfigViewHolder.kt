@@ -15,13 +15,13 @@ import kotlinx.android.synthetic.main.view_config_item.view.*
 class ConfigViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val titleTv = itemView.titleTv
     private val colorPickerTv = itemView.colorPickerTv
-    private val visibleCheckbox = itemView.visibleCheckbox
+    private val visibleSwitch = itemView.visibleSwitch
 
     fun bind(configItem: ConfigItem) {
         configItem.apply {
             titleTv.text = title
             colorPickerTv.setOnClickListener { startColorPicker(it.context, type, it) }
-            visibleCheckbox.apply {
+            visibleSwitch.apply {
                 setOnCheckedChangeListener(null)
                 setVisible(configItem.changeVisibility)
                 isChecked = PreferenceHelper.isVisible(context, type)

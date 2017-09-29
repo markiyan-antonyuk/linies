@@ -19,9 +19,9 @@
             style="@style/ConfigItem.Text"
             android:text="@string/config_color" />
 
-        <CheckBox
-            android:id="@+id/visibleCheckbox"
-            style="@style/ConfigItem.Checkbox"
+        <Switch
+            android:id="@+id/visibleSwitch"
+            style="@style/ConfigItem.Switch"
             android:text="@string/config_visible" />
     </LinearLayout>
 </android.support.wearable.view.BoxInsetLayout>

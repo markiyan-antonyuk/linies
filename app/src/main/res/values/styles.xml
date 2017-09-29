@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="LiniesTheme" parent="@android:style/Theme.Material" />
+    <style name="LiniesTheme" parent="@android:style/Theme.Material">
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/accent</item>
+    </style>
 
     <style name="ConfigTitle">
         <item name="android:layout_width">match_parent</item>
@@ -30,7 +34,7 @@
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="ConfigItem.Checkbox">
+    <style name="ConfigItem.Switch">
         <item name="android:layout_width">wrap_content</item>
     </style>
 </resources>
