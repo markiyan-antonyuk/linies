@@ -1,7 +1,6 @@
 package com.markantoni.linies.ui.config
 
 import android.support.v7.widget.RecyclerView
-import android.util.SparseArray
 import android.view.ViewGroup
 import com.markantoni.linies.ui.config.holders.BaseConfigViewHolder
 import com.markantoni.linies.ui.config.holders.ColorsConfigViewHolder
@@ -9,11 +8,11 @@ import com.markantoni.linies.ui.config.holders.ComplicationsConfigViewHolder
 import com.markantoni.linies.ui.config.holders.VisibilityConfigViewHolder
 
 class ConfigAdapter : RecyclerView.Adapter<BaseConfigViewHolder>() {
-    private val HOLDERS = SparseArray<Class<out BaseConfigViewHolder>>(3).apply {
-        put(0, ColorsConfigViewHolder::class.java)
-        put(1, VisibilityConfigViewHolder::class.java)
-        put(2, ComplicationsConfigViewHolder::class.java)
-    }
+    private val HOLDERS = arrayOf(
+            ColorsConfigViewHolder::class.java,
+            ComplicationsConfigViewHolder::class.java,
+            VisibilityConfigViewHolder::class.java
+    )
 
     override fun getItemViewType(position: Int) = position
 
@@ -23,6 +22,6 @@ class ConfigAdapter : RecyclerView.Adapter<BaseConfigViewHolder>() {
 
     override fun onViewRecycled(holder: BaseConfigViewHolder) = holder.release()
 
-    override fun getItemCount() = HOLDERS.size()
+    override fun getItemCount() = HOLDERS.size
 }
 

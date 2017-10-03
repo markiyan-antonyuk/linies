@@ -28,6 +28,7 @@ class ConfigActivity : Activity() {
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@ConfigActivity)
             PagerSnapHelper().attachToRecyclerView(this)
+            recyclerView.adapter = ConfigAdapter() //reload adapter
         }
     }
 
@@ -42,7 +43,7 @@ class ConfigActivity : Activity() {
 
     override fun onResume() {
         super.onResume()
-        recyclerView.adapter = ConfigAdapter() //reload adapter
+        recyclerView.adapter = ConfigAdapter() //TODO notify activity result, move it away from here
         dataSender.connect()
         registerEventBus()
     }

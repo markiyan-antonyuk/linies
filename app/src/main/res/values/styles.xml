@@ -31,8 +31,13 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
-    <style name="ConfigItem.Text">
+    <style name="ConfigItem.TextSmall">
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="ConfigItem.Text">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="ConfigItem.Switch" />

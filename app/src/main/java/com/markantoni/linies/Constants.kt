@@ -1,5 +1,7 @@
 package com.markantoni.linies
 
+import android.support.wearable.complications.ComplicationData
+
 object Key {
     const val TYPE = "key.type"
     const val COLOR = "key.color"
@@ -20,4 +22,5 @@ object Complication {
     const val RIGHT = 1
 
     val IDS = intArrayOf(LEFT, RIGHT)
+    val SUPPORTED_TYPES = intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_SHORT_TEXT, ComplicationData.TYPE_SMALL_IMAGE)
 }
