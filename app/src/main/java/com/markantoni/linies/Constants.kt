@@ -14,3 +14,10 @@ object Type {
     const val DIGITAL = 3
     const val DATE = 4
 }
+
+object Complication {
+    const val LEFT = 0
+    const val RIGHT = 1
+
+    val IDS = intArrayOf(LEFT, RIGHT)
+}

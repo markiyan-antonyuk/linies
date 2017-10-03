@@ -73,7 +73,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
 
         override fun onDraw(canvas: Canvas, bounds: Rect) {
             super.onDraw(canvas, bounds)
-            calendar.time = Date(System.currentTimeMillis())
+            calendar.timeInMillis = System.currentTimeMillis()
 
             canvas.apply {
                 drawColor(Color.BLACK)

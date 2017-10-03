@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 abstract class BaseConfigViewHolder(parent: ViewGroup, @LayoutRes layout: Int) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layout, parent, false)) {
-    interface HolderType {
-        fun getType(): Int
-    }
+    val context = itemView.context
+    open fun release() {}
 }

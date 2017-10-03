@@ -4,6 +4,7 @@
     <!-- Config titles items -->
     <string name="config_title_colors">Colors</string>
     <string name="config_title_visibility">Visibility</string>
+    <string name="config_title_complications">Complications</string>
     <!-- config items -->
     <string name="config_hours">Hour</string>
     <string name="config_minutes">Minute</string>

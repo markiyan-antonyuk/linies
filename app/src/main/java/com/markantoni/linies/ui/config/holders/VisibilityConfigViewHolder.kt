@@ -10,10 +10,6 @@ import com.markantoni.linies.util.sendEvent
 import kotlinx.android.synthetic.main.view_holder_visibility_config.view.*
 
 class VisibilityConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(parent, R.layout.view_holder_visibility_config) {
-    companion object : HolderType {
-        override fun getType(): Int = 1
-    }
-
     init {
         itemView.apply {
             bind(dateSwitch, Type.DATE)
