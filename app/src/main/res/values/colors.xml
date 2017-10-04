@@ -4,4 +4,5 @@
     <color name="primary">#9E9E9E</color>
     <color name="primary_dark">#616161</color>
     <color name="accent">#673ab7</color>
+    <color name="separator">#777777</color>
 </resources>

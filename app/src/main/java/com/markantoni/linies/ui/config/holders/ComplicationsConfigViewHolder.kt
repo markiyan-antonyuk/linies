@@ -1,28 +1,36 @@
 package com.markantoni.linies.ui.config.holders
 
-import android.support.wearable.complications.ComplicationProviderInfo
-import android.support.wearable.complications.ProviderInfoRetriever
 import android.view.ViewGroup
-import com.markantoni.linies.Complication
+import com.markantoni.linies.Complications
 import com.markantoni.linies.R
-import com.markantoni.linies.util.getWatchFaceServiceComponentName
-import java.util.concurrent.Executors
+import com.markantoni.linies.ui.config.complications.ComplicationsHelper
+import com.markantoni.linies.ui.config.events.OpenComplicationConfigurationEvent
+import com.markantoni.linies.util.sendEvent
+import kotlinx.android.synthetic.main.view_holder_complications_config.view.*
 
 class ComplicationsConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(parent, R.layout.view_holder_complications_config) {
-    private val infoRetriever: ProviderInfoRetriever = ProviderInfoRetriever(itemView.context, Executors.newCachedThreadPool())
+    override fun bind() {
+        itemView.apply {
+            leftIv.setImageResource(R.drawable.ic_plus)
+            rightIv.setImageResource(R.drawable.ic_plus)
+            leftTv.text = context.getString(R.string.config_left)
+            rightTv.text = context.getString(R.string.config_right)
 
-    init {
-        infoRetriever.apply {
-            init()
-            retrieveProviderInfo(object : ProviderInfoRetriever.OnProviderInfoReceivedCallback() {
-                override fun onProviderInfoReceived(id: Int, info: ComplicationProviderInfo?) {
-                    //render that
+            ComplicationsHelper.retrieveInfo(context, { id, info ->
+                when (id) {
+                    Complications.LEFT -> {
+                        leftIv.setImageIcon(info.providerIcon)
+                        leftTv.text = info.providerName
+                    }
+                    Complications.RIGHT -> {
+                        rightIv.setImageIcon(info.providerIcon)
+                        rightTv.text = info.providerName
+                    }
                 }
-            }, context.getWatchFaceServiceComponentName(), *Complication.IDS)
-        }
-    }
+            })
 
-    override fun release() {
-        infoRetriever.release()
+            leftLayout.setOnClickListener { sendEvent(OpenComplicationConfigurationEvent(Complications.LEFT)) }
+            rightLayout.setOnClickListener { sendEvent(OpenComplicationConfigurationEvent(Complications.RIGHT)) }
+        }
     }
 }

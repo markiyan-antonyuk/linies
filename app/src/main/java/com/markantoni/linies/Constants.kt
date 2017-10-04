@@ -17,7 +17,7 @@ object Type {
     const val DATE = 4
 }
 
-object Complication {
+object Complications {
     const val LEFT = 0
     const val RIGHT = 1
 

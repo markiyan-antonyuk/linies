@@ -10,7 +10,7 @@ import com.markantoni.linies.util.sendEvent
 import kotlinx.android.synthetic.main.view_holder_colors_config.view.*
 
 class ColorsConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(parent, R.layout.view_holder_colors_config) {
-    init {
+    override fun bind() {
         itemView.apply {
             bind(secondsTv, Type.SECOND)
             bind(minutesTv, Type.MINUTE)

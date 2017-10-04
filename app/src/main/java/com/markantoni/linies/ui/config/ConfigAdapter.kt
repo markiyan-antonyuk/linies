@@ -18,9 +18,7 @@ class ConfigAdapter : RecyclerView.Adapter<BaseConfigViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = HOLDERS[viewType].getConstructor(ViewGroup::class.java).newInstance(parent)
 
-    override fun onBindViewHolder(holderConfig: BaseConfigViewHolder, position: Int) {}
-
-    override fun onViewRecycled(holder: BaseConfigViewHolder) = holder.release()
+    override fun onBindViewHolder(holder: BaseConfigViewHolder, position: Int) = holder.bind()
 
     override fun getItemCount() = HOLDERS.size
 }

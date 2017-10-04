@@ -8,10 +8,59 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_box="top">
+        app:layout_box="top|bottom">
 
         <TextView
             style="@style/ConfigTitle"
-            android:text="@string/config_title_complications" />
+            android:text="@string/config_title_complications"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/leftLayout"
+                style="@style/ComplicationLayout">
+
+                <ImageView
+                    android:id="@+id/leftIv"
+                    style="@style/ComplicationIcon"
+                    android:layout_gravity="end" />
+
+                <TextView
+                    android:id="@+id/leftTv"
+                    style="@style/ComplicationText"
+                    android:gravity="end"
+                    android:text="@string/config_left" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/separator" />
+
+            <LinearLayout
+                android:id="@+id/rightLayout"
+                style="@style/ComplicationLayout">
+
+                <ImageView
+                    android:id="@+id/rightIv"
+                    style="@style/ComplicationIcon"
+                    android:layout_gravity="start" />
+
+                <TextView
+                    android:id="@+id/rightTv"
+                    style="@style/ComplicationText"
+                    android:gravity="start"
+                    android:text="@string/config_right" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </android.support.wearable.view.BoxInsetLayout>

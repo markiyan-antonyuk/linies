@@ -10,7 +10,7 @@ import com.markantoni.linies.util.sendEvent
 import kotlinx.android.synthetic.main.view_holder_visibility_config.view.*
 
 class VisibilityConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(parent, R.layout.view_holder_visibility_config) {
-    init {
+    override fun bind() {
         itemView.apply {
             bind(dateSwitch, Type.DATE)
             bind(digitalSwitch, Type.DIGITAL)

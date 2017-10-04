@@ -7,5 +7,5 @@ import android.view.ViewGroup
 
 abstract class BaseConfigViewHolder(parent: ViewGroup, @LayoutRes layout: Int) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layout, parent, false)) {
     val context = itemView.context
-    open fun release() {}
+    abstract fun bind()
 }

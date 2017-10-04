@@ -35,7 +35,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                     .setCardProgressMode(WatchFaceStyle.PROGRESS_MODE_DISPLAY)
                     .setShowUnreadCountIndicator(true)
                     .build())
-            setActiveComplications(*Complication.IDS)
+            setActiveComplications(*Complications.IDS)
 
             dataReceiver = DataReceiver(this@LiniesWatchFaceService, { onNewData(it) })
             dataReceiver.connect()
