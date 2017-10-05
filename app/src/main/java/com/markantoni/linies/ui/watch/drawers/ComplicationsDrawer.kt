@@ -1,4 +1,4 @@
-package com.markantoni.linies.ui.config.complications
+package com.markantoni.linies.ui.watch.drawers
 
 import android.graphics.Canvas
 import android.support.wearable.complications.ComplicationData
@@ -8,7 +8,6 @@ import android.util.SparseArray
 import com.markantoni.linies.Complications
 import com.markantoni.linies.LiniesWatchFaceService
 import com.markantoni.linies.Type
-import com.markantoni.linies.ui.watch.drawers.WatchDrawer
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import java.util.*
 
@@ -112,6 +111,5 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
 
         setBorderStyleActive(ComplicationDrawable.BORDER_STYLE_NONE)
         setBorderStyleAmbient(ComplicationDrawable.BORDER_STYLE_NONE)
-
     }
 }

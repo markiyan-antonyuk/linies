@@ -24,6 +24,7 @@
             <TextView
                 android:id="@+id/secondsTv"
                 style="@style/ConfigItem.TextSmall"
+                android:layout_columnSpan="2"
                 android:text="@string/config_seconds" />
 
             <TextView
@@ -44,8 +45,13 @@
             <TextView
                 android:id="@+id/dateTv"
                 style="@style/ConfigItem.TextSmall"
-                android:layout_columnSpan="2"
                 android:text="@string/config_date" />
+
+            <TextView
+                android:id="@+id/complicationsTv"
+                style="@style/ConfigItem.TextSmall"
+                android:layout_columnSpan="2"
+                android:text="@string/config_complications" />
         </GridLayout>
     </LinearLayout>
 </android.support.wearable.view.BoxInsetLayout>

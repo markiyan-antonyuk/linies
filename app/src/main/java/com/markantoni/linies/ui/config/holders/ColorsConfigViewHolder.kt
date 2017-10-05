@@ -17,6 +17,7 @@ class ColorsConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(parent, R
             bind(hoursTv, Type.HOUR)
             bind(digitalTv, Type.DIGITAL)
             bind(dateTv, Type.DATE)
+            bind(complicationsTv, Type.COMPLICATIONS)
         }
     }
 

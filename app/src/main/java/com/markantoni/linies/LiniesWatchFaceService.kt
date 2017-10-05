@@ -11,7 +11,7 @@ import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
 import com.markantoni.linies.data.transfer.DataReceiver
 import com.markantoni.linies.preference.PreferenceHelper
-import com.markantoni.linies.ui.config.complications.ComplicationsDrawer
+import com.markantoni.linies.ui.watch.drawers.ComplicationsDrawer
 import com.markantoni.linies.ui.watch.linies.LiniesDrawers
 import com.markantoni.linies.util.SecondsTimer
 import com.markantoni.linies.util.logd
@@ -42,7 +42,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                     .build())
             setActiveComplications(*Complications.IDS)
 
-            complicationsDrawer = ComplicationsDrawer(this@LiniesWatchFaceService, Color.WHITE)
+            complicationsDrawer = ComplicationsDrawer(this@LiniesWatchFaceService, PreferenceHelper.getColor(this@LiniesWatchFaceService, Type.COMPLICATIONS))
             drawers.add(complicationsDrawer)
 
             dataReceiver = DataReceiver(this@LiniesWatchFaceService, { onNewData(it) })
