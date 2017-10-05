@@ -4,11 +4,13 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
+import android.support.wearable.complications.ComplicationData
 import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
 import com.markantoni.linies.data.transfer.DataReceiver
 import com.markantoni.linies.preference.PreferenceHelper
+import com.markantoni.linies.ui.config.complications.ComplicationsDrawer
 import com.markantoni.linies.ui.watch.linies.LiniesDrawers
 import com.markantoni.linies.util.SecondsTimer
 import com.markantoni.linies.util.logd
@@ -27,6 +29,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
 
         private val secondsTimer = SecondsTimer({ invalidate() })
         private val drawers = LiniesDrawers.createDrawers(this@LiniesWatchFaceService)
+        private lateinit var complicationsDrawer: ComplicationsDrawer
 
         override fun onCreate(holder: SurfaceHolder) {
             super.onCreate(holder)
@@ -37,9 +40,11 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                     .build())
             setActiveComplications(*Complications.IDS)
 
+            complicationsDrawer = ComplicationsDrawer(this@LiniesWatchFaceService, Color.RED)
+            drawers.add(complicationsDrawer)
+
             dataReceiver = DataReceiver(this@LiniesWatchFaceService, { onNewData(it) })
             dataReceiver.connect()
-
             secondsTimer.start()
         }
 
@@ -71,6 +76,8 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
             drawers.forEach { it.setAmbientMode(ambientMode) }
             secondsTimer.apply { if (ambientMode) stop() else start() }
         }
+
+        override fun onComplicationDataUpdate(id: Int, data: ComplicationData) = complicationsDrawer.update(id, data)
 
         override fun onDraw(canvas: Canvas, bounds: Rect) {
             super.onDraw(canvas, bounds)

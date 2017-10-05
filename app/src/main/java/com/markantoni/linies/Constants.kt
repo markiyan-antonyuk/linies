@@ -15,6 +15,7 @@ object Type {
     const val SECOND = 2
     const val DIGITAL = 3
     const val DATE = 4
+    const val COMPLICATIONS = 5
 }
 
 object Complications {
@@ -22,5 +23,5 @@ object Complications {
     const val RIGHT = 1
 
     val IDS = intArrayOf(LEFT, RIGHT)
-    val SUPPORTED_TYPES = intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_SHORT_TEXT, ComplicationData.TYPE_SMALL_IMAGE)
+    val SUPPORTED_TYPES = intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_SHORT_TEXT, ComplicationData.TYPE_SMALL_IMAGE, ComplicationData.TYPE_SMALL_IMAGE, ComplicationData.TYPE_RANGED_VALUE)
 }

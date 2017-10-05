@@ -8,12 +8,15 @@ import java.util.*
 
 class DigitalWatchDrawer(color: Int, strokeWidth: Float,
                          private var visible: Boolean,
-                         private val textSizeCoefficient: Float) : WatchDrawer(Type.DIGITAL, color, strokeWidth) {
+                         private val textSizeCoefficient: Float,
+                         private val yCoefficient: Float) : WatchDrawer(Type.DIGITAL, color, strokeWidth) {
 
     private val bounds = Rect()
     private val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+    private var radius = 0f
 
     override fun updateSize(radius: Float, circleLength: Float) {
+        this.radius = radius
         paint.textSize = radius / textSizeCoefficient
     }
 
@@ -31,6 +34,11 @@ class DigitalWatchDrawer(color: Int, strokeWidth: Float,
 
         val digitalTime = formatter.format(calendar.time)
         paint.getTextBounds(digitalTime, 0, digitalTime.length, bounds)
-        canvas.drawText(digitalTime, -bounds.centerX().toFloat(), -bounds.centerY().toFloat(), paint)
+        canvas.apply {
+            save()
+            canvas.translate(0f, radius / yCoefficient)
+            canvas.drawText(digitalTime, -bounds.centerX().toFloat(), -bounds.centerY().toFloat(), paint)
+            restore()
+        }
     }
 }

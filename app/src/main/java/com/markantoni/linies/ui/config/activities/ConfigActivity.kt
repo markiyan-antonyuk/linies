@@ -10,7 +10,7 @@ import com.markantoni.linies.Key
 import com.markantoni.linies.R
 import com.markantoni.linies.data.transfer.DataSender
 import com.markantoni.linies.ui.config.ConfigAdapter
-import com.markantoni.linies.ui.config.complications.ComplicationsHelper
+import com.markantoni.linies.ui.config.complications.ComplicationsInfoRetriever
 import com.markantoni.linies.ui.config.events.OpenColorPickerEvent
 import com.markantoni.linies.ui.config.events.OpenComplicationConfigurationEvent
 import com.markantoni.linies.ui.config.events.VisibilityChangeEvent
@@ -55,13 +55,13 @@ class ConfigActivity : Activity() {
         recyclerView.adapter.notifyDataSetChanged()
         dataSender.connect()
         registerEventBus()
-        ComplicationsHelper.init(this)
+        ComplicationsInfoRetriever.init(this)
     }
 
     override fun onPause() {
         dataSender.disconnect()
         unregisterEventBus()
-        ComplicationsHelper.release()
+        ComplicationsInfoRetriever.release()
         super.onPause()
     }
 }
