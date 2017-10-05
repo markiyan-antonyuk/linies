@@ -6,6 +6,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.support.wearable.complications.ComplicationData
 import android.support.wearable.watchface.CanvasWatchFaceService
+import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
 import com.markantoni.linies.data.transfer.DataReceiver
@@ -37,6 +38,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
             setWatchFaceStyle(WatchFaceStyle.Builder(this@LiniesWatchFaceService)
                     .setCardProgressMode(WatchFaceStyle.PROGRESS_MODE_DISPLAY)
                     .setShowUnreadCountIndicator(true)
+                    .setAcceptsTapEvents(true)
                     .build())
             setActiveComplications(*Complications.IDS)
 
@@ -78,6 +80,10 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         }
 
         override fun onComplicationDataUpdate(id: Int, data: ComplicationData) = complicationsDrawer.update(id, data)
+
+        override fun onTapCommand(tapType: Int, x: Int, y: Int, eventTime: Long) {
+            if (tapType == WatchFaceService.TAP_TYPE_TAP) complicationsDrawer.handleTap(x, y)
+        }
 
         override fun onDraw(canvas: Canvas, bounds: Rect) {
             super.onDraw(canvas, bounds)

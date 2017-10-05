@@ -2,17 +2,20 @@ package com.markantoni.linies.ui.config.complications
 
 import android.graphics.Canvas
 import android.support.wearable.complications.ComplicationData
+import android.support.wearable.complications.ComplicationHelperActivity
 import android.support.wearable.complications.rendering.ComplicationDrawable
 import android.util.SparseArray
 import com.markantoni.linies.Complications
 import com.markantoni.linies.LiniesWatchFaceService
 import com.markantoni.linies.Type
 import com.markantoni.linies.ui.watch.drawers.WatchDrawer
+import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import java.util.*
 
 class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: Int) : WatchDrawer(Type.COMPLICATIONS, color, 0f) {
     private val drawables = SparseArray<ComplicationDrawable>(Complications.IDS.size)
     private val complications = SparseArray<ComplicationData>(Complications.IDS.size)
+    private var radius = 0f
 
     init {
         Complications.IDS.forEach { id ->
@@ -32,6 +35,7 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
     override fun updateConfiguration(color: Int, visible: Boolean) = setColor(color)
 
     override fun updateSize(radius: Float, circleLength: Float) {
+        this.radius = radius
         val height = (radius / 4f).toInt()
         var width = (radius / 2f).toInt()
         var offset = (radius / 2.5f).toInt()
@@ -44,10 +48,30 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
 
     override fun setAmbientMode(ambient: Boolean) = Complications.IDS.forEach { drawables[it].setInAmbientMode(ambient) }
 
-
     override fun draw(canvas: Canvas, calendar: Calendar) {
         val now = System.currentTimeMillis()
         Complications.IDS.forEach { drawables[it].draw(canvas, now) }
+    }
+
+    fun handleTap(x: Int, y: Int) {
+        val x = (x - radius).toInt()
+        val y = (y - radius).toInt()
+
+        Complications.IDS.forEach {
+            complications[it]?.apply {
+                if (isActive(System.currentTimeMillis())
+                        && type != ComplicationData.TYPE_NOT_CONFIGURED
+                        && type != ComplicationData.TYPE_EMPTY
+                        && drawables[it].bounds.contains(x, y)) {
+                    if (tapAction != null) {
+                        tapAction.send()
+                    } else if (type == ComplicationData.TYPE_NO_PERMISSION) {
+                        service.apply { startActivity(ComplicationHelperActivity.createPermissionRequestHelperIntent(this, getWatchFaceServiceComponentName())) }
+                    }
+                }
+            }
+        }
+
     }
 
     private fun setColor(color: Int) {
@@ -74,35 +98,20 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
 
         setIconColorActive(color)
         setIconColorAmbient(color)
-    }
-
-    private fun ComplicationDrawable.init() {
-        //todo getDimen
-        setBorderDashGapActive(4)
-        setBorderDashGapAmbient(4)
-
-        setBorderDashWidthActive(1)
-        setBorderDashWidthAmbient(1)
-
-        setBorderRadiusActive(100)
-        setBorderRadiusAmbient(100)
-
-        setBorderWidthActive(2)
-        setBorderWidthAmbient(2)
-
-        setRangedValueRingWidthActive(2)
-        setRangedValueRingWidthAmbient(2)
 
         setTextColorActive(color)
         setTextColorAmbient(color)
+    }
 
-        setTextSizeActive(20)
-        setTextSizeAmbient(20)
+    private fun ComplicationDrawable.init() {
+        setRangedValueRingWidthActive(0)
+        setRangedValueRingWidthAmbient(0)
 
-        setTitleSizeActive(20)
-        setTitleSizeAmbient(20)
+        setBorderRadiusActive(5)
+        setBorderRadiusAmbient(5)
 
-        setBorderStyleAmbient(ComplicationDrawable.BORDER_STYLE_DASHED)
-        setBorderStyleActive(ComplicationDrawable.BORDER_STYLE_DASHED)
+        setBorderStyleActive(ComplicationDrawable.BORDER_STYLE_NONE)
+        setBorderStyleAmbient(ComplicationDrawable.BORDER_STYLE_NONE)
+
     }
 }
