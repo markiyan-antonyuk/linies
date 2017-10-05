@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="color_names">
-        <item>white</item>
+        <item>grey</item>
+        <item>blue grey</item>
         <item>red</item>
         <item>pink</item>
         <item>purple</item>
@@ -19,11 +20,11 @@
         <item>orange</item>
         <item>deep orange</item>
         <item>brown</item>
-        <item>grey</item>
-        <item>blue grey</item>
+        <item>white</item>
     </string-array>
     <string-array name="color_values">
-        <item>#ffffff</item>
+        <item>#9e9e9e</item>
+        <item>#607d8b</item>
         <item>#f44336</item>
         <item>#e91e63</item>
         <item>#9c27b0</item>
@@ -41,7 +42,6 @@
         <item>#ff9800</item>
         <item>#ff5722</item>
         <item>#795548</item>
-        <item>#9e9e9e</item>
-        <item>#607d8b</item>
+        <item>#ffffff</item>
     </string-array>
 </resources>

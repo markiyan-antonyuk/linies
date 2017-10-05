@@ -47,8 +47,13 @@ class ConfigActivity : Activity() {
     })
 
     @Subscribe
-    fun onOpenComplicationConfigurationEvent(event: OpenComplicationConfigurationEvent) =
-            startActivity(ComplicationHelperActivity.createProviderChooserHelperIntent(this, getWatchFaceServiceComponentName(), event.id, *Complications.SUPPORTED_TYPES))
+    fun onOpenComplicationConfigurationEvent(event: OpenComplicationConfigurationEvent) {
+        event.apply {
+            Complications.SUPPORTED_TYPES[id]?.let {
+                startActivityWithRevealAnimation(ComplicationHelperActivity.createProviderChooserHelperIntent(this@ConfigActivity, getWatchFaceServiceComponentName(), id, *it))
+            }
+        }
+    }
 
     override fun onResume() {
         super.onResume()

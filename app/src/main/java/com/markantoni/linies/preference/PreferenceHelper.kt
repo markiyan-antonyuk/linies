@@ -3,9 +3,9 @@ package com.markantoni.linies.preference
 import android.content.Context
 import android.graphics.Color
 import com.markantoni.linies.Key
+import com.markantoni.linies.R
 
 object PreferenceHelper {
-    private val DEFAULT_COLOR = Color.WHITE
     private val PREF_NAME_TYPE = "pref.type."
 
     private fun getPreferencesFor(context: Context, type: Int) = context.getSharedPreferences("$PREF_NAME_TYPE$type", Context.MODE_PRIVATE)
@@ -18,6 +18,6 @@ object PreferenceHelper {
         }
     }
 
-    fun getColor(context: Context, type: Int) = getPreferencesFor(context, type).getInt(Key.COLOR, DEFAULT_COLOR)
+    fun getColor(context: Context, type: Int) = getPreferencesFor(context, type).getInt(Key.COLOR, Color.parseColor(context.resources.getStringArray(R.array.color_values)[0]))
     fun isVisible(context: Context, type: Int) = getPreferencesFor(context, type).getBoolean(Key.VISIBLE, true)
 }

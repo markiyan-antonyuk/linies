@@ -23,5 +23,8 @@ object Complications {
     const val BOTTOM = 1
 
     val IDS = intArrayOf(TOP, BOTTOM)
-    val SUPPORTED_TYPES = intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_LONG_TEXT, ComplicationData.TYPE_RANGED_VALUE)
+    val SUPPORTED_TYPES = mapOf(
+            TOP to intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_LONG_TEXT),
+            BOTTOM to intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_SHORT_TEXT)
+    )
 }
