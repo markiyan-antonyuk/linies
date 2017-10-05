@@ -31,7 +31,7 @@ object LiniesDrawers {
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.HOUR)
     }
 
-    private fun createDigitalDrawer(context: Context) = DigitalWatchDrawer(PreferenceHelper.getColor(context, Type.DIGITAL), 3f, PreferenceHelper.isVisible(context, Type.DIGITAL), 2.5f, 0f)
+    private fun createDigitalDrawer(context: Context) = DigitalWatchDrawer(PreferenceHelper.getColor(context, Type.DIGITAL), 3f, PreferenceHelper.isVisible(context, Type.DIGITAL), 2.5f, -4f)
 
-    private fun createDateDrawer(context: Context) = DateWatchDrawer(PreferenceHelper.getColor(context, Type.DATE), 2f, PreferenceHelper.isVisible(context, Type.DIGITAL), 8f, -3.8f, "dd-MM-YYYY")
+    private fun createDateDrawer(context: Context) = DateWatchDrawer(PreferenceHelper.getColor(context, Type.DATE), 2f, PreferenceHelper.isVisible(context, Type.DIGITAL), 8f, -2f, "dd-MM-YYYY")
 }
