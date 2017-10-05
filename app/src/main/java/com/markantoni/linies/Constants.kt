@@ -19,9 +19,9 @@ object Type {
 }
 
 object Complications {
-    const val LEFT = 0
-    const val RIGHT = 1
+    const val TOP = 0
+    const val BOTTOM = 1
 
-    val IDS = intArrayOf(LEFT, RIGHT)
-    val SUPPORTED_TYPES = intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_SHORT_TEXT, ComplicationData.TYPE_SMALL_IMAGE, ComplicationData.TYPE_SMALL_IMAGE, ComplicationData.TYPE_RANGED_VALUE)
+    val IDS = intArrayOf(TOP, BOTTOM)
+    val SUPPORTED_TYPES = intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_SHORT_TEXT, ComplicationData.TYPE_LONG_TEXT, ComplicationData.TYPE_RANGED_VALUE)
 }

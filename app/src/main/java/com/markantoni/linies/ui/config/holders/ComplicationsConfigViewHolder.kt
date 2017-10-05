@@ -11,26 +11,26 @@ import kotlinx.android.synthetic.main.view_holder_complications_config.view.*
 class ComplicationsConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(parent, R.layout.view_holder_complications_config) {
     override fun bind() {
         itemView.apply {
-            leftIv.setImageResource(R.drawable.ic_plus)
-            rightIv.setImageResource(R.drawable.ic_plus)
-            leftTv.text = context.getString(R.string.config_left)
-            rightTv.text = context.getString(R.string.config_right)
+            topIv.setImageResource(R.drawable.ic_plus)
+            bottomIv.setImageResource(R.drawable.ic_plus)
+            topTv.text = context.getString(R.string.config_top)
+            bottomTv.text = context.getString(R.string.config_bottom)
 
             ComplicationsInfoRetriever.retrieveInfo(context, { id, icon, name ->
                 when (id) {
-                    Complications.LEFT -> {
-                        leftIv.setImageIcon(icon)
-                        leftTv.text = name
+                    Complications.TOP -> {
+                        topIv.setImageIcon(icon)
+                        topTv.text = name
                     }
-                    Complications.RIGHT -> {
-                        rightIv.setImageIcon(icon)
-                        rightTv.text = name
+                    Complications.BOTTOM -> {
+                        bottomIv.setImageIcon(icon)
+                        bottomTv.text = name
                     }
                 }
             })
 
-            leftLayout.setOnClickListener { sendEvent(OpenComplicationConfigurationEvent(Complications.LEFT)) }
-            rightLayout.setOnClickListener { sendEvent(OpenComplicationConfigurationEvent(Complications.RIGHT)) }
+            topLayout.setOnClickListener { sendEvent(OpenComplicationConfigurationEvent(Complications.TOP)) }
+            bottomLayout.setOnClickListener { sendEvent(OpenComplicationConfigurationEvent(Complications.BOTTOM)) }
         }
     }
 }

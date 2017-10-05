@@ -36,7 +36,7 @@ class DigitalWatchDrawer(color: Int, strokeWidth: Float,
         paint.getTextBounds(digitalTime, 0, digitalTime.length, bounds)
         canvas.apply {
             save()
-            canvas.translate(0f, radius / yCoefficient)
+            if (yCoefficient != 0f) canvas.translate(0f, radius / yCoefficient)
             canvas.drawText(digitalTime, -bounds.centerX().toFloat(), -bounds.centerY().toFloat(), paint)
             restore()
         }

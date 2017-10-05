@@ -40,7 +40,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                     .build())
             setActiveComplications(*Complications.IDS)
 
-            complicationsDrawer = ComplicationsDrawer(this@LiniesWatchFaceService, Color.RED)
+            complicationsDrawer = ComplicationsDrawer(this@LiniesWatchFaceService, Color.WHITE)
             drawers.add(complicationsDrawer)
 
             dataReceiver = DataReceiver(this@LiniesWatchFaceService, { onNewData(it) })

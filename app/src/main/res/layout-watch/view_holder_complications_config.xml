@@ -12,55 +12,46 @@
 
         <TextView
             style="@style/ConfigTitle"
+            android:layout_marginBottom="7dp"
             android:text="@string/config_title_complications"
             android:textSize="25sp" />
 
         <LinearLayout
+            android:id="@+id/topLayout"
+            style="@style/ComplicationLayout">
+
+            <ImageView
+                android:id="@+id/topIv"
+                style="@style/ComplicationIcon" />
+
+            <TextView
+                android:id="@+id/topTv"
+                style="@style/ComplicationText"
+                android:text="@string/config_top" />
+        </LinearLayout>
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:background="@color/separator" />
 
-            <LinearLayout
-                android:id="@+id/leftLayout"
-                style="@style/ComplicationLayout">
+        <LinearLayout
+            android:id="@+id/bottomLayout"
+            style="@style/ComplicationLayout">
 
-                <ImageView
-                    android:id="@+id/leftIv"
-                    style="@style/ComplicationIcon"
-                    android:layout_gravity="end" />
+            <ImageView
+                android:id="@+id/bottomIv"
+                style="@style/ComplicationIcon"
+                android:layout_gravity="start" />
 
-                <TextView
-                    android:id="@+id/leftTv"
-                    style="@style/ComplicationText"
-                    android:gravity="end"
-                    android:text="@string/config_left" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:background="@color/separator" />
-
-            <LinearLayout
-                android:id="@+id/rightLayout"
-                style="@style/ComplicationLayout">
-
-                <ImageView
-                    android:id="@+id/rightIv"
-                    style="@style/ComplicationIcon"
-                    android:layout_gravity="start" />
-
-                <TextView
-                    android:id="@+id/rightTv"
-                    style="@style/ComplicationText"
-                    android:gravity="start"
-                    android:text="@string/config_right" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/bottomTv"
+                style="@style/ComplicationText"
+                android:gravity="start"
+                android:text="@string/config_bottom" />
         </LinearLayout>
     </LinearLayout>
 </android.support.wearable.view.BoxInsetLayout>

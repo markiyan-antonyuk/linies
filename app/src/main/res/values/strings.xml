@@ -11,6 +11,6 @@
     <string name="config_seconds">Second</string>
     <string name="config_digital">Digital</string>
     <string name="config_date">Date</string>
-    <string name="config_left">Left</string>
-    <string name="config_right">Right</string>
+    <string name="config_top">Top</string>
+    <string name="config_bottom">Bottom</string>
 </resources>
