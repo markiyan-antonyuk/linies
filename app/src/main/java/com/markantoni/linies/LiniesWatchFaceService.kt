@@ -93,7 +93,18 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                 drawColor(Color.BLACK)
                 save()
                 translate(bounds.centerX().toFloat(), bounds.centerY().toFloat())
-                drawers.forEach { it.draw(canvas, calendar) }
+                if (complicationsDrawer.isComplicationVisible(Complications.TOP)) {
+                    val digitalDrawer = drawers.find { it.type == Type.DIGITAL }
+                    val dateDrawer = drawers.find { it.type == Type.DATE }
+                    drawers.filter { it != digitalDrawer && it != dateDrawer }.forEach { it.draw(canvas, calendar) }
+                    save()
+                    translate(0f, -height / 7f)
+                    digitalDrawer?.draw(canvas, calendar)
+                    dateDrawer?.draw(canvas, calendar)
+                    restore()
+                } else {
+                    drawers.forEach { it.draw(canvas, calendar) }
+                }
                 restore()
             }
         }

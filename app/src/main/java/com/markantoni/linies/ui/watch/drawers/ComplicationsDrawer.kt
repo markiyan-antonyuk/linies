@@ -74,6 +74,13 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
 
     }
 
+    fun isComplicationVisible(id: Int): Boolean {
+        return complications[id]?.let { complication ->
+            complication.type != ComplicationData.TYPE_NOT_CONFIGURED &&
+                    complication.type != ComplicationData.TYPE_EMPTY
+        } ?: false
+    }
+
     private fun setColor(color: Int) {
         Complications.IDS.forEach {
             drawables[it].setColor(color)
