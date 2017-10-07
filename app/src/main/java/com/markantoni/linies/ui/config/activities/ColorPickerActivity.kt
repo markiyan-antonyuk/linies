@@ -16,7 +16,7 @@ import com.markantoni.linies.data.transfer.DataSender
 import com.markantoni.linies.preference.PreferenceHelper
 import com.markantoni.linies.util.logd
 import com.markantoni.linies.util.moveToStart
-import kotlinx.android.synthetic.main.activity_color_picker.*
+import kotlinx.android.synthetic.main.activity_radio_group.*
 
 class ColorPickerActivity : Activity() {
     companion object {
@@ -31,7 +31,7 @@ class ColorPickerActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_color_picker)
+        setContentView(R.layout.activity_radio_group)
         type = intent.getIntExtra(EXTRA_TYPE, Type.UNKNOWN)
         dataSender = DataSender(this)
         initColors()
@@ -70,11 +70,9 @@ class ColorPickerActivity : Activity() {
         }
     }
 
-    private fun sendUpdatedColor(color: Int) {
+    private fun sendUpdatedColor(color: Int) = dataSender.send({
         logd("Sending new color for $type")
-        dataSender.send({
-            putInt(Key.TYPE, type)
-            putInt(Key.COLOR, color)
-        })
-    }
+        putInt(Key.TYPE, type)
+        putInt(Key.COLOR, color)
+    })
 }

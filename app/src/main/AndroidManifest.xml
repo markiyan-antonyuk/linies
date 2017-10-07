@@ -51,6 +51,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.config.activities.ColorPickerActivity" />
+        <activity android:name=".ui.config.activities.DateFormatPickerActivity" />
         <activity android:name="android.support.wearable.complications.ComplicationHelperActivity" />
     </application>
 </manifest>

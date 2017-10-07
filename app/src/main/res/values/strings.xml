@@ -17,5 +17,5 @@
     <string name="config_bottom">Bottom</string>
     <string name="config_visible">Visible</string>
     <string name="config_24_hours_format">24 hours</string>
-    <string name="config_format">Format</string>
+    <string name="config_date_format">Format: %s</string>
 </resources>

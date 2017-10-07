@@ -18,7 +18,7 @@ class DigitalConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(parent, 
             }
             formatTv.apply {
                 isChecked = PreferenceHelper.is24Hours(context, Type.DIGITAL)
-                setOnCheckedChangeListener { _, checked -> sendEvent(Hours24ChangeEvent(Type.DIGITAL, checked)) }
+                setOnCheckedChangeListener { _, checked -> sendEvent(Hours24ChangeEvent(checked)) }
             }
         }
     }

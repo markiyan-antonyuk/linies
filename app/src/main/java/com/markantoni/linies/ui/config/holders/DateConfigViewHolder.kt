@@ -4,9 +4,12 @@ import android.view.ViewGroup
 import com.markantoni.linies.R
 import com.markantoni.linies.Type
 import com.markantoni.linies.preference.PreferenceHelper
+import com.markantoni.linies.ui.config.events.OpenDateFormatPickerEvent
 import com.markantoni.linies.ui.config.events.VisibilityChangeEvent
 import com.markantoni.linies.util.sendEvent
 import kotlinx.android.synthetic.main.view_holder_date_config.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DateConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(parent, R.layout.view_holder_date_config) {
     override fun bind() {
@@ -14,6 +17,11 @@ class DateConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(parent, R.l
             visibilitySwitch.apply {
                 isChecked = PreferenceHelper.isVisible(context, Type.DATE)
                 setOnCheckedChangeListener { _, checked -> sendEvent(VisibilityChangeEvent(Type.DATE, checked)) }
+            }
+            formatTv.apply {
+                val format = SimpleDateFormat(PreferenceHelper.getDateFormat(context, Type.DATE), Locale.getDefault()).format(Date())
+                text = context.getString(R.string.config_date_format, format)
+                setOnClickListener { sendEvent(OpenDateFormatPickerEvent()) }
             }
         }
     }

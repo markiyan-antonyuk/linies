@@ -28,6 +28,8 @@ fun <T> MutableList<T>.moveToStart(index: Int) {
     add(0, item)
 }
 
+fun <T> MutableList<T>.moveElementToStart(element: T) = moveToStart(indexOf(element))
+
 fun Activity.startActivityWithRevealAnimation(intent: Intent) {
     val screenCenter = getCenterOfScreen(this)
     val options = ActivityOptionsCompat.makeClipRevealAnimation(window.decorView, screenCenter[0], screenCenter[1], 0, 0).toBundle()

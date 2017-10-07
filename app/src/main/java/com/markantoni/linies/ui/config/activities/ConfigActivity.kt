@@ -1,6 +1,7 @@
 package com.markantoni.linies.ui.config.activities
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
@@ -8,13 +9,11 @@ import android.support.wearable.complications.ComplicationHelperActivity
 import com.markantoni.linies.Complications
 import com.markantoni.linies.Key
 import com.markantoni.linies.R
+import com.markantoni.linies.Type
 import com.markantoni.linies.data.transfer.DataSender
 import com.markantoni.linies.ui.config.ConfigAdapter
 import com.markantoni.linies.ui.config.complications.ComplicationsInfoRetriever
-import com.markantoni.linies.ui.config.events.Hours24ChangeEvent
-import com.markantoni.linies.ui.config.events.OpenColorPickerEvent
-import com.markantoni.linies.ui.config.events.OpenComplicationConfigurationEvent
-import com.markantoni.linies.ui.config.events.VisibilityChangeEvent
+import com.markantoni.linies.ui.config.events.*
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import com.markantoni.linies.util.registerEventBus
 import com.markantoni.linies.util.startActivityWithRevealAnimation
@@ -56,9 +55,12 @@ class ConfigActivity : Activity() {
 
     @Subscribe
     fun onHours24ChangeEvent(event: Hours24ChangeEvent) = dataSender.send({
-        putInt(Key.TYPE, event.type)
+        putInt(Key.TYPE, Type.DIGITAL)
         putBoolean(Key.HOURS24, event.hours24)
     })
+
+    @Subscribe
+    fun onOpenDateFormatPickerEvent(event: OpenDateFormatPickerEvent) = startActivityWithRevealAnimation(Intent(this, DateFormatPickerActivity::class.java))
 
     override fun onResume() {
         super.onResume()

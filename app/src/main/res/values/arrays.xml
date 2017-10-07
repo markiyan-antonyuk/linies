@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- colors -->
     <string-array name="color_names">
         <item>grey</item>
         <item>blue grey</item>
@@ -43,5 +44,16 @@
         <item>#ff5722</item>
         <item>#795548</item>
         <item>#ffffff</item>
+    </string-array>
+    <!-- date formats -->
+    <string-array name="date_formats">
+        <item>dd-MM-YYYY</item>
+        <item>MM-dd-YYYY</item>
+        <item>dd/MM/YYYY</item>
+        <item>MM/dd/YYYY</item>
+        <item>dd-MMM-YYYY</item>
+        <item>MMM-dd-YYYY</item>
+        <item>dd/MMM/YYYY</item>
+        <item>MMM/dd/YYYY</item>
     </string-array>
 </resources>

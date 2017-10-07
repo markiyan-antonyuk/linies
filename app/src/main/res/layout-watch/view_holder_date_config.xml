@@ -17,7 +17,7 @@
         <TextView
             android:id="@+id/formatTv"
             style="@style/ConfigItem.Text"
-            android:text="@string/config_format" />
+            android:text="@string/config_date_format" />
 
         <Switch
             android:id="@+id/visibilitySwitch"

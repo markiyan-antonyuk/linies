@@ -7,6 +7,7 @@ object Key {
     const val COLOR = "key.color"
     const val VISIBLE = "key.visible"
     const val HOURS24 = "key.hours24"
+    const val DATE_FORMAT = "key.date.format"
 }
 
 object Type {

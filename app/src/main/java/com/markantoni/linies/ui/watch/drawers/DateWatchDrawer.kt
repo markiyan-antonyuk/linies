@@ -8,8 +8,9 @@ import java.util.*
 
 class DateWatchDrawer(color: Int, strokeWidth: Float,
                       private var visible: Boolean,
+                      formatPattern: String,
                       private val textSizeCoefficient: Float,
-                      private val yCoefficient: Float, formatPattern: String) : WatchDrawer(Type.DATE, color, strokeWidth) {
+                      private val yCoefficient: Float) : WatchDrawer(Type.DATE, color, strokeWidth) {
 
     private val bounds = Rect()
     private var formatter: SimpleDateFormat = SimpleDateFormat(formatPattern, Locale.getDefault())

@@ -35,5 +35,5 @@ object LiniesDrawers {
             PreferenceHelper.is24Hours(context, Type.DIGITAL), 2.5f, 0f)
 
     private fun createDateDrawer(context: Context) = DateWatchDrawer(PreferenceHelper.getColor(context, Type.DATE), 2f, PreferenceHelper.isVisible(context, Type.DIGITAL),
-            8f, -3.75f, "dd-MM-YYYY")
+            PreferenceHelper.getDateFormat(context, Type.DATE), 8f, -3.75f)
 }

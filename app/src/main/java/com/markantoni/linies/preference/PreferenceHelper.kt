@@ -15,6 +15,7 @@ object PreferenceHelper {
             putInt(Key.COLOR, color)
             putBoolean(Key.VISIBLE, visible)
             putBoolean(Key.HOURS24, hours24)
+//            putBoolean(Key.DATE_FORMAT, dateFormat)
             apply()
         }
     }
@@ -22,4 +23,5 @@ object PreferenceHelper {
     fun getColor(context: Context, type: Int) = getPreferencesFor(context, type).getInt(Key.COLOR, Color.parseColor(context.resources.getStringArray(R.array.color_values)[0]))
     fun isVisible(context: Context, type: Int) = getPreferencesFor(context, type).getBoolean(Key.VISIBLE, true)
     fun is24Hours(context: Context, type: Int) = getPreferencesFor(context, type).getBoolean(Key.HOURS24, true)
+    fun getDateFormat(context: Context, type: Int) = getPreferencesFor(context, type).getString(Key.DATE_FORMAT, context.resources.getStringArray(R.array.date_formats)[0])
 }
