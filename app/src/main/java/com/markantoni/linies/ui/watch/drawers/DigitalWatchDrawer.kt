@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DigitalWatchDrawer(color: Int, strokeWidth: Float,
-                         private var visible: Boolean,
+                         var visible: Boolean,
                          private val textSizeCoefficient: Float,
                          private val yCoefficient: Float) : WatchDrawer(Type.DIGITAL, color, strokeWidth) {
 

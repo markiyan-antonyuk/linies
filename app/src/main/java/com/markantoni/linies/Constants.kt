@@ -25,6 +25,6 @@ object Complications {
     val IDS = intArrayOf(TOP, BOTTOM)
     val SUPPORTED_TYPES = mapOf(
             TOP to intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_LONG_TEXT),
-            BOTTOM to intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_SHORT_TEXT)
+            BOTTOM to intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_SHORT_TEXT, ComplicationData.TYPE_RANGED_VALUE)
     )
 }

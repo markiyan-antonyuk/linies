@@ -2,16 +2,14 @@ package com.markantoni.linies.ui.config
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.markantoni.linies.ui.config.holders.BaseConfigViewHolder
-import com.markantoni.linies.ui.config.holders.ColorsConfigViewHolder
-import com.markantoni.linies.ui.config.holders.ComplicationsConfigViewHolder
-import com.markantoni.linies.ui.config.holders.VisibilityConfigViewHolder
+import com.markantoni.linies.ui.config.holders.*
 
 class ConfigAdapter : RecyclerView.Adapter<BaseConfigViewHolder>() {
     private val HOLDERS = arrayOf(
             ColorsConfigViewHolder::class.java,
             ComplicationsConfigViewHolder::class.java,
-            VisibilityConfigViewHolder::class.java
+            DigitalConfigViewHolder::class.java,
+            DateConfigViewHolder::class.java
     )
 
     override fun getItemViewType(position: Int) = position
