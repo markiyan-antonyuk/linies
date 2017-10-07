@@ -127,14 +127,15 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                 val color = getInt(Key.COLOR, PreferenceHelper.getColor(this@LiniesWatchFaceService, type))
                 val visible = getBoolean(Key.VISIBLE, PreferenceHelper.isVisible(this@LiniesWatchFaceService, type))
                 val hours24 = getBoolean(Key.HOURS24, PreferenceHelper.is24Hours(this@LiniesWatchFaceService, type))
-                updateDrawerConfiguration(type, color, visible, hours24)
+                val dateFormat = getString(Key.DATE_FORMAT, PreferenceHelper.getDateFormat(this@LiniesWatchFaceService, type))
+                updateDrawerConfiguration(type, color, visible, hours24, dateFormat)
             }
         }
 
-        private fun updateDrawerConfiguration(type: Int, color: Int, visible: Boolean, hours24: Boolean) {
+        private fun updateDrawerConfiguration(type: Int, color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) {
             logd("Updating configuration for type: $type")
-            PreferenceHelper.update(this@LiniesWatchFaceService, type, color, visible, hours24)
-            drawers.find { it.type == type }?.updateConfiguration(color, visible, hours24)
+            PreferenceHelper.update(this@LiniesWatchFaceService, type, color, visible, hours24, dateFormat)
+            drawers.find { it.type == type }?.updateConfiguration(color, visible, hours24, dateFormat)
         }
     }
 }

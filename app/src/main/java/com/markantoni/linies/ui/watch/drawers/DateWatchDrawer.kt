@@ -13,8 +13,12 @@ class DateWatchDrawer(color: Int, strokeWidth: Float,
                       private val yCoefficient: Float) : WatchDrawer(Type.DATE, color, strokeWidth) {
 
     private val bounds = Rect()
-    private var formatter: SimpleDateFormat = SimpleDateFormat(formatPattern, Locale.getDefault())
+    private lateinit var formatter: SimpleDateFormat
     private var radius = 0f
+
+    init {
+        updateFormatter(formatPattern)
+    }
 
     override fun updateSize(radius: Float, circleLength: Float) {
         this.radius = radius
@@ -25,9 +29,10 @@ class DateWatchDrawer(color: Int, strokeWidth: Float,
         paint.isAntiAlias = !ambient
     }
 
-    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean) {
+    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) {
         paint.color = color
         this.visible = visible
+        updateFormatter(dateFormat)
     }
 
     override fun draw(canvas: Canvas, calendar: Calendar) {
@@ -42,5 +47,9 @@ class DateWatchDrawer(color: Int, strokeWidth: Float,
             canvas.drawText(date, -bounds.centerX().toFloat(), -bounds.centerY().toFloat(), paint)
             restore()
         }
+    }
+
+    private fun updateFormatter(formatPattern: String) {
+        formatter = SimpleDateFormat(formatPattern, Locale.getDefault())
     }
 }

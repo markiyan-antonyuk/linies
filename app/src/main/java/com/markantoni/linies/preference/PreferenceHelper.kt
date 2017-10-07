@@ -10,12 +10,12 @@ object PreferenceHelper {
 
     private fun getPreferencesFor(context: Context, type: Int) = context.getSharedPreferences("$PREF_NAME_TYPE$type", Context.MODE_PRIVATE)
 
-    fun update(context: Context, type: Int, color: Int, visible: Boolean, hours24: Boolean) {
+    fun update(context: Context, type: Int, color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) {
         getPreferencesFor(context, type).edit().apply {
             putInt(Key.COLOR, color)
             putBoolean(Key.VISIBLE, visible)
             putBoolean(Key.HOURS24, hours24)
-//            putBoolean(Key.DATE_FORMAT, dateFormat)
+            putString(Key.DATE_FORMAT, dateFormat)
             apply()
         }
     }

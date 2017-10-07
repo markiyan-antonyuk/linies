@@ -42,7 +42,7 @@ class DigitalWatchDrawer(color: Int, strokeWidth: Float,
         amPmPaint.isAntiAlias = !ambient
     }
 
-    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean) {
+    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) {
         paint.color = color
         amPmPaint.color = color
         this.visible = visible
