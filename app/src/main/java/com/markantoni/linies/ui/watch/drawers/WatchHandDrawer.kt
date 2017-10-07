@@ -34,7 +34,7 @@ abstract class WatchHandDrawer(type: Int, color: Int, private val sectors: Int,
         drawingRect.set(-rectWidth / 2, rectTop, rectWidth / 2, rectBottom)
     }
 
-    override fun updateConfiguration(color: Int, visible: Boolean) {
+    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean) {
         paint.color = color
     }
 

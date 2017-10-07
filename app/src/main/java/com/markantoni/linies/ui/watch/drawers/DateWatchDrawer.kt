@@ -24,7 +24,7 @@ class DateWatchDrawer(color: Int, strokeWidth: Float,
         paint.isAntiAlias = !ambient
     }
 
-    override fun updateConfiguration(color: Int, visible: Boolean) {
+    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean) {
         paint.color = color
         this.visible = visible
     }

@@ -18,6 +18,6 @@ abstract class WatchDrawer(val type: Int, val color: Int, private val strokeWidt
 
     abstract fun updateSize(radius: Float, circleLength: Float)
     abstract fun setAmbientMode(ambient: Boolean)
-    abstract fun updateConfiguration(color: Int, visible: Boolean)
+    abstract fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean)
     abstract fun draw(canvas: Canvas, calendar: Calendar)
 }

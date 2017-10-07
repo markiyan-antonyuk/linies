@@ -134,7 +134,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         private fun updateDrawerConfiguration(type: Int, color: Int, visible: Boolean, hours24: Boolean) {
             logd("Updating configuration for type: $type")
             PreferenceHelper.update(this@LiniesWatchFaceService, type, color, visible, hours24)
-            drawers.find { it.type == type }?.updateConfiguration(color, visible)
+            drawers.find { it.type == type }?.updateConfiguration(color, visible, hours24)
         }
     }
 }

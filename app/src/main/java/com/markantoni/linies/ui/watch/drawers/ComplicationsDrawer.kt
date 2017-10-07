@@ -31,7 +31,7 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
         drawables.get(id)?.setComplicationData(data)
     }
 
-    override fun updateConfiguration(color: Int, visible: Boolean) = setColor(color)
+    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean) = setColor(color)
 
     override fun updateSize(radius: Float, circleLength: Float) {
         this.radius = radius
