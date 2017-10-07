@@ -32,7 +32,8 @@ class DataSender(private val context: Context) : DataTransfer {
         useFallbackMethod = true
     }
 
-    fun send(bundle: Bundle) {
+    fun send(data: Bundle.() -> Unit) {
+        val bundle = Bundle().apply { data() }
         if (useFallbackMethod) {
             logd("Sending dataMapRequest as fallback")
             LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(DataTransfer.ACTION_FALLBACK_SEND).apply {

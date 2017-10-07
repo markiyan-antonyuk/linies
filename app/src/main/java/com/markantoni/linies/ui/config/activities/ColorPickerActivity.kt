@@ -72,7 +72,7 @@ class ColorPickerActivity : Activity() {
 
     private fun sendUpdatedColor(color: Int) {
         logd("Sending new color for $type")
-        dataSender.send(Bundle().apply {
+        dataSender.send({
             putInt(Key.TYPE, type)
             putInt(Key.COLOR, color)
         })

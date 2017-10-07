@@ -6,6 +6,7 @@ object Key {
     const val TYPE = "key.type"
     const val COLOR = "key.color"
     const val VISIBLE = "key.visible"
+    const val HOURS24 = "key.hours24"
 }
 
 object Type {

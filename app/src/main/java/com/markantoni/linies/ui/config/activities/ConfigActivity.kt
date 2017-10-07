@@ -11,6 +11,7 @@ import com.markantoni.linies.R
 import com.markantoni.linies.data.transfer.DataSender
 import com.markantoni.linies.ui.config.ConfigAdapter
 import com.markantoni.linies.ui.config.complications.ComplicationsInfoRetriever
+import com.markantoni.linies.ui.config.events.Hours24ChangeEvent
 import com.markantoni.linies.ui.config.events.OpenColorPickerEvent
 import com.markantoni.linies.ui.config.events.OpenComplicationConfigurationEvent
 import com.markantoni.linies.ui.config.events.VisibilityChangeEvent
@@ -41,19 +42,23 @@ class ConfigActivity : Activity() {
     fun onOpenColorPickerEvent(event: OpenColorPickerEvent) = startActivityWithRevealAnimation(ColorPickerActivity.newIntent(this, event.type))
 
     @Subscribe
-    fun onVisibilityChangeEvent(event: VisibilityChangeEvent) = dataSender.send(Bundle().apply {
+    fun onVisibilityChangeEvent(event: VisibilityChangeEvent) = dataSender.send({
         putInt(Key.TYPE, event.type)
         putBoolean(Key.VISIBLE, event.visible)
     })
 
     @Subscribe
-    fun onOpenComplicationConfigurationEvent(event: OpenComplicationConfigurationEvent) {
-        event.apply {
-            Complications.SUPPORTED_TYPES[id]?.let {
-                startActivityWithRevealAnimation(ComplicationHelperActivity.createProviderChooserHelperIntent(this@ConfigActivity, getWatchFaceServiceComponentName(), id, *it))
-            }
+    fun onOpenComplicationConfigurationEvent(event: OpenComplicationConfigurationEvent) = event.apply {
+        Complications.SUPPORTED_TYPES[id]?.let {
+            startActivityWithRevealAnimation(ComplicationHelperActivity.createProviderChooserHelperIntent(this@ConfigActivity, getWatchFaceServiceComponentName(), id, *it))
         }
     }
+
+    @Subscribe
+    fun onHours24ChangeEvent(event: Hours24ChangeEvent) = dataSender.send({
+        putInt(Key.TYPE, event.type)
+        putBoolean(Key.HOURS24, event.hours24)
+    })
 
     override fun onResume() {
         super.onResume()
