@@ -6,9 +6,9 @@ import android.graphics.RectF
 import com.markantoni.linies.util.calculatePercentage
 import java.util.*
 
-abstract class WatchHandDrawer(type: Int, color: Int, private val sectors: Int,
-                               private val topPercentage: Float, private val bottomPercentage: Float,
-                               private val widthCoefficient: Float = 2f) : WatchDrawer(type, color, 1f) {
+abstract class SectorDrawer(type: Int, color: Int, private val sectors: Int,
+                            private val topPercentage: Float, private val bottomPercentage: Float,
+                            private val widthCoefficient: Float = 2f) : WatchDrawer(type, color, 1f) {
 
     private val MAX_ROTATION = 360
     private val DRAWING_RADIUS_X = 90f

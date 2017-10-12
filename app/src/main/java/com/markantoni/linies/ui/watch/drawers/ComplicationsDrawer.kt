@@ -43,7 +43,7 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
         width = (radius * 1.3f).toInt()
         height = (radius / 3f).toInt()
         offset = 0
-        drawables[Complications.TOP].setBounds(-width / 2, offset, width / 2, offset + height)
+        drawables[Complications.CENTER].setBounds(-width / 2, offset, width / 2, offset + height)
     }
 
     override fun setAmbientMode(ambient: Boolean) = Complications.IDS.forEach { drawables[it].setInAmbientMode(ambient) }

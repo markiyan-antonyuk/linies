@@ -23,6 +23,7 @@ class DigitalWatchDrawer(color: Int, strokeWidth: Float,
 
     init {
         updateFormatter()
+        paint.textScaleX = 0.85f
         amPmPaint.apply {
             this.color = color
             this.strokeWidth = strokeWidth / 2

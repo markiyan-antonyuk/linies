@@ -13,8 +13,7 @@
         <TextView
             style="@style/ConfigTitle"
             android:layout_marginBottom="7dp"
-            android:text="@string/config_title_complications"
-            android:textSize="25sp" />
+            android:text="@string/config_title_complications" />
 
         <LinearLayout
             android:id="@+id/topLayout"
@@ -27,7 +26,7 @@
             <TextView
                 android:id="@+id/topTv"
                 style="@style/ComplicationText"
-                android:text="@string/config_top" />
+                android:text="@string/config_center" />
         </LinearLayout>
 
         <View

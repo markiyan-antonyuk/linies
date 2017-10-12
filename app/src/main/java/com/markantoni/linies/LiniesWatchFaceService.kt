@@ -95,7 +95,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                 save()
                 translate(bounds.centerX().toFloat(), bounds.centerY().toFloat())
                 val digitalDrawerVisible = (drawers.find { it is DigitalWatchDrawer } as DigitalWatchDrawer).visible
-                if (complicationsDrawer.isComplicationVisible(Complications.TOP) || !digitalDrawerVisible) {
+                if (complicationsDrawer.isComplicationVisible(Complications.CENTER) || !digitalDrawerVisible) {
                     val digitalDrawer = drawers.find { it.type == Type.DIGITAL }
                     val dateDrawer = drawers.find { it.type == Type.DATE }
                     drawers.filter { it != digitalDrawer && it != dateDrawer }.forEach { it.draw(canvas, calendar) }

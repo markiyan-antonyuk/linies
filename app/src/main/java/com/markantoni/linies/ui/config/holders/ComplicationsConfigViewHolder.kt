@@ -13,12 +13,12 @@ class ComplicationsConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(pa
         itemView.apply {
             topIv.setImageResource(R.drawable.ic_plus)
             bottomIv.setImageResource(R.drawable.ic_plus)
-            topTv.text = context.getString(R.string.config_top)
+            topTv.text = context.getString(R.string.config_center)
             bottomTv.text = context.getString(R.string.config_bottom)
 
             ComplicationsInfoRetriever.retrieveInfo(context, { id, icon, name ->
                 when (id) {
-                    Complications.TOP -> {
+                    Complications.CENTER -> {
                         topIv.setImageIcon(icon)
                         topTv.text = name
                     }
@@ -29,7 +29,7 @@ class ComplicationsConfigViewHolder(parent: ViewGroup) : BaseConfigViewHolder(pa
                 }
             })
 
-            topLayout.setOnClickListener { sendEvent(OpenComplicationConfigurationEvent(Complications.TOP)) }
+            topLayout.setOnClickListener { sendEvent(OpenComplicationConfigurationEvent(Complications.CENTER)) }
             bottomLayout.setOnClickListener { sendEvent(OpenComplicationConfigurationEvent(Complications.BOTTOM)) }
         }
     }
