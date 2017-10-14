@@ -70,6 +70,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
             updateTimeZone()
             secondsTimer.apply { if (visible) start() else stop() }
             timeZoneReceiver.apply { if (visible) register(this@LiniesWatchFaceService) else unregister(this@LiniesWatchFaceService) }
+            if (visible) invalidate()
         }
 
         override fun onAmbientModeChanged(inAmbientMode: Boolean) {
@@ -112,8 +113,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         }
 
         override fun onTimeTick() {
-            super.onTimeTick()
-            invalidate()
+            if (isInAmbientMode) invalidate() //else is handled by timer
         }
 
         private fun updateTimeZone(invalidate: Boolean = false) {
