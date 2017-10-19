@@ -11,18 +11,20 @@ android {
         applicationId = "com.markantoni.linies"
         minSdkVersion(24)
         targetSdkVersion(26)
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.0.1"
         multiDexEnabled = true
     }
 
     buildTypes {
         getByName("debug") {
+            isDebuggable = true
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
         getByName("release") {
+            isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")

@@ -4,8 +4,8 @@ import android.util.Log
 import com.markantoni.linies.BuildConfig
 
 private object Logger {
-    val DEBUG = true
-    val TAG = "mylog"
+    val DEBUG = BuildConfig.DEBUG
+    val TAG = "Linies"
 }
 
 fun logd(message: Any) {
