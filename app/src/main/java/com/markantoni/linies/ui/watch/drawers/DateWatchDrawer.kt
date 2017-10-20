@@ -25,7 +25,7 @@ class DateWatchDrawer(color: Int, strokeWidth: Float,
         paint.textSize = radius / textSizeCoefficient
     }
 
-    override fun setAmbientMode(ambient: Boolean) {
+    override fun updateAmbientMode(ambient: Boolean) {
         paint.isAntiAlias = !ambient
     }
 
@@ -35,7 +35,7 @@ class DateWatchDrawer(color: Int, strokeWidth: Float,
         updateFormatter(dateFormat)
     }
 
-    override fun draw(canvas: Canvas, calendar: Calendar) {
+    override fun onDraw(canvas: Canvas, calendar: Calendar) {
         if (!visible) return
 
         val date = formatter.format(calendar.time)

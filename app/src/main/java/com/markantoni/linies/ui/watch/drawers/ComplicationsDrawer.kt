@@ -46,9 +46,9 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
         drawables[Complications.CENTER].setBounds(-width / 2, offset, width / 2, offset + height)
     }
 
-    override fun setAmbientMode(ambient: Boolean) = Complications.IDS.forEach { drawables[it].setInAmbientMode(ambient) }
+    override fun updateAmbientMode(ambient: Boolean) = Complications.IDS.forEach { drawables[it].setInAmbientMode(ambient) }
 
-    override fun draw(canvas: Canvas, calendar: Calendar) {
+    override fun onDraw(canvas: Canvas, calendar: Calendar) {
         val now = System.currentTimeMillis()
         Complications.IDS.forEach { drawables[it].draw(canvas, now) }
     }

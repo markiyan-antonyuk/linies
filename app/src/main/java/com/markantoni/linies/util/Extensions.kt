@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.graphics.RectF
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
@@ -37,6 +38,13 @@ fun Activity.startActivityWithRevealAnimation(intent: Intent) {
 }
 
 fun Context.getWatchFaceServiceComponentName() = ComponentName(this, LiniesWatchFaceService::class.java)
+
+fun RectF.scale(scale: Float) {
+    bottom -= height() / 2 * scale
+    top += height() / 2 * scale
+    left += width() / 2 * scale
+    right -= width() / 2 * scale
+}
 
 fun Any.sendEvent(event: Any) = EventBus.getDefault().post(event)
 fun Any.registerEventBus() = EventBus.getDefault().register(this)

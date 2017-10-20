@@ -18,8 +18,8 @@ object LiniesDrawers {
     private fun createSecondsDrawer(context: Context) = object : SectorDrawer(Type.SECOND, PreferenceHelper.getColor(context, Type.SECOND), 60, 95f, 92f) {
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.SECOND)
 
-        override fun draw(canvas: Canvas, calendar: Calendar) {
-            if (paint.isAntiAlias) super.draw(canvas, calendar)
+        override fun onDraw(canvas: Canvas, calendar: Calendar) {
+            if (!isAmbientMode) super.onDraw(canvas, calendar)
         }
     }
 

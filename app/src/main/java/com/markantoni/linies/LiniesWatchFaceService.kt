@@ -14,7 +14,6 @@ import com.markantoni.linies.preference.PreferenceHelper
 import com.markantoni.linies.ui.watch.drawers.ComplicationsDrawer
 import com.markantoni.linies.ui.watch.drawers.DigitalWatchDrawer
 import com.markantoni.linies.ui.watch.linies.LiniesDrawers
-import com.markantoni.linies.util.SecondsTimer
 import com.markantoni.linies.util.logd
 import java.util.*
 
@@ -29,7 +28,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
 
         private var ambientMode = false
 
-        private val secondsTimer = SecondsTimer({ invalidate() })
+        //TODO settings private val secondsTimer = SecondsTimer({ invalidate() })
         private val drawers = LiniesDrawers.createDrawers(this@LiniesWatchFaceService)
         private lateinit var complicationsDrawer: ComplicationsDrawer
 
@@ -48,7 +47,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
 
             dataReceiver = DataReceiver(this@LiniesWatchFaceService, { onNewData(it) })
             dataReceiver.connect()
-            secondsTimer.start()
+//TODO settings secondsTimer.start()
         }
 
         override fun onSurfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
@@ -60,7 +59,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         }
 
         override fun onDestroy() {
-            secondsTimer.stop()
+//TODO settings secondsTimer.stop()
             dataReceiver.disconnect()
             super.onDestroy()
         }
@@ -68,17 +67,20 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         override fun onVisibilityChanged(visible: Boolean) {
             super.onVisibilityChanged(visible)
             updateTimeZone()
-            secondsTimer.apply { if (visible) start() else stop() }
+//TODO settings secondsTimer.apply { if (visible) start() else stop() }
             timeZoneReceiver.apply { if (visible) register(this@LiniesWatchFaceService) else unregister(this@LiniesWatchFaceService) }
-            if (visible) invalidate()
+            if (visible) {
+                invalidate()
+                drawers.forEach { it.isJustShown = true }
+            }
         }
 
         override fun onAmbientModeChanged(inAmbientMode: Boolean) {
             super.onAmbientModeChanged(inAmbientMode)
             logd("Ambient mode changed: $inAmbientMode")
             ambientMode = inAmbientMode
-            drawers.forEach { it.setAmbientMode(ambientMode) }
-            secondsTimer.apply { if (ambientMode) stop() else start() }
+            drawers.forEach { it.isAmbientMode = inAmbientMode }
+//TODO settings secondsTimer.apply { if (ambientMode) stop() else start() }
         }
 
         override fun onComplicationDataUpdate(id: Int, data: ComplicationData) = complicationsDrawer.update(id, data)
@@ -110,6 +112,9 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                 }
                 restore()
             }
+
+            //TODO settings
+            if (isVisible) invalidate()
         }
 
         override fun onTimeTick() {

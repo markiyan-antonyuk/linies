@@ -38,7 +38,7 @@ class DigitalWatchDrawer(color: Int, strokeWidth: Float,
         amPmMargin = radius * 0.01f
     }
 
-    override fun setAmbientMode(ambient: Boolean) {
+    override fun updateAmbientMode(ambient: Boolean) {
         paint.isAntiAlias = !ambient
         amPmPaint.isAntiAlias = !ambient
     }
@@ -51,7 +51,7 @@ class DigitalWatchDrawer(color: Int, strokeWidth: Float,
         updateFormatter()
     }
 
-    override fun draw(canvas: Canvas, calendar: Calendar) {
+    override fun onDraw(canvas: Canvas, calendar: Calendar) {
         if (!visible) return
 
         val digitalTime = formatter.format(calendar.time)

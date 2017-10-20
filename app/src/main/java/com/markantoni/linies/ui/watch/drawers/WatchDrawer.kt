@@ -6,6 +6,12 @@ import java.util.*
 
 abstract class WatchDrawer(val type: Int, val color: Int, private val strokeWidth: Float) {
     protected val paint = Paint()
+    var isJustShown = true
+    var isAmbientMode: Boolean = false
+        set(value) {
+            field = value
+            updateAmbientMode(value)
+        }
 
     init {
         paint.apply {
@@ -15,9 +21,13 @@ abstract class WatchDrawer(val type: Int, val color: Int, private val strokeWidt
         }
     }
 
+    fun draw(canvas: Canvas, calendar: Calendar) {
+        onDraw(canvas, calendar)
+        isJustShown = false
+    }
 
     abstract fun updateSize(radius: Float, circleLength: Float)
-    abstract fun setAmbientMode(ambient: Boolean)
     abstract fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String)
-    abstract fun draw(canvas: Canvas, calendar: Calendar)
+    protected abstract fun updateAmbientMode(ambient: Boolean)
+    protected abstract fun onDraw(canvas: Canvas, calendar: Calendar)
 }
