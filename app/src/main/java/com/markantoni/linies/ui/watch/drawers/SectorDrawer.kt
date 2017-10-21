@@ -75,8 +75,9 @@ abstract class SectorDrawer(type: Int, color: Int, private val sectors: Int,
                 rotate(rotation)
 
                 if (it == sector && isAnimationRunning) {
-                    val animationStep = 1 - calculatePercentageOf(animationElapsed.toFloat(), ANIMATION_DURATION.toFloat()) / 100f
-                    drawingRect.scale(animationStep)
+                    val animationStep = 100 - calculatePercentageOf(animationElapsed.toFloat(), ANIMATION_DURATION.toFloat())
+                    val rotationStep = -calculatePercentage(animationStep, MAX_ROTATION / sectors.toFloat())
+                    canvas.rotate(rotationStep)
                 }
 
                 drawRoundRect(drawingRect, DRAWING_RADIUS_X, DRAWING_RADIUS_Y, paint)

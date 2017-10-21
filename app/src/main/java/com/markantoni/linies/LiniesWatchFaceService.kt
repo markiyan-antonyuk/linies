@@ -80,6 +80,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
             logd("Ambient mode changed: $inAmbientMode")
             ambientMode = inAmbientMode
             drawers.forEach { it.isAmbientMode = inAmbientMode }
+            invalidate()
 //TODO settings secondsTimer.apply { if (ambientMode) stop() else start() }
         }
 
@@ -114,11 +115,12 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
             }
 
             //TODO settings
-            if (isVisible) invalidate()
+            if (isVisible && !isInAmbientMode) invalidate()
         }
 
         override fun onTimeTick() {
-            if (isInAmbientMode) invalidate() //else is handled by timer
+//            if (isInAmbientMode)
+            invalidate() //else is handled by timer
         }
 
         private fun updateTimeZone(invalidate: Boolean = false) {
