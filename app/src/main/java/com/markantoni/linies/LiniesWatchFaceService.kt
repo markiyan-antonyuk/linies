@@ -70,8 +70,8 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
 //TODO settings secondsTimer.apply { if (visible) start() else stop() }
             timeZoneReceiver.apply { if (visible) register(this@LiniesWatchFaceService) else unregister(this@LiniesWatchFaceService) }
             if (visible) {
-                invalidate()
                 drawers.forEach { it.isJustShown = true }
+                invalidate()
             }
         }
 
@@ -79,7 +79,10 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
             super.onAmbientModeChanged(inAmbientMode)
             logd("Ambient mode changed: $inAmbientMode")
             ambientMode = inAmbientMode
-            drawers.forEach { it.isAmbientMode = inAmbientMode }
+            drawers.forEach {
+                it.isJustShown = true
+                it.isAmbientMode = inAmbientMode
+            }
             invalidate()
 //TODO settings secondsTimer.apply { if (ambientMode) stop() else start() }
         }

@@ -56,8 +56,8 @@ abstract class SectorDrawer(type: Int, color: Int, private val sectors: Int,
         if (sector != lastSector && !isJustShown && !isAmbientMode) {
             isAnimationRunning = true
             animationStartTime = now
-            lastSector = sector
         }
+        lastSector = sector
 
         val animationElapsed = now - animationStartTime
         if (isAnimationRunning && animationElapsed > ANIMATION_DURATION) isAnimationRunning = false
