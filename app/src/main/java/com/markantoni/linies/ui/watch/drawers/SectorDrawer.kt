@@ -3,6 +3,7 @@ package com.markantoni.linies.ui.watch.drawers
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
+import android.view.animation.AccelerateDecelerateInterpolator
 import com.markantoni.linies.util.calculatePercentage
 import com.markantoni.linies.util.calculatePercentageOf
 import com.markantoni.linies.util.scale
@@ -21,6 +22,7 @@ abstract class SectorDrawer(type: Int, color: Int, private val sectors: Int,
     private val drawingRect = RectF()
     private var lastSector = -1
 
+    private val interpolator = AccelerateDecelerateInterpolator()
     private var animationStartTime = 0L
     private var isAnimationRunning = false
 
@@ -75,8 +77,9 @@ abstract class SectorDrawer(type: Int, color: Int, private val sectors: Int,
                 rotate(rotation)
 
                 if (it == sector && isAnimationRunning) {
-                    val animationStep = 100 - calculatePercentageOf(animationElapsed.toFloat(), ANIMATION_DURATION.toFloat())
-                    val rotationStep = -calculatePercentage(animationStep, MAX_ROTATION / sectors.toFloat())
+                    val animationStep = calculatePercentageOf(animationElapsed.toFloat(), ANIMATION_DURATION.toFloat()) / 100f
+                    val interpolation = interpolator.getInterpolation(animationStep)
+                    val rotationStep = -calculatePercentage((1 - interpolation) * 100, MAX_ROTATION / sectors.toFloat())
                     canvas.rotate(rotationStep)
                 }
 
