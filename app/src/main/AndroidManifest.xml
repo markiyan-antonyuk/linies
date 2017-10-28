@@ -50,9 +50,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name="android.support.wearable.complications.ComplicationHelperActivity" />
         <activity android:name=".ui.config.activities.ColorPickerActivity" />
         <activity android:name=".ui.config.activities.DateFormatPickerActivity" />
         <activity android:name=".ui.config.activities.SecondsConfigActivity" />
-        <activity android:name="android.support.wearable.complications.ComplicationHelperActivity" />
+        <activity android:name=".ui.config.activities.DigitalConfigActivity" />
     </application>
 </manifest>
