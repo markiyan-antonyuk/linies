@@ -7,8 +7,12 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.RectF
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import com.markantoni.linies.LiniesWatchFaceService
 import org.greenrobot.eventbus.EventBus
@@ -30,6 +34,12 @@ fun <T> MutableList<T>.moveToStart(index: Int) {
 }
 
 fun <T> MutableList<T>.moveElementToStart(element: T) = moveToStart(indexOf(element))
+
+fun ViewGroup.inflate(@LayoutRes layout: Int) = LayoutInflater.from(context).inflate(layout, this, false)
+
+fun Context.startActivity(activityClass: Class<out Activity>) = startActivity(Intent(this, activityClass))
+
+val RecyclerView.ViewHolder.context get() = itemView.context
 
 fun Activity.startActivityWithRevealAnimation(intent: Intent) {
     val screenCenter = getCenterOfScreen(this)

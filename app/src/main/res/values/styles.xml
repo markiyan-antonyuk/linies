@@ -21,14 +21,16 @@
     <style name="ConfigItem">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">2dp</item>
-        <item name="android:paddingBottom">3dp</item>
-        <item name="android:paddingStart">5dp</item>
-        <item name="android:paddingEnd">5dp</item>
+        <item name="android:padding">4dp</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/text</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="ConfigItem.Title" parent="ConfigItem.Text">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="ConfigItem.TextSmall">

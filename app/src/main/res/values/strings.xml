@@ -2,17 +2,18 @@
     <string name="app_name">Linies</string>
     <string name="service_name">@string/app_name</string>
     <!-- Config titles items -->
+    <string name="config_title_root">Configuration</string>
     <string name="config_title_colors">Colors</string>
     <string name="config_title_complications">Complications</string>
     <string name="config_title_digital">Digital</string>
     <string name="config_title_date">Date</string>
     <!-- config items -->
-    <string name="config_hours">Hour</string>
-    <string name="config_minutes">Minute</string>
-    <string name="config_seconds">Second</string>
+    <string name="config_hours">Hours</string>
+    <string name="config_minutes">Minutes</string>
+    <string name="config_seconds">Seconds</string>
     <string name="config_digital">Digital</string>
-    <string name="config_complications">Complications</string>
     <string name="config_date">Date</string>
+    <string name="config_complications">Complications</string>
     <string name="config_center">Center</string>
     <string name="config_bottom">Bottom</string>
     <string name="config_visible">Showing</string>
