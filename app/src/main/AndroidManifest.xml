@@ -42,7 +42,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.config.activities.RootConfigActivity">
+        <activity android:name=".ui.config.root.RootConfigActivity">
             <intent-filter>
                 <action android:name="com.markantoni.linies.CONFIG" />
 
@@ -52,6 +52,7 @@
         </activity>
         <activity android:name=".ui.config.activities.ColorPickerActivity" />
         <activity android:name=".ui.config.activities.DateFormatPickerActivity" />
+        <activity android:name=".ui.config.activities.SecondsConfigActivity" />
         <activity android:name="android.support.wearable.complications.ComplicationHelperActivity" />
     </application>
 </manifest>

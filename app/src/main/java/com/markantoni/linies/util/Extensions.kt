@@ -37,9 +37,14 @@ fun <T> MutableList<T>.moveElementToStart(element: T) = moveToStart(indexOf(elem
 
 fun ViewGroup.inflate(@LayoutRes layout: Int) = LayoutInflater.from(context).inflate(layout, this, false)
 
-fun Context.startActivity(activityClass: Class<out Activity>) = startActivity(Intent(this, activityClass))
-
 val RecyclerView.ViewHolder.context get() = itemView.context
+
+fun Context.startActivityWithRevealAnimation(intent: Intent) {
+    when (this) {
+        is Activity -> startActivityWithRevealAnimation(intent)
+        else -> startActivity(intent)
+    }
+}
 
 fun Activity.startActivityWithRevealAnimation(intent: Intent) {
     val screenCenter = getCenterOfScreen(this)
