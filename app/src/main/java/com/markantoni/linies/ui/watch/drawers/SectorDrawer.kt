@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
+import com.markantoni.linies.Key
 import com.markantoni.linies.preference.Preferences
 import com.markantoni.linies.util.calculatePercentage
 import com.markantoni.linies.util.calculatePercentageOf
@@ -47,11 +48,13 @@ abstract class SectorDrawer(type: Int, color: Int, private val sectors: Int,
         drawingRect.set(initialRect)
     }
 
-//    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) {
-//        paint.color = color
-//    }
-
-    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {}
+    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {
+        if (bundle.containsKey(Key.COLOR)) {
+            val color = bundle.getInt(Key.COLOR)
+            paint.color = color
+            preferences.setColor(type, color)
+        }
+    }
 
     protected abstract fun calculateSector(calendar: Calendar): Int
 

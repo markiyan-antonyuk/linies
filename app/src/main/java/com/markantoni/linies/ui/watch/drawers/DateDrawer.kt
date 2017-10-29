@@ -3,6 +3,7 @@ package com.markantoni.linies.ui.watch.drawers
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Bundle
+import com.markantoni.linies.Key
 import com.markantoni.linies.Type
 import com.markantoni.linies.preference.Preferences
 import java.text.SimpleDateFormat
@@ -31,13 +32,25 @@ class DateDrawer(color: Int, strokeWidth: Float,
         paint.isAntiAlias = !ambient
     }
 
-//    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) {
-//        paint.color = color
-//        this.visible = visible
-//        updateFormatter(dateFormat)
-//    }
+    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {
+        if (bundle.containsKey(Key.COLOR)) {
+            val color = bundle.getInt(Key.COLOR)
+            paint.color = color
+            preferences.setColor(type, color)
+        }
 
-    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {}
+        if (bundle.containsKey(Key.VISIBLE)) {
+            val visible = bundle.getBoolean(Key.VISIBLE)
+            this.visible = visible
+            preferences.setVisible(type, visible)
+        }
+
+        if (bundle.containsKey(Key.DATE_FORMAT)) {
+            val dateFormat = bundle.getString(Key.DATE_FORMAT)
+            updateFormatter(dateFormat)
+            preferences.setDateFormat(dateFormat)
+        }
+    }
 
     override fun onDraw(canvas: Canvas, calendar: Calendar) {
         if (!visible) return

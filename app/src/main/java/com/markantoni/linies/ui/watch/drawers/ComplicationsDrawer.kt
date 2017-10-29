@@ -7,6 +7,7 @@ import android.support.wearable.complications.ComplicationHelperActivity
 import android.support.wearable.complications.rendering.ComplicationDrawable
 import android.util.SparseArray
 import com.markantoni.linies.Complications
+import com.markantoni.linies.Key
 import com.markantoni.linies.LiniesWatchFaceService
 import com.markantoni.linies.Type
 import com.markantoni.linies.preference.Preferences
@@ -35,7 +36,13 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
 
 //    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) = setColor(color)
 
-    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {}
+    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {
+        if (bundle.containsKey(Key.COLOR)) {
+            val color = bundle.getInt(Key.COLOR)
+            setColor(color)
+            preferences.setColor(type, color)
+        }
+    }
 
     override fun updateSize(radius: Float, circleLength: Float) {
         this.radius = radius
