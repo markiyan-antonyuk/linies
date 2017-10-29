@@ -12,7 +12,8 @@ import com.markantoni.linies.util.calculatePercentageOf
 import com.markantoni.linies.util.scale
 import java.util.*
 
-abstract class SectorDrawer(type: Int, color: Int, private val sectors: Int,
+abstract class SectorDrawer(type: Int, color: Int,
+                            private var animating: Boolean, private val sectors: Int,
                             private val topPercentage: Float, private val bottomPercentage: Float,
                             private val widthCoefficient: Float = 2f) : Drawer(type, color, 1f) {
 
@@ -54,6 +55,12 @@ abstract class SectorDrawer(type: Int, color: Int, private val sectors: Int,
             paint.color = color
             preferences.setColor(type, color)
         }
+
+        if (bundle.containsKey(Key.ANIMATING)) {
+            val animating = bundle.getBoolean(Key.ANIMATING)
+            this.animating = animating
+            preferences.setAnimating(type, animating)
+        }
     }
 
     protected abstract fun calculateSector(calendar: Calendar): Int
@@ -62,14 +69,14 @@ abstract class SectorDrawer(type: Int, color: Int, private val sectors: Int,
         val now = System.currentTimeMillis()
         val calculatedSector = calculateSector(calendar)
         val sector = if (calculatedSector == 0) sectors else calculatedSector
-        if (sector != lastSector && !isJustShown && !isAmbientMode) {
+        if (animating && sector != lastSector && !isJustShown && !isAmbientMode) {
             isAnimationRunning = true
             animationStartTime = now
         }
         lastSector = sector
 
         val animationElapsed = now - animationStartTime
-        if (isAnimationRunning && animationElapsed > ANIMATION_DURATION) isAnimationRunning = false
+        if (!animating || (isAnimationRunning && animationElapsed > ANIMATION_DURATION)) isAnimationRunning = false
 
         drawSectors(canvas, sector, animationElapsed)
         if (sector == 1) drawSectorsHiding(canvas, animationElapsed)

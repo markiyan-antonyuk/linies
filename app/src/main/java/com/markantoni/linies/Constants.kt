@@ -8,6 +8,7 @@ object Key {
     const val VISIBLE = "key.visible"
     const val HOURS24 = "key.hours24"
     const val DATE_FORMAT = "key.date.format"
+    const val ANIMATING = "key.animate"
 }
 
 object Type {

@@ -11,7 +11,7 @@ object Drawers {
             createDigitalDrawer(preferences), createDateDrawer(preferences)
     )
 
-    private fun createSecondsDrawer(preferences: Preferences) = object : SectorDrawer(Type.SECOND, preferences.getColor(Type.SECOND), 60, 95f, 92f) {
+    private fun createSecondsDrawer(preferences: Preferences) = object : SectorDrawer(Type.SECOND, preferences.getColor(Type.SECOND), preferences.isAnimating(Type.SECOND), 60, 95f, 92f) {
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.SECOND)
 
         override fun onDraw(canvas: Canvas, calendar: Calendar) {
@@ -19,11 +19,11 @@ object Drawers {
         }
     }
 
-    private fun createMinutesDrawer(preferences: Preferences) = object : SectorDrawer(Type.MINUTE, preferences.getColor(Type.MINUTE), 60, 90f, 85f) {
+    private fun createMinutesDrawer(preferences: Preferences) = object : SectorDrawer(Type.MINUTE, preferences.getColor(Type.MINUTE), preferences.isAnimating(Type.MINUTE), 60, 90f, 85f) {
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.MINUTE)
     }
 
-    private fun createHoursDrawer(preferences: Preferences) = object : SectorDrawer(Type.HOUR, preferences.getColor(Type.HOUR), 12, 80f, 75f, 6f) {
+    private fun createHoursDrawer(preferences: Preferences) = object : SectorDrawer(Type.HOUR, preferences.getColor(Type.HOUR), preferences.isAnimating(Type.HOUR), 12, 80f, 75f, 6f) {
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.HOUR)
     }
 

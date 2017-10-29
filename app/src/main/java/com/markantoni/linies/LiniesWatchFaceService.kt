@@ -135,6 +135,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         private fun updateConfiguration(bundle: Bundle) {
             val type = bundle.getType()
             drawers.find { it.type == type }?.updateConfiguration(bundle, preferences)
+            invalidate()
         }
     }
 }
