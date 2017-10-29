@@ -1,15 +1,12 @@
-package com.markantoni.linies.ui.watch.linies
+package com.markantoni.linies.ui.watch.drawers
 
 import android.content.Context
 import android.graphics.Canvas
 import com.markantoni.linies.Type
 import com.markantoni.linies.preference.PreferenceHelper
-import com.markantoni.linies.ui.watch.drawers.DateWatchDrawer
-import com.markantoni.linies.ui.watch.drawers.DigitalWatchDrawer
-import com.markantoni.linies.ui.watch.drawers.SectorDrawer
 import java.util.*
 
-object LiniesDrawers {
+object Drawers {
     fun createDrawers(context: Context) = mutableListOf(
             createSecondsDrawer(context), createMinutesDrawer(context), createHoursDrawer(context),
             createDigitalDrawer(context), createDateDrawer(context)

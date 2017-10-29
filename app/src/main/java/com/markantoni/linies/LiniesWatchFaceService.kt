@@ -13,7 +13,7 @@ import com.markantoni.linies.data.transfer.DataReceiver
 import com.markantoni.linies.preference.PreferenceHelper
 import com.markantoni.linies.ui.watch.drawers.ComplicationsDrawer
 import com.markantoni.linies.ui.watch.drawers.DigitalWatchDrawer
-import com.markantoni.linies.ui.watch.linies.LiniesDrawers
+import com.markantoni.linies.ui.watch.drawers.Drawers
 import com.markantoni.linies.util.logd
 import java.util.*
 
@@ -29,7 +29,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         private var ambientMode = false
 
         //TODO settings private val secondsTimer = SecondsTimer({ invalidate() })
-        private val drawers = LiniesDrawers.createDrawers(this@LiniesWatchFaceService)
+        private val drawers = Drawers.createDrawers(this@LiniesWatchFaceService)
         private lateinit var complicationsDrawer: ComplicationsDrawer
 
         override fun onCreate(holder: SurfaceHolder) {
