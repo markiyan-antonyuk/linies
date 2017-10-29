@@ -12,8 +12,9 @@ import android.widget.RadioButton
 import com.markantoni.linies.Key
 import com.markantoni.linies.R
 import com.markantoni.linies.Type
+import com.markantoni.linies.data.setType
 import com.markantoni.linies.data.transfer.DataSender
-import com.markantoni.linies.preference.PreferenceHelper
+import com.markantoni.linies.preference.WatchFacePreferences
 import com.markantoni.linies.util.logd
 import com.markantoni.linies.util.moveToStart
 import kotlinx.android.synthetic.main.activity_radio_group.*
@@ -50,7 +51,7 @@ class ColorPickerActivity : Activity() {
     private fun initColors() {
         val colorNames = resources.getStringArray(R.array.color_names).toMutableList()
         val colors = resources.getStringArray(R.array.color_values).map { Color.parseColor(it) }.toMutableList()
-        val currentColor = PreferenceHelper.getColor(this, type)
+        val currentColor = WatchFacePreferences(this).getColor(type)
 
         val currentColorIndex = colors.indexOf(currentColor)
         colorNames.moveToStart(currentColorIndex)
@@ -72,7 +73,7 @@ class ColorPickerActivity : Activity() {
 
     private fun sendUpdatedColor(color: Int) = dataSender.send({
         logd("Sending new color for $type")
-        putInt(Key.TYPE, type)
+        setType(type)
         putInt(Key.COLOR, color)
     })
 }

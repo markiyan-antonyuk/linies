@@ -3,7 +3,9 @@ package com.markantoni.linies.ui.watch.drawers
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
+import android.os.Bundle
 import com.markantoni.linies.Type
+import com.markantoni.linies.preference.Preferences
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,13 +45,15 @@ class DigitalDrawer(color: Int, strokeWidth: Float,
         amPmPaint.isAntiAlias = !ambient
     }
 
-    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) {
-        paint.color = color
-        amPmPaint.color = color
-        this.visible = visible
-        is24Hours = hours24
-        updateFormatter()
-    }
+//    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) {
+//        paint.color = color
+//        amPmPaint.color = color
+//        this.visible = visible
+//        is24Hours = hours24
+//        updateFormatter()
+//    }
+
+    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {}
 
     override fun onDraw(canvas: Canvas, calendar: Calendar) {
         if (!visible) return

@@ -1,18 +1,17 @@
 package com.markantoni.linies.ui.watch.drawers
 
-import android.content.Context
 import android.graphics.Canvas
 import com.markantoni.linies.Type
-import com.markantoni.linies.preference.PreferenceHelper
+import com.markantoni.linies.preference.Preferences
 import java.util.*
 
 object Drawers {
-    fun createDrawers(context: Context) = mutableListOf(
-            createSecondsDrawer(context), createMinutesDrawer(context), createHoursDrawer(context),
-            createDigitalDrawer(context), createDateDrawer(context)
+    fun createDrawers(preferences: Preferences) = mutableListOf(
+            createSecondsDrawer(preferences), createMinutesDrawer(preferences), createHoursDrawer(preferences),
+            createDigitalDrawer(preferences), createDateDrawer(preferences)
     )
 
-    private fun createSecondsDrawer(context: Context) = object : SectorDrawer(Type.SECOND, PreferenceHelper.getColor(context, Type.SECOND), 60, 95f, 92f) {
+    private fun createSecondsDrawer(preferences: Preferences) = object : SectorDrawer(Type.SECOND, preferences.getColor(Type.SECOND), 60, 95f, 92f) {
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.SECOND)
 
         override fun onDraw(canvas: Canvas, calendar: Calendar) {
@@ -20,17 +19,17 @@ object Drawers {
         }
     }
 
-    private fun createMinutesDrawer(context: Context) = object : SectorDrawer(Type.MINUTE, PreferenceHelper.getColor(context, Type.MINUTE), 60, 90f, 85f) {
+    private fun createMinutesDrawer(preferences: Preferences) = object : SectorDrawer(Type.MINUTE, preferences.getColor(Type.MINUTE), 60, 90f, 85f) {
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.MINUTE)
     }
 
-    private fun createHoursDrawer(context: Context) = object : SectorDrawer(Type.HOUR, PreferenceHelper.getColor(context, Type.HOUR), 12, 80f, 75f, 6f) {
+    private fun createHoursDrawer(preferences: Preferences) = object : SectorDrawer(Type.HOUR, preferences.getColor(Type.HOUR), 12, 80f, 75f, 6f) {
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.HOUR)
     }
 
-    private fun createDigitalDrawer(context: Context) = DigitalDrawer(PreferenceHelper.getColor(context, Type.DIGITAL), 3f, PreferenceHelper.isVisible(context, Type.DIGITAL),
-            PreferenceHelper.is24Hours(context, Type.DIGITAL), 2.2f, 0f)
+    private fun createDigitalDrawer(preferences: Preferences) = DigitalDrawer(preferences.getColor(Type.DIGITAL), 3f, preferences.isVisible(Type.DIGITAL),
+            preferences.is24Hours(), 2.2f, 0f)
 
-    private fun createDateDrawer(context: Context) = DateDrawer(PreferenceHelper.getColor(context, Type.DATE), 2f, PreferenceHelper.isVisible(context, Type.DIGITAL),
-            PreferenceHelper.getDateFormat(context, Type.DATE), 8f, -3.75f)
+    private fun createDateDrawer(preferences: Preferences) = DateDrawer(preferences.getColor(Type.DATE), 2f, preferences.isVisible(Type.DIGITAL),
+            preferences.getDateFormat(), 8f, -3.75f)
 }

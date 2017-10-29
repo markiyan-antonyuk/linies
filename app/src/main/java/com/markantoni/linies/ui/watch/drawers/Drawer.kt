@@ -2,6 +2,8 @@ package com.markantoni.linies.ui.watch.drawers
 
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.os.Bundle
+import com.markantoni.linies.preference.Preferences
 import java.util.*
 
 abstract class Drawer(val type: Int, val color: Int, private val strokeWidth: Float) {
@@ -27,7 +29,7 @@ abstract class Drawer(val type: Int, val color: Int, private val strokeWidth: Fl
     }
 
     abstract fun updateSize(radius: Float, circleLength: Float)
-    abstract fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String)
+    abstract fun updateConfiguration(bundle: Bundle, preferences: Preferences)
     protected abstract fun updateAmbientMode(ambient: Boolean)
     protected abstract fun onDraw(canvas: Canvas, calendar: Calendar)
 }

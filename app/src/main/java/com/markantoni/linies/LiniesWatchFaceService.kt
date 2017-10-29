@@ -9,8 +9,9 @@ import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
+import com.markantoni.linies.data.getType
 import com.markantoni.linies.data.transfer.DataReceiver
-import com.markantoni.linies.preference.PreferenceHelper
+import com.markantoni.linies.preference.WatchFacePreferences
 import com.markantoni.linies.ui.watch.drawers.ComplicationsDrawer
 import com.markantoni.linies.ui.watch.drawers.DigitalDrawer
 import com.markantoni.linies.ui.watch.drawers.Drawers
@@ -22,14 +23,15 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
     override fun onCreateEngine() = Engine()
 
     inner class Engine : CanvasWatchFaceService.Engine() {
-        private var calendar = Calendar.getInstance()
-        private var timeZoneReceiver = TimeZoneReceiver({ updateTimeZone(true) })
-        private lateinit var dataReceiver: DataReceiver
+        private val preferences by lazy { WatchFacePreferences(this@LiniesWatchFaceService) }
+        private val calendar = Calendar.getInstance()
+        private val timeZoneReceiver = TimeZoneReceiver({ updateTimeZone(true) })
+        private val dataReceiver by lazy { DataReceiver(this@LiniesWatchFaceService, { updateConfiguration(it) }) }
 
         private var ambientMode = false
 
         //TODO settings private val secondsTimer = SecondsTimer({ invalidate() })
-        private val drawers = Drawers.createDrawers(this@LiniesWatchFaceService)
+        private val drawers by lazy { Drawers.createDrawers(preferences) }
         private lateinit var complicationsDrawer: ComplicationsDrawer
 
         override fun onCreate(holder: SurfaceHolder) {
@@ -42,12 +44,11 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                     .build())
             setActiveComplications(*Complications.IDS)
 
-            complicationsDrawer = ComplicationsDrawer(this@LiniesWatchFaceService, PreferenceHelper.getColor(this@LiniesWatchFaceService, Type.COMPLICATIONS))
+            complicationsDrawer = ComplicationsDrawer(this@LiniesWatchFaceService, preferences.getColor(Type.COMPLICATIONS))
             drawers.add(complicationsDrawer)
 
-            dataReceiver = DataReceiver(this@LiniesWatchFaceService, { onNewData(it) })
             dataReceiver.connect()
-//TODO settings secondsTimer.start()
+            //TODO settings secondsTimer.start()
         }
 
         override fun onSurfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
@@ -59,7 +60,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         }
 
         override fun onDestroy() {
-//TODO settings secondsTimer.stop()
+            //TODO settings secondsTimer.stop()
             dataReceiver.disconnect()
             super.onDestroy()
         }
@@ -67,7 +68,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         override fun onVisibilityChanged(visible: Boolean) {
             super.onVisibilityChanged(visible)
             updateTimeZone()
-//TODO settings secondsTimer.apply { if (visible) start() else stop() }
+            //TODO settings secondsTimer.apply { if (visible) start() else stop() }
             timeZoneReceiver.apply { if (visible) register(this@LiniesWatchFaceService) else unregister(this@LiniesWatchFaceService) }
             if (visible) {
                 drawers.forEach { it.isJustShown = true }
@@ -84,7 +85,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                 it.isAmbientMode = inAmbientMode
             }
             invalidate()
-//TODO settings secondsTimer.apply { if (ambientMode) stop() else start() }
+            //TODO settings secondsTimer.apply { if (ambientMode) stop() else start() }
         }
 
         override fun onComplicationDataUpdate(id: Int, data: ComplicationData) = complicationsDrawer.update(id, data)
@@ -131,21 +132,9 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
             if (invalidate) invalidate()
         }
 
-        private fun onNewData(bundle: Bundle) {
-            bundle.apply {
-                val type = getInt(Key.TYPE, Type.UNKNOWN)
-                val color = getInt(Key.COLOR, PreferenceHelper.getColor(this@LiniesWatchFaceService, type))
-                val visible = getBoolean(Key.VISIBLE, PreferenceHelper.isVisible(this@LiniesWatchFaceService, type))
-                val hours24 = getBoolean(Key.HOURS24, PreferenceHelper.is24Hours(this@LiniesWatchFaceService, type))
-                val dateFormat = getString(Key.DATE_FORMAT, PreferenceHelper.getDateFormat(this@LiniesWatchFaceService, type))
-                updateDrawerConfiguration(type, color, visible, hours24, dateFormat)
-            }
-        }
-
-        private fun updateDrawerConfiguration(type: Int, color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) {
-            logd("Updating configuration for type: $type")
-            PreferenceHelper.update(this@LiniesWatchFaceService, type, color, visible, hours24, dateFormat)
-            drawers.find { it.type == type }?.updateConfiguration(color, visible, hours24, dateFormat)
+        private fun updateConfiguration(bundle: Bundle) {
+            val type = bundle.getType()
+            drawers.find { it.type == type }?.updateConfiguration(bundle, preferences)
         }
     }
 }

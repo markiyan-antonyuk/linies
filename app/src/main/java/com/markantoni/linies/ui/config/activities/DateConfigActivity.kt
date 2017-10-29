@@ -6,8 +6,9 @@ import android.os.Bundle
 import com.markantoni.linies.Key
 import com.markantoni.linies.R
 import com.markantoni.linies.Type
+import com.markantoni.linies.data.setType
 import com.markantoni.linies.data.transfer.DataSender
-import com.markantoni.linies.preference.PreferenceHelper
+import com.markantoni.linies.preference.WatchFacePreferences
 import com.markantoni.linies.util.startActivityWithRevealAnimation
 import kotlinx.android.synthetic.main.activity_date_config.*
 import java.text.SimpleDateFormat
@@ -23,10 +24,10 @@ class DateConfigActivity : Activity() {
         colorConfig.setOnClickListener { startActivityWithRevealAnimation(ColorPickerActivity.newIntent(this, Type.DATE)) }
         formatConfig.setOnClickListener { startActivityWithRevealAnimation(Intent(this, DateFormatPickerActivity::class.java)) }
         visibleConfig.apply {
-            isChecked = PreferenceHelper.isVisible(this@DateConfigActivity, Type.DATE)
+            isChecked = WatchFacePreferences(this@DateConfigActivity).isVisible(Type.DATE)
             setOnCheckedChangeListener { _, checked ->
                 dataSender.send {
-                    putInt(Key.TYPE, Type.DATE)
+                    setType(Type.DATE)
                     putBoolean(Key.VISIBLE, checked)
                 }
             }
@@ -45,7 +46,7 @@ class DateConfigActivity : Activity() {
     }
 
     private fun updateFormat() {
-        val format = PreferenceHelper.getDateFormat(this, Type.DATE)
+        val format = WatchFacePreferences(this).getDateFormat()
         formatConfig.text = getString(R.string.config_date_format, SimpleDateFormat(format, Locale.getDefault()).format(Date()))
     }
 }

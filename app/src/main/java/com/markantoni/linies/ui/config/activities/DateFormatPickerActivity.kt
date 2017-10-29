@@ -8,8 +8,9 @@ import android.widget.RadioButton
 import com.markantoni.linies.Key
 import com.markantoni.linies.R
 import com.markantoni.linies.Type
+import com.markantoni.linies.data.setType
 import com.markantoni.linies.data.transfer.DataSender
-import com.markantoni.linies.preference.PreferenceHelper
+import com.markantoni.linies.preference.WatchFacePreferences
 import com.markantoni.linies.util.logd
 import com.markantoni.linies.util.moveElementToStart
 import kotlinx.android.synthetic.main.activity_radio_group.*
@@ -29,7 +30,7 @@ class DateFormatPickerActivity : Activity() {
     private fun initDateFormats() {
         val date = Date()
         val formats = resources.getStringArray(R.array.date_formats).toMutableList()
-        val currentFormat = PreferenceHelper.getDateFormat(this, Type.DATE)
+        val currentFormat = WatchFacePreferences(this).getDateFormat()
         formats.moveElementToStart(currentFormat)
         formats.forEach { format ->
             (LayoutInflater.from(this).inflate(R.layout.view_date_format_item, radioGroup, false) as RadioButton).apply {
@@ -44,7 +45,7 @@ class DateFormatPickerActivity : Activity() {
 
     private fun sendUpdateDateFormat(format: String) = dataSender.send {
         logd("Send new date format $format")
-        putInt(Key.TYPE, Type.DATE)
+        setType(Type.DATE)
         putString(Key.DATE_FORMAT, format)
     }
 

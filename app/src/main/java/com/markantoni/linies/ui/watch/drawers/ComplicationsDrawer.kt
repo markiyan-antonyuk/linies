@@ -1,6 +1,7 @@
 package com.markantoni.linies.ui.watch.drawers
 
 import android.graphics.Canvas
+import android.os.Bundle
 import android.support.wearable.complications.ComplicationData
 import android.support.wearable.complications.ComplicationHelperActivity
 import android.support.wearable.complications.rendering.ComplicationDrawable
@@ -8,6 +9,7 @@ import android.util.SparseArray
 import com.markantoni.linies.Complications
 import com.markantoni.linies.LiniesWatchFaceService
 import com.markantoni.linies.Type
+import com.markantoni.linies.preference.Preferences
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import java.util.*
 
@@ -31,7 +33,9 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
         drawables.get(id)?.setComplicationData(data)
     }
 
-    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) = setColor(color)
+//    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) = setColor(color)
+
+    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {}
 
     override fun updateSize(radius: Float, circleLength: Float) {
         this.radius = radius
