@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.markantoni.linies.R
 import com.markantoni.linies.Type
 import com.markantoni.linies.ui.config.activities.ColorPickerActivity
+import com.markantoni.linies.ui.config.activities.DateConfigActivity
 import com.markantoni.linies.ui.config.activities.DigitalConfigActivity
 import com.markantoni.linies.ui.config.activities.SecondsConfigActivity
 import kotlinx.android.synthetic.main.activity_root_config.*
@@ -18,8 +19,8 @@ class RootConfigActivity : Activity() {
                 RootConfigItem(R.string.config_minutes, ColorPickerActivity.newIntent(this, Type.MINUTE)),
                 RootConfigItem(R.string.config_hours, ColorPickerActivity.newIntent(this, Type.HOUR)),
                 RootConfigItem(R.string.config_digital, createSimpleIntent(DigitalConfigActivity::class.java)),
+                RootConfigItem(R.string.config_date, createSimpleIntent(DateConfigActivity::class.java)),
                 //fixme HERE finish
-                RootConfigItem(R.string.config_date, createSimpleIntent(RootConfigActivity::class.java)),
                 RootConfigItem(R.string.config_complications, createSimpleIntent(RootConfigActivity::class.java))
         )
     }

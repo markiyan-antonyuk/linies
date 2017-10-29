@@ -55,5 +55,6 @@
         <activity android:name=".ui.config.activities.DateFormatPickerActivity" />
         <activity android:name=".ui.config.activities.SecondsConfigActivity" />
         <activity android:name=".ui.config.activities.DigitalConfigActivity" />
+        <activity android:name=".ui.config.activities.DateConfigActivity" />
     </application>
 </manifest>
