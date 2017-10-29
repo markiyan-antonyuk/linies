@@ -39,7 +39,7 @@ class RootConfigAdapter(private val items: List<RootConfigItem>) : RecyclerView.
 
     class TitleHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.view_holder_config_title)) {
         init {
-            (itemView as TextView).text = context.getText(R.string.config_title_root)
+            (itemView as TextView).text = context.getText(R.string.config_title)
         }
     }
 }

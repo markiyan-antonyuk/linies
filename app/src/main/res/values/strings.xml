@@ -1,13 +1,8 @@
 <resources>
     <string name="app_name">Linies</string>
     <string name="service_name">@string/app_name</string>
-    <!-- Config titles items -->
-    <string name="config_title_root">Configuration</string>
-    <string name="config_title_colors">Colors</string>
-    <string name="config_title_complications">Complications</string>
-    <string name="config_title_digital">Digital</string>
-    <string name="config_title_date">Date</string>
-    <!-- config items -->
+    <!-- Config items -->
+    <string name="config_title">Configuration</string>
     <string name="config_hours">Hours</string>
     <string name="config_minutes">Minutes</string>
     <string name="config_seconds">Seconds</string>
