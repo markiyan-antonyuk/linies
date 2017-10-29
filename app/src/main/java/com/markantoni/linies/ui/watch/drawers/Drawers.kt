@@ -28,9 +28,9 @@ object Drawers {
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.HOUR)
     }
 
-    private fun createDigitalDrawer(context: Context) = DigitalWatchDrawer(PreferenceHelper.getColor(context, Type.DIGITAL), 3f, PreferenceHelper.isVisible(context, Type.DIGITAL),
+    private fun createDigitalDrawer(context: Context) = DigitalDrawer(PreferenceHelper.getColor(context, Type.DIGITAL), 3f, PreferenceHelper.isVisible(context, Type.DIGITAL),
             PreferenceHelper.is24Hours(context, Type.DIGITAL), 2.2f, 0f)
 
-    private fun createDateDrawer(context: Context) = DateWatchDrawer(PreferenceHelper.getColor(context, Type.DATE), 2f, PreferenceHelper.isVisible(context, Type.DIGITAL),
+    private fun createDateDrawer(context: Context) = DateDrawer(PreferenceHelper.getColor(context, Type.DATE), 2f, PreferenceHelper.isVisible(context, Type.DIGITAL),
             PreferenceHelper.getDateFormat(context, Type.DATE), 8f, -3.75f)
 }

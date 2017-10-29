@@ -12,7 +12,7 @@ import android.view.SurfaceHolder
 import com.markantoni.linies.data.transfer.DataReceiver
 import com.markantoni.linies.preference.PreferenceHelper
 import com.markantoni.linies.ui.watch.drawers.ComplicationsDrawer
-import com.markantoni.linies.ui.watch.drawers.DigitalWatchDrawer
+import com.markantoni.linies.ui.watch.drawers.DigitalDrawer
 import com.markantoni.linies.ui.watch.drawers.Drawers
 import com.markantoni.linies.util.logd
 import java.util.*
@@ -101,7 +101,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                 drawColor(Color.BLACK)
                 save()
                 translate(bounds.centerX().toFloat(), bounds.centerY().toFloat())
-                val digitalDrawerVisible = (drawers.find { it is DigitalWatchDrawer } as DigitalWatchDrawer).visible
+                val digitalDrawerVisible = (drawers.find { it is DigitalDrawer } as DigitalDrawer).visible
                 if (complicationsDrawer.isComplicationVisible(Complications.CENTER) || !digitalDrawerVisible) {
                     val digitalDrawer = drawers.find { it.type == Type.DIGITAL }
                     val dateDrawer = drawers.find { it.type == Type.DATE }

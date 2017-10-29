@@ -7,11 +7,11 @@ import com.markantoni.linies.Type
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DigitalWatchDrawer(color: Int, strokeWidth: Float,
-                         var visible: Boolean,
-                         private var is24Hours: Boolean,
-                         private val textSizeCoefficient: Float,
-                         private val yCoefficient: Float) : WatchDrawer(Type.DIGITAL, color, strokeWidth) {
+class DigitalDrawer(color: Int, strokeWidth: Float,
+                    var visible: Boolean,
+                    private var is24Hours: Boolean,
+                    private val textSizeCoefficient: Float,
+                    private val yCoefficient: Float) : Drawer(Type.DIGITAL, color, strokeWidth) {
 
     private val bounds = Rect()
     private lateinit var formatter: SimpleDateFormat

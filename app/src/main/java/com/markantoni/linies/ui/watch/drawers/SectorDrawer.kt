@@ -11,7 +11,7 @@ import java.util.*
 
 abstract class SectorDrawer(type: Int, color: Int, private val sectors: Int,
                             private val topPercentage: Float, private val bottomPercentage: Float,
-                            private val widthCoefficient: Float = 2f) : WatchDrawer(type, color, 1f) {
+                            private val widthCoefficient: Float = 2f) : Drawer(type, color, 1f) {
 
     private val ANIMATION_DURATION = 350L
     private val MAX_ROTATION = 360

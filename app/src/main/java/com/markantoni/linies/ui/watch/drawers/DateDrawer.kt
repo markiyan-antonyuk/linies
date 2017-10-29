@@ -6,11 +6,11 @@ import com.markantoni.linies.Type
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateWatchDrawer(color: Int, strokeWidth: Float,
-                      private var visible: Boolean,
-                      formatPattern: String,
-                      private val textSizeCoefficient: Float,
-                      private val yCoefficient: Float) : WatchDrawer(Type.DATE, color, strokeWidth) {
+class DateDrawer(color: Int, strokeWidth: Float,
+                 private var visible: Boolean,
+                 formatPattern: String,
+                 private val textSizeCoefficient: Float,
+                 private val yCoefficient: Float) : Drawer(Type.DATE, color, strokeWidth) {
 
     private val bounds = Rect()
     private lateinit var formatter: SimpleDateFormat

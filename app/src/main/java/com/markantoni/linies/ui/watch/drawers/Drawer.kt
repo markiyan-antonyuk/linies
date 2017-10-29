@@ -4,7 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import java.util.*
 
-abstract class WatchDrawer(val type: Int, val color: Int, private val strokeWidth: Float) {
+abstract class Drawer(val type: Int, val color: Int, private val strokeWidth: Float) {
     protected val paint = Paint()
     var isJustShown = true
     var isAmbientMode: Boolean = false
@@ -15,8 +15,8 @@ abstract class WatchDrawer(val type: Int, val color: Int, private val strokeWidt
 
     init {
         paint.apply {
-            color = this@WatchDrawer.color
-            strokeWidth = this@WatchDrawer.strokeWidth
+            color = this@Drawer.color
+            strokeWidth = this@Drawer.strokeWidth
             isAntiAlias = true
         }
     }

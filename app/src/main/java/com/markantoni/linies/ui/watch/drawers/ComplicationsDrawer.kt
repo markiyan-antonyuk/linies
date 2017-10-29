@@ -11,7 +11,7 @@ import com.markantoni.linies.Type
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import java.util.*
 
-class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: Int) : WatchDrawer(Type.COMPLICATIONS, color, 0f) {
+class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: Int) : Drawer(Type.COMPLICATIONS, color, 0f) {
     private val drawables = SparseArray<ComplicationDrawable>(Complications.IDS.size)
     private val complications = SparseArray<ComplicationData>(Complications.IDS.size)
     private var radius = 0f
