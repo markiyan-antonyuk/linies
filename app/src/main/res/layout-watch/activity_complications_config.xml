@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_padding"
+    android:paddingTop="@dimen/activity_padding">
+
+    <TextView
+        style="@style/ConfigItem.Title"
+        android:layout_marginBottom="@dimen/config_content_margin"
+        android:text="@string/config_complications" />
+
+    <TextView
+        android:id="@+id/colorConfig"
+        style="@style/ConfigItem.Button"
+        android:text="@string/config_color" />
+
+    <LinearLayout
+        android:id="@+id/configCenter"
+        style="@style/ComplicationLayout"
+        android:paddingTop="0dp">
+
+        <ImageView
+            android:id="@+id/configCenterImage"
+            style="@style/ComplicationIcon" />
+
+        <TextView
+            android:id="@+id/configCenterText"
+            style="@style/ComplicationText"
+            android:text="@string/config_center" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/activity_padding"
+        android:layout_marginStart="@dimen/activity_padding"
+        android:background="@color/separator" />
+
+    <LinearLayout
+        android:id="@+id/configBottom"
+        style="@style/ComplicationLayout">
+
+        <ImageView
+            android:id="@+id/configBottomImage"
+            style="@style/ComplicationIcon" />
+
+        <TextView
+            android:id="@+id/configBottomText"
+            style="@style/ComplicationText"
+            android:text="@string/config_bottom" />
+    </LinearLayout>
+</LinearLayout>
