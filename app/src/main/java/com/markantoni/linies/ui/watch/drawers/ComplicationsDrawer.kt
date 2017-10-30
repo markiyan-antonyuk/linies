@@ -34,8 +34,6 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
         drawables.get(id)?.setComplicationData(data)
     }
 
-//    override fun updateConfiguration(color: Int, visible: Boolean, hours24: Boolean, dateFormat: String) = setColor(color)
-
     override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {
         if (bundle.containsKey(Key.COLOR)) {
             val color = bundle.getInt(Key.COLOR)
