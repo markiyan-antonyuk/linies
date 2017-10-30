@@ -55,5 +55,6 @@
         <activity android:name=".ui.config.activities.DateFormatPickerActivity" />
         <activity android:name=".ui.config.activities.ComplicationsConfigActivity" />
         <activity android:name=".ui.config.activities.ColorsConfigActivity" />
+        <activity android:name=".ui.config.activities.VisibilityConfigActivity" />
     </application>
 </manifest>

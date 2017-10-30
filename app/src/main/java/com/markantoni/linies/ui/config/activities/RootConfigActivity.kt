@@ -25,7 +25,7 @@ class RootConfigActivity : Activity() {
 
         configColors.setOnClickListener { openActivity(ColorsConfigActivity::class.java) }
         configComplications.setOnClickListener { showToast("TODO") }
-        configVisibility.setOnClickListener { showToast("TODO") }
+        configVisibility.setOnClickListener { openActivity(VisibilityConfigActivity::class.java) }
         configAnimate.apply {
             isChecked = preferences.isAnimating()
             setOnCheckedChangeListener { _, checked ->

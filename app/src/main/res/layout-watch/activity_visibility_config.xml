@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_padding"
+    android:paddingTop="@dimen/activity_padding">
+
+    <TextView
+        style="@style/ConfigItem.Title"
+        android:layout_marginBottom="25dp"
+        android:text="@string/config_visibility" />
+
+    <CheckBox
+        android:id="@+id/configDigital"
+        style="@style/ConfigItem.Checkbox"
+        android:layout_gravity="start"
+        android:layout_marginStart="50dp"
+        android:text="@string/config_digital" />
+
+    <CheckBox
+        android:id="@+id/configDate"
+        style="@style/ConfigItem.Checkbox"
+        android:layout_gravity="start"
+        android:layout_marginStart="50dp"
+        android:text="@string/config_date" />
+</LinearLayout>
