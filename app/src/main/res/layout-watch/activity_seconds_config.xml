@@ -14,10 +14,10 @@
     <TextView
         android:id="@+id/colorConfig"
         style="@style/ConfigItem.Button"
-        android:text="@string/config_color" />
+        android:text="@string/config_colors" />
 
     <Switch
         android:id="@+id/animateConfig"
-        style="@style/ConfigItem.Switch"
-        android:text="@string/config_animating" />
+        style="@style/ConfigItem.Checkbox"
+        android:text="@string/config_animate" />
 </LinearLayout>

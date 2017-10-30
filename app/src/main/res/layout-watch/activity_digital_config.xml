@@ -14,15 +14,15 @@
     <TextView
         android:id="@+id/colorConfig"
         style="@style/ConfigItem.Button"
-        android:text="@string/config_color" />
+        android:text="@string/config_colors" />
 
     <Switch
         android:id="@+id/visibleConfig"
-        style="@style/ConfigItem.Switch"
-        android:text="@string/config_visible" />
+        style="@style/ConfigItem.Checkbox"
+        android:text="@string/config_visibility" />
 
     <Switch
         android:id="@+id/hour24Config"
-        style="@style/ConfigItem.Switch"
+        style="@style/ConfigItem.Checkbox"
         android:text="@string/config_24_hours_format" />
 </LinearLayout>

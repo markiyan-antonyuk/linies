@@ -11,9 +11,9 @@
     <string name="config_complications">Complications</string>
     <string name="config_center">Center</string>
     <string name="config_bottom">Bottom</string>
-    <string name="config_visible">Showing</string>
-    <string name="config_animating">Animating</string>
+    <string name="config_visibility">Visibility</string>
+    <string name="config_animate">Animate</string>
     <string name="config_24_hours_format">24 hours</string>
-    <string name="config_date_format">Format: %s</string>
-    <string name="config_color">Color</string>
+    <string name="config_date_format">Date format:</string>
+    <string name="config_colors">Colors</string>
 </resources>

@@ -15,12 +15,16 @@
         <item name="android:textColor">@color/text</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="ConfigItem.Text">
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ConfigItem.SubText" parent="ConfigItem.Text">
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="ConfigItem.Button">
@@ -33,12 +37,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="ConfigItem.SubTitle" parent="ConfigItem.Text">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">normal</item>
-    </style>
-
-    <style name="ConfigItem.Switch" />
+    <style name="ConfigItem.Checkbox" />
 
     <style name="ComplicationIcon">
         <item name="android:layout_width">36dp</item>

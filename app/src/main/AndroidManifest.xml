@@ -42,7 +42,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.config.root.RootConfigActivity">
+        <activity android:name=".ui.config.activities.RootConfigActivity">
             <intent-filter>
                 <action android:name="com.markantoni.linies.CONFIG" />
 
