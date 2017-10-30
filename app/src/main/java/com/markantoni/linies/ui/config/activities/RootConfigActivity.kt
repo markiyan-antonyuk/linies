@@ -9,7 +9,6 @@ import com.markantoni.linies.Type
 import com.markantoni.linies.data.setType
 import com.markantoni.linies.data.transfer.DataSender
 import com.markantoni.linies.preference.WatchFacePreferences
-import com.markantoni.linies.util.showToast
 import com.markantoni.linies.util.startActivityWithRevealAnimation
 import kotlinx.android.synthetic.main.activity_root_config.*
 import java.text.SimpleDateFormat
@@ -24,7 +23,7 @@ class RootConfigActivity : Activity() {
         setContentView(R.layout.activity_root_config)
 
         configColors.setOnClickListener { openActivity(ColorsConfigActivity::class.java) }
-        configComplications.setOnClickListener { showToast("TODO") }
+        configComplications.setOnClickListener { openActivity(ComplicationsConfigActivity::class.java) }
         configVisibility.setOnClickListener { openActivity(VisibilityConfigActivity::class.java) }
         configAnimate.apply {
             isChecked = preferences.isAnimating()

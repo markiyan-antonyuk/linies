@@ -1,55 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout android:id="@+id/relativeLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_padding"
-    android:paddingTop="@dimen/activity_padding">
+    android:background="@drawable/complications_bg">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/centerGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/bottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
 
     <TextView
-        style="@style/ConfigItem.Title"
-        android:layout_marginBottom="@dimen/config_content_margin"
-        android:text="@string/config_complications" />
-
-    <TextView
-        android:id="@+id/colorConfig"
-        style="@style/ConfigItem.Button"
-        android:text="@string/config_colors" />
-
-    <LinearLayout
         android:id="@+id/configCenter"
-        style="@style/ComplicationLayout"
-        android:paddingTop="0dp">
+        style="@style/ComplicationsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/config_center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/centerGuideline" />
 
-        <ImageView
-            android:id="@+id/configCenterImage"
-            style="@style/ComplicationIcon" />
-
-        <TextView
-            android:id="@+id/configCenterText"
-            style="@style/ComplicationText"
-            android:text="@string/config_center" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:layout_marginEnd="@dimen/activity_padding"
-        android:layout_marginStart="@dimen/activity_padding"
-        android:background="@color/separator" />
-
-    <LinearLayout
+    <TextView
         android:id="@+id/configBottom"
-        style="@style/ComplicationLayout">
-
-        <ImageView
-            android:id="@+id/configBottomImage"
-            style="@style/ComplicationIcon" />
-
-        <TextView
-            android:id="@+id/configBottomText"
-            style="@style/ComplicationText"
-            android:text="@string/config_bottom" />
-    </LinearLayout>
-</LinearLayout>
+        style="@style/ComplicationsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/config_bottom"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>
