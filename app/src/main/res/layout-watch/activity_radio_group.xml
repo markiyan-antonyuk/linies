@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.wearable.view.ObservableScrollView
+    <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:scrollbars="none"
-        app:boxedEdges="left|right">
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:paddingBottom="@dimen/activity_padding"
-            android:paddingTop="@dimen/activity_padding" />
-    </android.support.wearable.view.ObservableScrollView>
-</android.support.wear.widget.BoxInsetLayout>
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_padding"
+        android:paddingStart="40dp"
+        android:paddingTop="@dimen/activity_padding" />
+</ScrollView>

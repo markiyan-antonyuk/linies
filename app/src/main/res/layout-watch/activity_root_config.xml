@@ -1,67 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_padding"
+        android:paddingTop="@dimen/activity_padding">
+
+        <TextView
+            style="@style/ConfigItem.Title"
+            android:text="@string/config_title" />
+
+        <TextView
+            android:id="@+id/configColors"
+            style="@style/ConfigItem.Text"
+            android:text="@string/config_colors" />
+
+        <TextView
+            android:id="@+id/configComplications"
+            style="@style/ConfigItem.Text"
+            android:text="@string/config_complications" />
+
+        <TextView
+            android:id="@+id/configVisibility"
+            style="@style/ConfigItem.Text"
+            android:text="@string/config_visibility" />
+
+        <CheckBox
+            android:id="@+id/configAnimate"
+            style="@style/ConfigItem.Checkbox"
+            android:text="@string/config_animate" />
+
+        <CheckBox
+            android:id="@+id/config24Hours"
+            style="@style/ConfigItem.Checkbox"
+            android:text="@string/config_24_hours_format" />
 
         <LinearLayout
+            android:id="@+id/configDateFormat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/activity_padding"
-            android:paddingTop="@dimen/activity_padding">
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                style="@style/ConfigItem.Title"
-                android:text="@string/config_title" />
-
-            <TextView
-                android:id="@+id/configColors"
                 style="@style/ConfigItem.Text"
-                android:text="@string/config_colors" />
+                android:paddingBottom="0dp"
+                android:text="@string/config_date_format" />
 
             <TextView
-                android:id="@+id/configComplications"
-                style="@style/ConfigItem.Text"
-                android:text="@string/config_complications" />
-
-            <TextView
-                android:id="@+id/configVisibility"
-                style="@style/ConfigItem.Text"
-                android:text="@string/config_visibility" />
-
-            <CheckBox
-                android:id="@+id/configAnimate"
-                style="@style/ConfigItem.Checkbox"
-                android:text="@string/config_animate" />
-
-            <CheckBox
-                android:id="@+id/config24Hours"
-                style="@style/ConfigItem.Checkbox"
-                android:text="@string/config_24_hours_format" />
-
-            <LinearLayout
-                android:id="@+id/configDateFormat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/ConfigItem.Text"
-                    android:paddingBottom="0dp"
-                    android:text="@string/config_date_format" />
-
-                <TextView
-                    android:id="@+id/dateFormatHint"
-                    style="@style/ConfigItem.SubText"
-                    android:padding="0dp"
-                    android:paddingBottom="4dp"
-                    android:text="dd-mm-yyyy" />
-            </LinearLayout>
+                android:id="@+id/dateFormatHint"
+                style="@style/ConfigItem.SubText"
+                android:padding="0dp"
+                android:paddingBottom="4dp"
+                android:text="dd-mm-yyyy" />
         </LinearLayout>
-    </ScrollView>
-</FrameLayout>
+    </LinearLayout>
+</ScrollView>

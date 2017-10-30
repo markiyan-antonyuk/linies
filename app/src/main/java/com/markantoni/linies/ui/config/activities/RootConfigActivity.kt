@@ -23,7 +23,7 @@ class RootConfigActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root_config)
 
-        configColors.setOnClickListener { showToast("TODO") }
+        configColors.setOnClickListener { openActivity(ColorsConfigActivity::class.java) }
         configComplications.setOnClickListener { showToast("TODO") }
         configVisibility.setOnClickListener { showToast("TODO") }
         configAnimate.apply {
@@ -45,10 +45,12 @@ class RootConfigActivity : Activity() {
             }
         }
         configDateFormat.apply {
-            setOnClickListener { startActivityWithRevealAnimation(Intent(this@RootConfigActivity, DateFormatPickerActivity::class.java)) }
+            setOnClickListener { openActivity(DateFormatPickerActivity::class.java) }
             updateDateFormat()
         }
     }
+
+    private fun openActivity(activityClass: Class<out Activity>) = startActivityWithRevealAnimation(Intent(this, activityClass))
 
     private fun updateDateFormat() {
         val format = preferences.getDateFormat()
