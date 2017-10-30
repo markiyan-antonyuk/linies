@@ -59,7 +59,7 @@ abstract class SectorDrawer(type: Int, color: Int,
         if (bundle.containsKey(Key.ANIMATING)) {
             val animating = bundle.getBoolean(Key.ANIMATING)
             this.animating = animating
-            preferences.setAnimating(type, animating)
+            preferences.setAnimating(animating)
         }
     }
 

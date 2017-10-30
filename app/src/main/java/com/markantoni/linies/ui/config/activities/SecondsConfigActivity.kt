@@ -20,7 +20,7 @@ class SecondsConfigActivity : Activity() {
 
         colorConfig.setOnClickListener { startActivityWithRevealAnimation(ColorPickerActivity.newIntent(this, Type.SECOND)) }
         animateConfig.apply {
-            isChecked = WatchFacePreferences(this@SecondsConfigActivity).isAnimating(Type.SECOND)
+            isChecked = WatchFacePreferences(this@SecondsConfigActivity).isAnimating()
             setOnCheckedChangeListener { _, checked -> sendUpdateAnimating(checked) }
         }
     }

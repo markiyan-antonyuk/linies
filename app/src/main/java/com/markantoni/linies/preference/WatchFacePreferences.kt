@@ -29,7 +29,7 @@ class WatchFacePreferences(private val context: Context) : Preferences {
 
     override fun setDateFormat(dateFormat: String) = editDefaultPreferences { putString(Key.DATE_FORMAT, dateFormat) }
 
-    override fun setAnimating(type: Int, animate: Boolean) = editPreferencesFor(type) { putBoolean(Key.ANIMATING, animate) }
+    override fun setAnimating(animate: Boolean) = editDefaultPreferences { putBoolean(Key.ANIMATING, animate) }
 
     override fun getColor(type: Int) = getPreferencesFor(type).getInt(Key.COLOR, Color.parseColor(context.resources.getStringArray(R.array.color_values)[0]))
 
@@ -39,5 +39,5 @@ class WatchFacePreferences(private val context: Context) : Preferences {
 
     override fun getDateFormat(): String = defaultPreferences.getString(Key.DATE_FORMAT, context.resources.getStringArray(R.array.date_formats)[0])
 
-    override fun isAnimating(type: Int) = getPreferencesFor(type).getBoolean(Key.ANIMATING, true)
+    override fun isAnimating() = defaultPreferences.getBoolean(Key.ANIMATING, true)
 }
