@@ -9,6 +9,7 @@ import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
+import com.markantoni.linies.configuration.Complication
 import com.markantoni.linies.configuration.Preferences
 import com.markantoni.linies.configuration.getConfiguration
 import com.markantoni.linies.data.transfer.DataReceiver
@@ -43,7 +44,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                     .setShowUnreadCountIndicator(true)
                     .setAcceptsTapEvents(true)
                     .build())
-            setActiveComplications(*Complications.IDS)
+            setActiveComplications(*Complication.IDS)
 
             val configuration = preferences.configuration
             drawers = Drawers.createDrawers(configuration)
@@ -112,7 +113,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                 translate(bounds.centerX().toFloat(), bounds.centerY().toFloat())
                 val digitalDrawerVisible = drawers.findInstance<DigitalDrawer>()?.visible ?: false
                 val complicationDrawer = drawers.findInstance<ComplicationsDrawer>()
-                if (complicationDrawer != null && complicationDrawer.isComplicationVisible(Complications.CENTER) || !digitalDrawerVisible) {
+                if (complicationDrawer != null && complicationDrawer.isComplicationVisible(Complication.CENTER) || !digitalDrawerVisible) {
                     val digitalDrawer = drawers.findInstance<DigitalDrawer>()
                     val dateDrawer = drawers.findInstance<DateDrawer>()
                     drawers.filter { it != digitalDrawer && it != dateDrawer }.forEach { it.draw(canvas, calendar) }
@@ -140,12 +141,11 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         }
 
         private fun updateConfiguration(bundle: Bundle) {
-            //todo
-            val configuration = bundle.getConfiguration()
-            preferences.configuration = configuration
-            drawers.forEach { it.updateConfiguration(configuration) } //fixme
-
-            if (bundle.containsKey(Key.ANIMATING)) isAnimating = bundle.getBoolean(Key.ANIMATING)
+            bundle.getConfiguration().apply {
+                preferences.configuration = this
+                drawers.forEach { it.updateConfiguration(this) }
+                isAnimating = animation.enabled
+            }
             invalidate()
         }
     }

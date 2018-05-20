@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.markantoni.linies.configuration
 
 import android.content.Context
@@ -12,10 +14,8 @@ class Preferences(context: Context) {
     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
     private lateinit var editor: SharedPreferences.Editor
 
-    @Suppress("DEPRECATION")
     private val oldPrefs = WatchFacePreferences(context)
 
-    @Suppress("DEPRECATION")
     var configuration: Configuration
         get() = Configuration.read({
             preferences.getInt(it, when (it) {

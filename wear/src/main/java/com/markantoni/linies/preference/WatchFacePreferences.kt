@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.markantoni.linies.preference
 
 import android.content.Context

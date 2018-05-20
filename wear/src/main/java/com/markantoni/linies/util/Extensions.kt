@@ -34,7 +34,7 @@ fun Context.startActivityWithRevealAnimation(intent: Intent) {
 }
 
 fun Activity.startActivityWithRevealAnimation(intent: Intent) {
-    val screenCenter = getCenterOfScreen(this)
+    val screenCenter = getCenterOfScreen()
     val options = ActivityOptionsCompat.makeClipRevealAnimation(window.decorView, screenCenter[0], screenCenter[1], 0, 0).toBundle()
     startActivity(intent, options)
 }
@@ -49,3 +49,9 @@ fun RectF.scale(scale: Float) {
 }
 
 inline fun <reified F> Collection<*>.findInstance(): F? = filterIsInstance<F>().firstOrNull()
+
+fun Float.calculatePercentage(percent: Float) = this * percent / 100f
+
+fun Float.calculatePercentageOf(value: Float) = value * 100 / this
+
+fun Context.getCenterOfScreen() = intArrayOf(resources.displayMetrics.widthPixels / 2, resources.displayMetrics.heightPixels / 2)

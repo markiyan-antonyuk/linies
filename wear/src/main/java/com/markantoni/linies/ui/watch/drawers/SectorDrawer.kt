@@ -45,8 +45,8 @@ abstract class SectorDrawer(color: Int, val type: Type,
 
     override fun updateSize(radius: Float, circleLength: Float) {
         val rectWidth = circleLength / (sectors * widthCoefficient)
-        val rectTop = calculatePercentage(topPercentage, radius)
-        val rectBottom = calculatePercentage(bottomPercentage, radius)
+        val rectTop = radius.calculatePercentage(topPercentage)
+        val rectBottom = radius.calculatePercentage(bottomPercentage)
         initialRect.set(-rectWidth / 2, rectTop, rectWidth / 2, rectBottom)
         drawingRect.set(initialRect)
     }
@@ -90,9 +90,9 @@ abstract class SectorDrawer(color: Int, val type: Type,
                 rotate(rotation)
 
                 if (it == sector && isAnimationRunning) {
-                    val animationStep = calculatePercentageOf(animationElapsed.toFloat(), ANIMATION_DURATION.toFloat()) / 100f
+                    val animationStep = ANIMATION_DURATION.toFloat().calculatePercentageOf(animationElapsed.toFloat()) / 100f
                     val interpolation = interpolator.getInterpolation(animationStep)
-                    val rotationStep = -calculatePercentage((1 - interpolation) * 100, MAX_ROTATION / sectors.toFloat())
+                    val rotationStep = -((1 - interpolation) * 100).calculatePercentage(MAX_ROTATION / sectors.toFloat())
                     canvas.rotate(rotationStep)
                 }
 
@@ -104,7 +104,7 @@ abstract class SectorDrawer(color: Int, val type: Type,
 
     private fun drawSectorsHiding(canvas: Canvas, animationElapsed: Long) {
         if (isAnimationRunning) {
-            val animationStep = calculatePercentageOf(animationElapsed.toFloat(), ANIMATION_DURATION.toFloat()) / 100f
+            val animationStep = ANIMATION_DURATION.toFloat().calculatePercentageOf(animationElapsed.toFloat()) / 100f
             drawingRect.apply {
                 set(initialRect)
                 scale(animationStep)

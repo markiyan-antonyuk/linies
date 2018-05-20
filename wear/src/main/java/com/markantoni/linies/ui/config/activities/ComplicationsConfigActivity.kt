@@ -5,8 +5,8 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.wearable.complications.ComplicationHelperActivity
 import android.widget.TextView
-import com.markantoni.linies.Complications
 import com.markantoni.linies.R
+import com.markantoni.linies.configuration.Complication
 import com.markantoni.linies.ui.config.complications.ComplicationsInfoRetriever
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import com.markantoni.linies.util.startActivityWithRevealAnimation
@@ -18,8 +18,8 @@ class ComplicationsConfigActivity : Activity() {
         setContentView(R.layout.activity_complications_config)
         ComplicationsInfoRetriever.init(this)
 
-        configCenter.setOnClickListener { openComplicationConfig(Complications.CENTER) }
-        configBottom.setOnClickListener { openComplicationConfig(Complications.BOTTOM) }
+        configCenter.setOnClickListener { openComplicationConfig(Complication.CENTER) }
+        configBottom.setOnClickListener { openComplicationConfig(Complication.BOTTOM) }
 
     }
 
@@ -29,8 +29,8 @@ class ComplicationsConfigActivity : Activity() {
         ComplicationsInfoRetriever.retrieveInfo(this, { id, icon, name ->
             val drawable = icon.loadDrawable(this)
             when (id) {
-                Complications.CENTER -> configCenter.setupWithComplication(drawable, name)
-                Complications.BOTTOM -> configBottom.setupWithComplication(drawable, name)
+                Complication.CENTER -> configCenter.setupWithComplication(drawable, name)
+                Complication.BOTTOM -> configBottom.setupWithComplication(drawable, name)
             }
         })
     }
@@ -42,7 +42,7 @@ class ComplicationsConfigActivity : Activity() {
     }
 
     private fun openComplicationConfig(id: Int) {
-        Complications.SUPPORTED_TYPES[id]?.let {
+        Complication.SUPPORTED_TYPES[id]?.let {
             startActivityWithRevealAnimation(ComplicationHelperActivity.createProviderChooserHelperIntent(this, getWatchFaceServiceComponentName(), id, *it))
         }
     }

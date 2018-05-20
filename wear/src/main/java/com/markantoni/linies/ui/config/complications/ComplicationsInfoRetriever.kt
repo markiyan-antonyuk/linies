@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Icon
 import android.support.wearable.complications.ComplicationProviderInfo
 import android.support.wearable.complications.ProviderInfoRetriever
-import com.markantoni.linies.Complications
+import com.markantoni.linies.configuration.Complication
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import java.util.concurrent.Executors
 
@@ -20,7 +20,7 @@ object ComplicationsInfoRetriever {
             override fun onProviderInfoReceived(id: Int, info: ComplicationProviderInfo?) {
                 info?.let { callback(id, it.providerIcon, it.providerName) }
             }
-        }, context.getWatchFaceServiceComponentName(), *Complications.IDS)
+        }, context.getWatchFaceServiceComponentName(), *Complication.IDS)
     }
 
     fun release() {

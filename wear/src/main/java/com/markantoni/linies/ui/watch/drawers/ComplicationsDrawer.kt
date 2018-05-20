@@ -6,17 +6,18 @@ import android.support.wearable.complications.ComplicationHelperActivity
 import android.support.wearable.complications.rendering.ComplicationDrawable
 import android.util.SparseArray
 import com.markantoni.linies.*
+import com.markantoni.linies.configuration.Complication
 import com.markantoni.linies.configuration.Configuration
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import java.util.*
 
 class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: Int) : Drawer(color, 0f) {
-    private val drawables = SparseArray<ComplicationDrawable>(Complications.IDS.size)
-    private val complications = SparseArray<ComplicationData>(Complications.IDS.size)
+    private val drawables = SparseArray<ComplicationDrawable>(Complication.IDS.size)
+    private val complications = SparseArray<ComplicationData>(Complication.IDS.size)
     private var radius = 0f
 
     init {
-        Complications.IDS.forEach { id ->
+        Complication.IDS.forEach { id ->
             val drawable = ComplicationDrawable(service).apply {
                 init()
                 setColor(color)
@@ -37,19 +38,19 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
         var width = (radius / 2f).toInt()
         var height = (radius / 4f).toInt()
         var offset = -(radius / 1.5f).toInt()
-        drawables[Complications.BOTTOM].setBounds(-width / 2, -offset - height, width / 2, -offset)
+        drawables[Complication.BOTTOM].setBounds(-width / 2, -offset - height, width / 2, -offset)
 
         width = (radius * 1.3f).toInt()
         height = (radius / 3f).toInt()
         offset = 0
-        drawables[Complications.CENTER].setBounds(-width / 2, offset, width / 2, offset + height)
+        drawables[Complication.CENTER].setBounds(-width / 2, offset, width / 2, offset + height)
     }
 
-    override fun updateAmbientMode(ambient: Boolean) = Complications.IDS.forEach { drawables[it].setInAmbientMode(ambient) }
+    override fun updateAmbientMode(ambient: Boolean) = Complication.IDS.forEach { drawables[it].setInAmbientMode(ambient) }
 
     override fun onDraw(canvas: Canvas, calendar: Calendar) {
         val now = System.currentTimeMillis()
-        Complications.IDS.forEach { drawables[it].draw(canvas, now) }
+        Complication.IDS.forEach { drawables[it].draw(canvas, now) }
     }
 
     @Suppress("NAME_SHADOWING")
@@ -57,7 +58,7 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
         val x = (x - radius).toInt()
         val y = (y - radius).toInt()
 
-        Complications.IDS.forEach {
+        Complication.IDS.forEach {
             complications[it]?.apply {
                 if (isActive(System.currentTimeMillis())
                         && type != ComplicationData.TYPE_NOT_CONFIGURED
@@ -82,7 +83,7 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
     }
 
     private fun setColor(color: Int) {
-        Complications.IDS.forEach {
+        Complication.IDS.forEach {
             drawables[it].setColor(color)
         }
     }
