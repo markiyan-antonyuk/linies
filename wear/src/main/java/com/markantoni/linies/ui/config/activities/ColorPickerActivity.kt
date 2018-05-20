@@ -26,13 +26,12 @@ class ColorPickerActivity : Activity() {
         }
     }
 
-    private lateinit var dataSender: DataSender
+    private val dataSender by lazy { DataSender(this, true) }
     private val type by lazy { intent.getSerializableExtra(EXTRA_TYPE) as DrawerType }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_radio_group)
-        dataSender = DataSender(this)
         initColors()
     }
 

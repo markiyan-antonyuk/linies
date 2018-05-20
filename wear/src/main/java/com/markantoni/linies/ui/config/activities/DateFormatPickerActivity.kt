@@ -16,12 +16,11 @@ import java.util.*
 import java.util.Date
 
 class DateFormatPickerActivity : Activity() {
-    private lateinit var dataSender: DataSender
+    private val dataSender by lazy { DataSender(this, true) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_radio_group)
-        dataSender = DataSender(this)
         initDateFormats()
     }
 

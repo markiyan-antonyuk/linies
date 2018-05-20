@@ -27,7 +27,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         private val preferences by lazy { Preferences(this@LiniesWatchFaceService) }
         private val calendar = Calendar.getInstance()
         private val timeZoneReceiver = TimeZoneReceiver { updateTimeZone(true) }
-        private val dataReceiver by lazy { DataReceiver(this@LiniesWatchFaceService) { updateConfiguration(it) } }
+        private val dataReceiver by lazy { DataReceiver(this@LiniesWatchFaceService, true) { updateConfiguration(it) } }
 
         private var isAnimating = false
         private var ambientMode = false

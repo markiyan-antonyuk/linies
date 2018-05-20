@@ -14,7 +14,7 @@ import java.util.*
 import java.util.Date
 
 class RootConfigActivity : Activity() {
-    private val dataSender by lazy { DataSender(this) }
+    private val dataSender by lazy { DataSender(this, true) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
