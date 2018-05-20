@@ -19,33 +19,35 @@ data class Configuration(
         var complication: Complication
 ) : Parcelable
 
+open class Hand(open var color: Int)
+
 @Parcelize
-data class Second(var color: Int) : Parcelable {
+data class Second(override var color: Int) : Hand(color), Parcelable {
     companion object {
         const val COLOR = "second.color"
     }
 }
 
 @Parcelize
-data class Minute(var color: Int) : Parcelable {
+data class Minute(override var color: Int) : Hand(color), Parcelable {
     companion object {
         const val COLOR = "minute.color"
     }
 }
 
 @Parcelize
-data class Hour(var color: Int, var is24: Boolean) : Parcelable {
+data class Hour(override var color: Int) : Hand(color), Parcelable {
     companion object {
         const val COLOR = "hour.color"
-        const val IS24 = "hour.is24"
     }
 }
 
 @Parcelize
-data class Digital(var color: Int, var visible: Boolean) : Parcelable {
+data class Digital(var color: Int, var visible: Boolean, var is24: Boolean) : Parcelable {
     companion object {
         const val COLOR = "digital.color"
         const val VISIBLE = "digital.visible"
+        const val IS24 = "hour.is24"
     }
 }
 
@@ -93,8 +95,8 @@ class Preferences(context: Context) {
         get() = Configuration(
                 Second(Second.COLOR.readInt(oldPrefs.getColor(Type.SECOND))),
                 Minute(Minute.COLOR.readInt(oldPrefs.getColor(Type.MINUTE))),
-                Hour(Hour.COLOR.readInt(oldPrefs.getColor(Type.HOUR)), Hour.IS24.readBoolean(oldPrefs.is24Hours())),
-                Digital(Digital.COLOR.readInt(oldPrefs.getColor(Type.DIGITAL)), Digital.VISIBLE.readBoolean(oldPrefs.isVisible(Type.DIGITAL))),
+                Hour(Hour.COLOR.readInt(oldPrefs.getColor(Type.HOUR))),
+                Digital(Digital.COLOR.readInt(oldPrefs.getColor(Type.DIGITAL)), Digital.VISIBLE.readBoolean(oldPrefs.isVisible(Type.DIGITAL)), Digital.IS24.readBoolean(oldPrefs.is24Hours())),
                 Date(Date.COLOR.readInt(oldPrefs.getColor(Type.DATE)), Date.VISIBLE.readBoolean(oldPrefs.isVisible(Type.DATE)), Date.FORMAT.readString(oldPrefs.getDateFormat())),
                 Animation(Animation.ENABLED.readBoolean(oldPrefs.isAnimating())),
                 Complication(Complication.COLOR.readInt(oldPrefs.getColor(Type.COMPLICATIONS)))
@@ -104,12 +106,11 @@ class Preferences(context: Context) {
             value.apply {
                 second.color.write(Second.COLOR)
                 minute.color.write(Minute.COLOR)
-
                 hour.color.write(Hour.COLOR)
-                hour.is24.write(Hour.IS24)
 
                 digital.color.write(Digital.COLOR)
                 digital.visible.write(Digital.VISIBLE)
+                digital.is24.write(Digital.IS24)
 
                 date.color.write(Date.COLOR)
                 date.visible.write(Date.VISIBLE)

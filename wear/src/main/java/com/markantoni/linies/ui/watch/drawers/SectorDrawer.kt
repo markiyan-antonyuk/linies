@@ -3,19 +3,21 @@ package com.markantoni.linies.ui.watch.drawers
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
-import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
-import com.markantoni.linies.Key
-import com.markantoni.linies.preference.Preferences
+import com.markantoni.linies.Configuration
+import com.markantoni.linies.Hand
 import com.markantoni.linies.util.calculatePercentage
 import com.markantoni.linies.util.calculatePercentageOf
 import com.markantoni.linies.util.scale
 import java.util.*
 
-abstract class SectorDrawer(type: Int, color: Int,
+abstract class SectorDrawer(color: Int, val type: Type,
                             private var animating: Boolean, private val sectors: Int,
                             private val topPercentage: Float, private val bottomPercentage: Float,
-                            private val widthCoefficient: Float = 2f) : Drawer(type, color, 1f) {
+                            private val widthCoefficient: Float = 2f) : Drawer(color, 1f) {
+    enum class Type {
+        MINUTE, SECOND, HOUR
+    }
 
     private val ANIMATION_DURATION = 350L
     private val MAX_ROTATION = 360
@@ -49,18 +51,15 @@ abstract class SectorDrawer(type: Int, color: Int,
         drawingRect.set(initialRect)
     }
 
-    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {
-        if (bundle.containsKey(Key.COLOR)) {
-            val color = bundle.getInt(Key.COLOR)
-            paint.color = color
-            preferences.setColor(type, color)
+    override fun updateConfiguration(configuration: Configuration) {
+        val hand: Hand = when (type) {
+            Type.SECOND -> configuration.second
+            Type.MINUTE -> configuration.minute
+            Type.HOUR -> configuration.hour
         }
 
-        if (bundle.containsKey(Key.ANIMATING)) {
-            val animating = bundle.getBoolean(Key.ANIMATING)
-            this.animating = animating
-            preferences.setAnimating(animating)
-        }
+        paint.color = hand.color
+        animating = configuration.animation.enabled
     }
 
     protected abstract fun calculateSector(calendar: Calendar): Int

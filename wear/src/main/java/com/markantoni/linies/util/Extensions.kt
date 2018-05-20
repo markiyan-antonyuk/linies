@@ -47,3 +47,5 @@ fun RectF.scale(scale: Float) {
     left += width() / 2 * scale
     right -= width() / 2 * scale
 }
+
+inline fun <reified F> Collection<*>.findInstance(): F? = filterIsInstance<F>().firstOrNull()

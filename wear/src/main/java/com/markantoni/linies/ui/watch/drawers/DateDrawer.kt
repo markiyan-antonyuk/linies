@@ -2,10 +2,7 @@ package com.markantoni.linies.ui.watch.drawers
 
 import android.graphics.Canvas
 import android.graphics.Rect
-import android.os.Bundle
-import com.markantoni.linies.Key
-import com.markantoni.linies.Type
-import com.markantoni.linies.preference.Preferences
+import com.markantoni.linies.Configuration
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -13,7 +10,7 @@ class DateDrawer(color: Int, strokeWidth: Float,
                  private var visible: Boolean,
                  formatPattern: String,
                  private val textSizeCoefficient: Float,
-                 private val yCoefficient: Float) : Drawer(Type.DATE, color, strokeWidth) {
+                 private val yCoefficient: Float) : Drawer(color, strokeWidth) {
 
     private val bounds = Rect()
     private lateinit var formatter: SimpleDateFormat
@@ -32,23 +29,11 @@ class DateDrawer(color: Int, strokeWidth: Float,
         paint.isAntiAlias = !ambient
     }
 
-    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {
-        if (bundle.containsKey(Key.COLOR)) {
-            val color = bundle.getInt(Key.COLOR)
+    override fun updateConfiguration(configuration: Configuration) {
+        configuration.date.apply {
             paint.color = color
-            preferences.setColor(type, color)
-        }
-
-        if (bundle.containsKey(Key.VISIBLE)) {
-            val visible = bundle.getBoolean(Key.VISIBLE)
-            this.visible = visible
-            preferences.setVisible(type, visible)
-        }
-
-        if (bundle.containsKey(Key.DATE_FORMAT)) {
-            val dateFormat = bundle.getString(Key.DATE_FORMAT)
-            updateFormatter(dateFormat)
-            preferences.setDateFormat(dateFormat)
+            this@DateDrawer.visible = visible
+            updateFormatter(format)
         }
     }
 

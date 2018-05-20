@@ -3,10 +3,7 @@ package com.markantoni.linies.ui.watch.drawers
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
-import android.os.Bundle
-import com.markantoni.linies.Key
-import com.markantoni.linies.Type
-import com.markantoni.linies.preference.Preferences
+import com.markantoni.linies.Configuration
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -14,7 +11,7 @@ class DigitalDrawer(color: Int, strokeWidth: Float,
                     var visible: Boolean,
                     private var is24Hours: Boolean,
                     private val textSizeCoefficient: Float,
-                    private val yCoefficient: Float) : Drawer(Type.DIGITAL, color, strokeWidth) {
+                    private val yCoefficient: Float) : Drawer(color, strokeWidth) {
 
     private val bounds = Rect()
     private lateinit var formatter: SimpleDateFormat
@@ -46,24 +43,12 @@ class DigitalDrawer(color: Int, strokeWidth: Float,
         amPmPaint.isAntiAlias = !ambient
     }
 
-    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {
-        if (bundle.containsKey(Key.COLOR)) {
-            val color = bundle.getInt(Key.COLOR)
+    override fun updateConfiguration(configuration: Configuration) {
+        configuration.digital.apply {
             paint.color = color
             amPmPaint.color = color
-            preferences.setColor(type, color)
-        }
-
-        if (bundle.containsKey(Key.VISIBLE)) {
-            val visible = bundle.getBoolean(Key.VISIBLE)
-            this.visible = visible
-            preferences.setVisible(type, visible)
-        }
-
-        if (bundle.containsKey(Key.HOURS24)) {
-            is24Hours = bundle.getBoolean(Key.HOURS24)
-            updateFormatter()
-            preferences.set24Hours(is24Hours)
+            this@DigitalDrawer.visible = visible
+            is24Hours = is24
         }
     }
 

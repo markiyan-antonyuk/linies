@@ -1,20 +1,15 @@
 package com.markantoni.linies.ui.watch.drawers
 
 import android.graphics.Canvas
-import android.os.Bundle
 import android.support.wearable.complications.ComplicationData
 import android.support.wearable.complications.ComplicationHelperActivity
 import android.support.wearable.complications.rendering.ComplicationDrawable
 import android.util.SparseArray
-import com.markantoni.linies.Complications
-import com.markantoni.linies.Key
-import com.markantoni.linies.LiniesWatchFaceService
-import com.markantoni.linies.Type
-import com.markantoni.linies.preference.Preferences
+import com.markantoni.linies.*
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import java.util.*
 
-class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: Int) : Drawer(Type.COMPLICATIONS, color, 0f) {
+class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: Int) : Drawer(color, 0f) {
     private val drawables = SparseArray<ComplicationDrawable>(Complications.IDS.size)
     private val complications = SparseArray<ComplicationData>(Complications.IDS.size)
     private var radius = 0f
@@ -34,13 +29,7 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
         drawables.get(id)?.setComplicationData(data)
     }
 
-    override fun updateConfiguration(bundle: Bundle, preferences: Preferences) {
-        if (bundle.containsKey(Key.COLOR)) {
-            val color = bundle.getInt(Key.COLOR)
-            setColor(color)
-            preferences.setColor(type, color)
-        }
-    }
+    override fun updateConfiguration(configuration: Configuration) = setColor(configuration.complication.color)
 
     override fun updateSize(radius: Float, circleLength: Float) {
         this.radius = radius

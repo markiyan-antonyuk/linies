@@ -1,17 +1,20 @@
 package com.markantoni.linies.ui.watch.drawers
 
 import android.graphics.Canvas
-import com.markantoni.linies.Type
-import com.markantoni.linies.preference.Preferences
+import com.markantoni.linies.Configuration
 import java.util.*
 
 object Drawers {
-    fun createDrawers(preferences: Preferences) = mutableListOf(
-            createSecondsDrawer(preferences), createMinutesDrawer(preferences), createHoursDrawer(preferences),
-            createDigitalDrawer(preferences), createDateDrawer(preferences)
+    fun createDrawers(configuration: Configuration) = mutableListOf(
+            createSecondsDrawer(configuration), createMinutesDrawer(configuration), createHoursDrawer(configuration),
+            createDigitalDrawer(configuration), createDateDrawer(configuration)
     )
 
-    private fun createSecondsDrawer(preferences: Preferences) = object : SectorDrawer(Type.SECOND, preferences.getColor(Type.SECOND), preferences.isAnimating(), 60, 95f, 92f) {
+    private fun createSecondsDrawer(configuration: Configuration) = object : SectorDrawer(
+            configuration.second.color, Type.SECOND,
+            configuration.animation.enabled,
+            60, 95f, 92f) {
+
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.SECOND)
 
         override fun onDraw(canvas: Canvas, calendar: Calendar) {
@@ -19,17 +22,27 @@ object Drawers {
         }
     }
 
-    private fun createMinutesDrawer(preferences: Preferences) = object : SectorDrawer(Type.MINUTE, preferences.getColor(Type.MINUTE), preferences.isAnimating(), 60, 90f, 85f) {
+    private fun createMinutesDrawer(configuration: Configuration) = object : SectorDrawer(
+            configuration.minute.color, Type.MINUTE,
+            configuration.animation.enabled,
+            60, 90f, 85f) {
+
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.MINUTE)
     }
 
-    private fun createHoursDrawer(preferences: Preferences) = object : SectorDrawer(Type.HOUR, preferences.getColor(Type.HOUR), preferences.isAnimating(), 12, 80f, 75f, 6f) {
+    private fun createHoursDrawer(configuration: Configuration) = object : SectorDrawer(
+            configuration.hour.color, Type.HOUR,
+            configuration.animation.enabled,
+            12, 80f, 75f, 6f) {
         override fun calculateSector(calendar: Calendar) = calendar.get(Calendar.HOUR)
     }
 
-    private fun createDigitalDrawer(preferences: Preferences) = DigitalDrawer(preferences.getColor(Type.DIGITAL), 3f, preferences.isVisible(Type.DIGITAL),
-            preferences.is24Hours(), 2.2f, 0f)
+    private fun createDigitalDrawer(configuration: Configuration) = DigitalDrawer(
+            configuration.digital.color,
+            3f, configuration.digital.visible, configuration.digital.is24,
+            2.2f, 0f)
 
-    private fun createDateDrawer(preferences: Preferences) = DateDrawer(preferences.getColor(Type.DATE), 2f, preferences.isVisible(Type.DIGITAL),
-            preferences.getDateFormat(), 8f, -3.75f)
+    private fun createDateDrawer(configuration: Configuration) = DateDrawer(
+            configuration.date.color, 2f, configuration.digital.visible,
+            configuration.date.format, 8f, -3.75f)
 }
