@@ -9,6 +9,8 @@ import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
+import com.markantoni.linies.configuration.Preferences
+import com.markantoni.linies.configuration.getConfiguration
 import com.markantoni.linies.data.transfer.DataReceiver
 import com.markantoni.linies.ui.watch.drawers.*
 import com.markantoni.linies.util.SecondsTimer
@@ -138,7 +140,10 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
         }
 
         private fun updateConfiguration(bundle: Bundle) {
-            drawers.forEach { it.updateConfiguration(preferences.configuration) } //fixme
+            //todo
+            val configuration = bundle.getConfiguration()
+            preferences.configuration = configuration
+            drawers.forEach { it.updateConfiguration(configuration) } //fixme
 
             if (bundle.containsKey(Key.ANIMATING)) isAnimating = bundle.getBoolean(Key.ANIMATING)
             invalidate()

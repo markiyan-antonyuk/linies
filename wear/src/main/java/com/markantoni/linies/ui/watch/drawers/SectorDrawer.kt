@@ -4,8 +4,8 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.view.animation.AccelerateDecelerateInterpolator
-import com.markantoni.linies.Configuration
-import com.markantoni.linies.Hand
+import com.markantoni.linies.configuration.Configuration
+import com.markantoni.linies.configuration.Hand
 import com.markantoni.linies.util.calculatePercentage
 import com.markantoni.linies.util.calculatePercentageOf
 import com.markantoni.linies.util.scale

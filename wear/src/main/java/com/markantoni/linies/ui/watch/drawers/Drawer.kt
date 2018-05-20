@@ -2,8 +2,12 @@ package com.markantoni.linies.ui.watch.drawers
 
 import android.graphics.Canvas
 import android.graphics.Paint
-import com.markantoni.linies.Configuration
+import com.markantoni.linies.configuration.Configuration
 import java.util.*
+
+enum class DrawerType {
+    SECOND, MINUTE, HOUR, DIGITAL, DATE, COMPLICATION
+}
 
 abstract class Drawer(val color: Int, private val strokeWidth: Float) {
     protected val paint = Paint()

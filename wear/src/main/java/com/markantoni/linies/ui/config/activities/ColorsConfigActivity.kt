@@ -3,15 +3,14 @@ package com.markantoni.linies.ui.config.activities
 import android.app.Activity
 import android.os.Bundle
 import android.widget.TextView
+import com.markantoni.linies.configuration.Preferences
 import com.markantoni.linies.R
-import com.markantoni.linies.Type
-import com.markantoni.linies.preference.WatchFacePreferences
+import com.markantoni.linies.configuration.findHand
+import com.markantoni.linies.ui.watch.drawers.DrawerType
 import com.markantoni.linies.util.startActivityWithRevealAnimation
 import kotlinx.android.synthetic.main.activity_colors_config.*
 
 class ColorsConfigActivity : Activity() {
-    private val preferences by lazy { WatchFacePreferences(this) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_colors_config)
@@ -19,16 +18,16 @@ class ColorsConfigActivity : Activity() {
     }
 
     private fun setupViews() {
-        setupWithColor(configSeconds, Type.SECOND)
-        setupWithColor(configMinutes, Type.MINUTE)
-        setupWithColor(configHours, Type.HOUR)
-        setupWithColor(configDigital, Type.DIGITAL)
-        setupWithColor(configDate, Type.DATE)
-        setupWithColor(configComplications, Type.COMPLICATIONS)
+        setupWithColor(configSeconds, DrawerType.SECOND)
+        setupWithColor(configMinutes, DrawerType.MINUTE)
+        setupWithColor(configHours, DrawerType.HOUR)
+        setupWithColor(configDigital, DrawerType.DIGITAL)
+        setupWithColor(configDate, DrawerType.DATE)
+        setupWithColor(configComplications, DrawerType.COMPLICATION)
     }
 
-    private fun setupWithColor(item: TextView, type: Int) = item.apply {
-        setTextColor(preferences.getColor(type))
+    private fun setupWithColor(item: TextView, type: DrawerType) = item.apply {
+        setTextColor(Preferences.configuration(this@ColorsConfigActivity).findHand(type).color)
         setOnClickListener { startActivityWithRevealAnimation(ColorPickerActivity.newIntent(this@ColorsConfigActivity, type)) }
     }
 

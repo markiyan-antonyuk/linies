@@ -9,31 +9,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
-import com.markantoni.linies.Key
-import com.markantoni.linies.R
-import com.markantoni.linies.Type
+import com.markantoni.linies.*
+import com.markantoni.linies.configuration.Preferences
+import com.markantoni.linies.configuration.findHand
+import com.markantoni.linies.configuration.withConfiguration
 import com.markantoni.linies.data.transfer.DataSender
-import com.markantoni.linies.data.transfer.type
-import com.markantoni.linies.preference.WatchFacePreferences
-import com.markantoni.linies.util.logd
+import com.markantoni.linies.ui.watch.drawers.*
 import com.markantoni.linies.util.moveToStart
 import kotlinx.android.synthetic.main.activity_radio_group.*
 
 class ColorPickerActivity : Activity() {
     companion object {
-        private val EXTRA_TYPE = "extra.type"
-        fun newIntent(context: Context, type: Int) = Intent(context, ColorPickerActivity::class.java).apply {
+        private const val EXTRA_TYPE = "extra.type"
+        fun newIntent(context: Context, type: DrawerType) = Intent(context, ColorPickerActivity::class.java).apply {
             putExtra(EXTRA_TYPE, type)
         }
     }
 
     private lateinit var dataSender: DataSender
-    private var type = Type.UNKNOWN
+    private val type by lazy { intent.getSerializableExtra(EXTRA_TYPE) as DrawerType }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_radio_group)
-        type = intent.getIntExtra(EXTRA_TYPE, Type.UNKNOWN)
         dataSender = DataSender(this)
         initColors()
     }
@@ -41,8 +39,7 @@ class ColorPickerActivity : Activity() {
     private fun initColors() {
         val colorNames = resources.getStringArray(R.array.color_names).toMutableList()
         val colors = resources.getStringArray(R.array.color_values).map { Color.parseColor(it) }.toMutableList()
-        val currentColor = WatchFacePreferences(this).getColor(type)
-
+        val currentColor = Preferences.configuration(this).findHand(type).color
         val currentColorIndex = colors.indexOf(currentColor)
         colorNames.moveToStart(currentColorIndex)
         colors.moveToStart(currentColorIndex)
@@ -62,8 +59,8 @@ class ColorPickerActivity : Activity() {
     }
 
     private fun sendUpdatedColor(color: Int) = dataSender.send({
-        logd("Sending new color for $type")
-        type = this@ColorPickerActivity.type
-        putInt(Key.COLOR, color)
+        withConfiguration(this@ColorPickerActivity) {
+            findHand(type).color = color
+        }
     })
 }

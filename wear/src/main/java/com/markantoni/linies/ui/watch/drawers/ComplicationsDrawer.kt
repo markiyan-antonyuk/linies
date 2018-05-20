@@ -6,6 +6,7 @@ import android.support.wearable.complications.ComplicationHelperActivity
 import android.support.wearable.complications.rendering.ComplicationDrawable
 import android.util.SparseArray
 import com.markantoni.linies.*
+import com.markantoni.linies.configuration.Configuration
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import java.util.*
 

@@ -3,7 +3,7 @@ package com.markantoni.linies.ui.watch.drawers
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
-import com.markantoni.linies.Configuration
+import com.markantoni.linies.configuration.Configuration
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,6 +49,7 @@ class DigitalDrawer(color: Int, strokeWidth: Float,
             amPmPaint.color = color
             this@DigitalDrawer.visible = visible
             is24Hours = is24
+            updateFormatter()
         }
     }
 

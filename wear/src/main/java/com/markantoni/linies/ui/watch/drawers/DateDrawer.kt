@@ -2,7 +2,7 @@ package com.markantoni.linies.ui.watch.drawers
 
 import android.graphics.Canvas
 import android.graphics.Rect
-import com.markantoni.linies.Configuration
+import com.markantoni.linies.configuration.Configuration
 import java.text.SimpleDateFormat
 import java.util.*
 
