@@ -7,6 +7,7 @@ import android.preference.PreferenceManager
 import com.markantoni.linies.Key
 import com.markantoni.linies.R
 
+@Deprecated("Soon to be removed")
 class WatchFacePreferences(private val context: Context) : Preferences {
 
     private val PREF_NAME_TYPE = "pref.type."

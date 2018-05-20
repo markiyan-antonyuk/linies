@@ -1,5 +1,6 @@
 package com.markantoni.linies.preference
 
+@Deprecated("Soon to be removed")
 interface Preferences {
     fun setColor(type: Int, color: Int)
     fun setVisible(type: Int, visible: Boolean)

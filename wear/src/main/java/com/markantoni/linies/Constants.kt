@@ -2,6 +2,7 @@ package com.markantoni.linies
 
 import android.support.wearable.complications.ComplicationData
 
+@Deprecated("Soon to be removed")
 object Key {
     const val TYPE = "key.type"
     const val COLOR = "key.color"
@@ -11,6 +12,7 @@ object Key {
     const val ANIMATING = "key.animate"
 }
 
+@Deprecated("Soon to be removed")
 object Type {
     const val UNKNOWN = -1
     const val HOUR = 0
@@ -21,6 +23,7 @@ object Type {
     const val COMPLICATIONS = 5
 }
 
+@Deprecated("Soon to be removed")
 object Complications {
     const val CENTER = 0
     const val BOTTOM = 1
