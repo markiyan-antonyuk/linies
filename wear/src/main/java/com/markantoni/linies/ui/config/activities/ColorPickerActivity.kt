@@ -12,8 +12,8 @@ import android.widget.RadioButton
 import com.markantoni.linies.Key
 import com.markantoni.linies.R
 import com.markantoni.linies.Type
-import com.markantoni.linies.data.setType
 import com.markantoni.linies.data.transfer.DataSender
+import com.markantoni.linies.data.transfer.type
 import com.markantoni.linies.preference.WatchFacePreferences
 import com.markantoni.linies.util.logd
 import com.markantoni.linies.util.moveToStart
@@ -63,7 +63,7 @@ class ColorPickerActivity : Activity() {
 
     private fun sendUpdatedColor(color: Int) = dataSender.send({
         logd("Sending new color for $type")
-        setType(type)
+        type = this@ColorPickerActivity.type
         putInt(Key.COLOR, color)
     })
 }

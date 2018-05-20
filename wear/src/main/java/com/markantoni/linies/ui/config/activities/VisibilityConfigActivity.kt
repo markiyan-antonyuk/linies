@@ -6,8 +6,8 @@ import android.widget.CheckBox
 import com.markantoni.linies.Key
 import com.markantoni.linies.R
 import com.markantoni.linies.Type
-import com.markantoni.linies.data.setType
 import com.markantoni.linies.data.transfer.DataSender
+import com.markantoni.linies.data.transfer.type
 import com.markantoni.linies.preference.WatchFacePreferences
 import kotlinx.android.synthetic.main.activity_visibility_config.*
 
@@ -27,7 +27,7 @@ class VisibilityConfigActivity : Activity() {
         isChecked = preferences.isVisible(type)
         setOnCheckedChangeListener { _, checked ->
             dataSender.send {
-                setType(type)
+                this.type = type
                 putBoolean(Key.VISIBLE, checked)
             }
         }

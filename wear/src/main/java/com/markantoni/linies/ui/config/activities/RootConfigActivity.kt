@@ -6,8 +6,8 @@ import android.os.Bundle
 import com.markantoni.linies.Key
 import com.markantoni.linies.R
 import com.markantoni.linies.Type
-import com.markantoni.linies.data.setType
 import com.markantoni.linies.data.transfer.DataSender
+import com.markantoni.linies.data.transfer.type
 import com.markantoni.linies.preference.WatchFacePreferences
 import com.markantoni.linies.util.startActivityWithRevealAnimation
 import kotlinx.android.synthetic.main.activity_root_config.*
@@ -29,7 +29,7 @@ class RootConfigActivity : Activity() {
             isChecked = preferences.isAnimating()
             setOnCheckedChangeListener { _, checked ->
                 dataSender.send {
-                    setType(Type.SECOND)
+                    type = Type.SECOND
                     putBoolean(Key.ANIMATING, checked)
                 }
             }
@@ -38,7 +38,7 @@ class RootConfigActivity : Activity() {
             isChecked = preferences.is24Hours()
             setOnCheckedChangeListener { _, checked ->
                 dataSender.send {
-                    setType(Type.DIGITAL)
+                    type = Type.DIGITAL
                     putBoolean(Key.HOURS24, checked)
                 }
             }
