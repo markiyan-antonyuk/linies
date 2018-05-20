@@ -17,43 +17,39 @@ class Preferences(context: Context) {
 
     @Suppress("DEPRECATION")
     var configuration: Configuration
-        get() = Configuration(
-                Second(Second.COLOR.readInt(oldPrefs.getColor(Type.SECOND))),
-                Minute(Minute.COLOR.readInt(oldPrefs.getColor(Type.MINUTE))),
-                Hour(Hour.COLOR.readInt(oldPrefs.getColor(Type.HOUR))),
-                Digital(Digital.COLOR.readInt(oldPrefs.getColor(Type.DIGITAL)), Digital.VISIBLE.readBoolean(oldPrefs.isVisible(Type.DIGITAL)), Digital.IS24.readBoolean(oldPrefs.is24Hours())),
-                Date(Date.COLOR.readInt(oldPrefs.getColor(Type.DATE)), Date.VISIBLE.readBoolean(oldPrefs.isVisible(Type.DATE)), Date.FORMAT.readString(oldPrefs.getDateFormat())),
-                Complication(Complication.COLOR.readInt(oldPrefs.getColor(Type.COMPLICATIONS))),
-                Animation(Animation.ENABLED.readBoolean(oldPrefs.isAnimating()))
-        )
+        get() = Configuration.read({
+            preferences.getInt(it, when (it) {
+                Second.COLOR -> oldPrefs.getColor(Type.SECOND)
+                Minute.COLOR -> oldPrefs.getColor(Type.MINUTE)
+                Hour.COLOR -> oldPrefs.getColor(Type.HOUR)
+                Digital.COLOR -> oldPrefs.getColor(Type.DIGITAL)
+                Date.COLOR -> oldPrefs.getColor(Type.DATE)
+                Complication.COLOR -> oldPrefs.getColor(Type.COMPLICATIONS)
+                else -> 0
+            })
+        }, {
+            preferences.getBoolean(it, when (it) {
+                Digital.VISIBLE -> oldPrefs.isVisible(Type.DIGITAL)
+                Digital.IS24 -> oldPrefs.is24Hours()
+                Date.VISIBLE -> oldPrefs.isVisible(Type.DATE)
+                Animation.ENABLED -> oldPrefs.isAnimating()
+                else -> false
+            })
+        }, {
+            preferences.getString(it, when (it) {
+                Date.FORMAT -> oldPrefs.getDateFormat()
+                else -> ""
+            })
+        })
         set(value) {
-            editor = preferences.edit()
-            value.apply {
-                second.color.write(Second.COLOR)
-                minute.color.write(Minute.COLOR)
-                hour.color.write(Hour.COLOR)
-
-                digital.color.write(Digital.COLOR)
-                digital.visible.write(Digital.VISIBLE)
-                digital.is24.write(Digital.IS24)
-
-                date.color.write(Date.COLOR)
-                date.visible.write(Date.VISIBLE)
-                date.format.write(Date.FORMAT)
-
-                animation.enabled.write(Animation.ENABLED)
-                complication.color.write(Complication.COLOR)
+            preferences.edit().apply {
+                value.write(
+                        { k, v -> putInt(k, v) },
+                        { k, v -> putBoolean(k, v) },
+                        { k, v -> putString(k, v) })
+                apply()
             }
-            editor.apply()
         }
-
-    private fun String.readInt(default: Int) = preferences.getInt(this, default)
-    private fun String.readBoolean(default: Boolean) = preferences.getBoolean(this, default)
-    private fun String.readString(default: String) = preferences.getString(this, default)
-
-    private fun Int.write(key: String) = editor.putInt(key, this)
-    private fun Boolean.write(key: String) = editor.putBoolean(key, this)
-    private fun String.write(key: String) = editor.putString(key, this)
 
     companion object {
         fun configuration(context: Context) = Preferences(context).configuration
