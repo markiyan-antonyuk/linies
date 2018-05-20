@@ -48,14 +48,4 @@ class DateFormatPickerActivity : Activity() {
         setType(Type.DATE)
         putString(Key.DATE_FORMAT, format)
     }
-
-    override fun onStart() {
-        super.onStart()
-        dataSender.connect()
-    }
-
-    override fun onStop() {
-        dataSender.disconnect()
-        super.onStop()
-    }
 }

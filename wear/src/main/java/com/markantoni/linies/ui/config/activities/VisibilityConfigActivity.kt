@@ -32,14 +32,4 @@ class VisibilityConfigActivity : Activity() {
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        dataSender.connect()
-    }
-
-    override fun onPause() {
-        dataSender.disconnect()
-        super.onPause()
-    }
 }

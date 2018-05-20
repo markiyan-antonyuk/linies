@@ -38,16 +38,6 @@ class ColorPickerActivity : Activity() {
         initColors()
     }
 
-    override fun onStart() {
-        super.onStart()
-        dataSender.connect()
-    }
-
-    override fun onStop() {
-        dataSender.disconnect()
-        super.onStop()
-    }
-
     private fun initColors() {
         val colorNames = resources.getStringArray(R.array.color_names).toMutableList()
         val colors = resources.getStringArray(R.array.color_values).map { Color.parseColor(it) }.toMutableList()

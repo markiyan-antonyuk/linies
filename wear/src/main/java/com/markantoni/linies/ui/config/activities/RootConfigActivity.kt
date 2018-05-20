@@ -59,12 +59,6 @@ class RootConfigActivity : Activity() {
     override fun onResume() {
         super.onResume()
         updateDateFormat()
-        dataSender.connect()
-    }
-
-    override fun onPause() {
-        dataSender.disconnect()
-        super.onPause()
     }
 }
 

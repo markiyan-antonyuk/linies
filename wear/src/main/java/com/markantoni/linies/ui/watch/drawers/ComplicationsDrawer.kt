@@ -62,6 +62,7 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
         Complications.IDS.forEach { drawables[it].draw(canvas, now) }
     }
 
+    @Suppress("NAME_SHADOWING")
     fun handleTap(x: Int, y: Int) {
         val x = (x - radius).toInt()
         val y = (y - radius).toInt()
