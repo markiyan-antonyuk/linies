@@ -1,4 +1,4 @@
-package com.markantoni.linies.ui.config.activities
+package com.markantoni.linies.ui
 
 import android.app.Activity
 import android.content.Context
@@ -10,12 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
 import com.markantoni.linies.*
-import com.markantoni.linies.configuration.Preferences
-import com.markantoni.linies.configuration.findHand
-import com.markantoni.linies.configuration.withConfiguration
-import com.markantoni.linies.data.transfer.DataSender
-import com.markantoni.linies.ui.watch.drawers.*
-import com.markantoni.linies.util.moveToStart
+import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.common.configuration.findHand
+import com.markantoni.linies.common.drawers.DrawerType
+import com.markantoni.linies.data.DataSender
+import com.markantoni.linies.common.util.moveToStart
+import com.markantoni.linies.util.withConfiguration
 import kotlinx.android.synthetic.main.activity_radio_group.*
 
 class ColorPickerActivity : Activity() {

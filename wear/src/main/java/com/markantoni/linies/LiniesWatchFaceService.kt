@@ -9,14 +9,19 @@ import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
-import com.markantoni.linies.configuration.Complication
-import com.markantoni.linies.configuration.Preferences
-import com.markantoni.linies.configuration.getConfiguration
-import com.markantoni.linies.data.transfer.DataReceiver
-import com.markantoni.linies.ui.watch.drawers.*
-import com.markantoni.linies.util.SecondsTimer
-import com.markantoni.linies.util.findInstance
-import com.markantoni.linies.util.logd
+import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.common.configuration.getConfiguration
+import com.markantoni.linies.common.drawers.DateDrawer
+import com.markantoni.linies.common.drawers.DigitalDrawer
+import com.markantoni.linies.common.drawers.Drawer
+import com.markantoni.linies.common.drawers.Drawers
+import com.markantoni.linies.data.DataReceiver
+import com.markantoni.linies.common.util.SecondsTimer
+import com.markantoni.linies.common.util.findInstance
+import com.markantoni.linies.common.util.logd
+import com.markantoni.linies.complications.Complication
+import com.markantoni.linies.complications.ComplicationsDrawer
+import com.markantoni.linies.util.TimeZoneReceiver
 import java.util.*
 
 

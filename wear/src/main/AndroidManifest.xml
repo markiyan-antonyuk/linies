@@ -44,7 +44,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.config.activities.RootConfigActivity">
+        <activity android:name=".ui.RootConfigActivity">
             <intent-filter>
                 <action android:name="com.markantoni.linies.CONFIG" />
 
@@ -53,10 +53,10 @@
             </intent-filter>
         </activity>
         <activity android:name="android.support.wearable.complications.ComplicationHelperActivity" />
-        <activity android:name=".ui.config.activities.ColorPickerActivity" />
-        <activity android:name=".ui.config.activities.DateFormatPickerActivity" />
-        <activity android:name=".ui.config.activities.ComplicationsConfigActivity" />
-        <activity android:name=".ui.config.activities.ColorsConfigActivity" />
-        <activity android:name=".ui.config.activities.VisibilityConfigActivity" />
+        <activity android:name=".ui.ColorPickerActivity" />
+        <activity android:name=".ui.DateFormatPickerActivity" />
+        <activity android:name=".ui.ComplicationsConfigActivity" />
+        <activity android:name=".ui.ColorsConfigActivity" />
+        <activity android:name=".ui.VisibilityConfigActivity" />
     </application>
 </manifest>

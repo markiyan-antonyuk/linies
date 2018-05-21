@@ -1,7 +1,7 @@
-package com.markantoni.linies.util
+package com.markantoni.linies.common.util
 
 import android.util.Log
-import com.markantoni.linies.BuildConfig
+import com.markantoni.linies.common.BuildConfig
 
 private object Logger {
     val DEBUG = BuildConfig.DEBUG

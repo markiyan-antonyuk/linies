@@ -1,10 +1,9 @@
-package com.markantoni.linies.ui.config.complications
+package com.markantoni.linies.complications
 
 import android.content.Context
 import android.graphics.drawable.Icon
 import android.support.wearable.complications.ComplicationProviderInfo
 import android.support.wearable.complications.ProviderInfoRetriever
-import com.markantoni.linies.configuration.Complication
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import java.util.concurrent.Executors
 

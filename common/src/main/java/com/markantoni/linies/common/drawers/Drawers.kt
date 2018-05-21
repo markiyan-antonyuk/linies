@@ -1,7 +1,7 @@
-package com.markantoni.linies.ui.watch.drawers
+package com.markantoni.linies.common.drawers
 
 import android.graphics.Canvas
-import com.markantoni.linies.configuration.Configuration
+import com.markantoni.linies.common.configuration.Configuration
 import java.util.*
 
 object Drawers {

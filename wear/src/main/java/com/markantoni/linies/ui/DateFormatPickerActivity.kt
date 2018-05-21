@@ -1,4 +1,4 @@
-package com.markantoni.linies.ui.config.activities
+package com.markantoni.linies.ui
 
 import android.app.Activity
 import android.os.Bundle
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
 import com.markantoni.linies.*
-import com.markantoni.linies.configuration.Preferences
-import com.markantoni.linies.configuration.withConfiguration
-import com.markantoni.linies.data.transfer.DataSender
-import com.markantoni.linies.util.moveElementToStart
+import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.data.DataSender
+import com.markantoni.linies.common.util.moveElementToStart
+import com.markantoni.linies.util.withConfiguration
 import kotlinx.android.synthetic.main.activity_radio_group.*
 import java.text.SimpleDateFormat
 import java.util.*

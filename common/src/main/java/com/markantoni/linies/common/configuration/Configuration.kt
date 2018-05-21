@@ -1,7 +1,6 @@
-package com.markantoni.linies.configuration
+package com.markantoni.linies.common.configuration
 
 import android.os.Parcelable
-import android.support.wearable.complications.ComplicationData
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -96,15 +95,6 @@ data class Date(override var color: Int, override var visible: Boolean, var form
 data class Complication(override var color: Int) : Hand(color), Parcelable {
     companion object {
         const val COLOR = "complication.color"
-
-        const val CENTER = 0
-        const val BOTTOM = 1
-
-        val IDS = intArrayOf(CENTER, BOTTOM)
-        val SUPPORTED_TYPES = mapOf(
-                CENTER to intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_LONG_TEXT, ComplicationData.TYPE_RANGED_VALUE),
-                BOTTOM to intArrayOf(ComplicationData.TYPE_SHORT_TEXT, ComplicationData.TYPE_RANGED_VALUE)
-        )
     }
 }
 

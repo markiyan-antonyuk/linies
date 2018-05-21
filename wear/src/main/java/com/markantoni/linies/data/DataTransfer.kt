@@ -1,4 +1,4 @@
-package com.markantoni.linies.data.transfer
+package com.markantoni.linies.data
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -7,9 +7,9 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
 import com.google.android.gms.wearable.*
-import com.markantoni.linies.data.transfer.DataTransfer.Companion.FALLBACK_ACTION
-import com.markantoni.linies.data.transfer.DataTransfer.Companion.FALLBACK_KEY
-import com.markantoni.linies.util.logd
+import com.markantoni.linies.data.DataTransfer.Companion.FALLBACK_ACTION
+import com.markantoni.linies.data.DataTransfer.Companion.FALLBACK_KEY
+import com.markantoni.linies.common.util.logd
 
 interface DataTransfer {
     companion object {

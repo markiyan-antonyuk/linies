@@ -1,15 +1,16 @@
-package com.markantoni.linies.ui.config.activities
+package com.markantoni.linies.ui
 
 import android.app.Activity
 import android.os.Bundle
 import android.widget.CheckBox
 import com.markantoni.linies.*
-import com.markantoni.linies.configuration.Preferences
-import com.markantoni.linies.configuration.VisibleHand
-import com.markantoni.linies.configuration.findHand
-import com.markantoni.linies.configuration.withConfiguration
-import com.markantoni.linies.data.transfer.DataSender
-import com.markantoni.linies.ui.watch.drawers.DrawerType
+import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.common.configuration.VisibleHand
+import com.markantoni.linies.common.configuration.findHand
+import com.markantoni.linies.common.configuration.putConfiguration
+import com.markantoni.linies.data.DataSender
+import com.markantoni.linies.common.drawers.DrawerType
+import com.markantoni.linies.util.withConfiguration
 import kotlinx.android.synthetic.main.activity_visibility_config.*
 
 class VisibilityConfigActivity : Activity() {
@@ -29,9 +30,8 @@ class VisibilityConfigActivity : Activity() {
         isChecked = hand.visible
         setOnCheckedChangeListener { _, checked ->
             dataSender.send {
-                withConfiguration(this@VisibilityConfigActivity) {
-                    hand.visible = checked
-                }
+                hand.visible = checked
+                putConfiguration(configuration)
             }
         }
     }

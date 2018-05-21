@@ -1,13 +1,13 @@
-package com.markantoni.linies.ui.config.activities
+package com.markantoni.linies.ui
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.markantoni.linies.*
-import com.markantoni.linies.configuration.Preferences
-import com.markantoni.linies.configuration.withConfiguration
-import com.markantoni.linies.data.transfer.DataSender
-import com.markantoni.linies.util.startActivityWithRevealAnimation
+import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.data.DataSender
+import com.markantoni.linies.common.util.startActivityWithRevealAnimation
+import com.markantoni.linies.util.withConfiguration
 import kotlinx.android.synthetic.main.activity_root_config.*
 import java.text.SimpleDateFormat
 import java.util.*

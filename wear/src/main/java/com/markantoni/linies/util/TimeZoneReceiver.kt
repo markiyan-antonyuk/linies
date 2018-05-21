@@ -1,4 +1,4 @@
-package com.markantoni.linies
+package com.markantoni.linies.util
 
 import android.content.BroadcastReceiver
 import android.content.Context

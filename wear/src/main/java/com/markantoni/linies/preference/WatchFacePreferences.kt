@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.preference.PreferenceManager
-import com.markantoni.linies.Key
+import com.markantoni.linies.util.Key
 import com.markantoni.linies.R
 
 @Deprecated("Soon to be removed")

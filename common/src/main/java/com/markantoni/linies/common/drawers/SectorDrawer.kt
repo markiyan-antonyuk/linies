@@ -1,14 +1,14 @@
-package com.markantoni.linies.ui.watch.drawers
+package com.markantoni.linies.common.drawers
 
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.view.animation.AccelerateDecelerateInterpolator
-import com.markantoni.linies.configuration.Configuration
-import com.markantoni.linies.configuration.Hand
-import com.markantoni.linies.util.calculatePercentage
-import com.markantoni.linies.util.calculatePercentageOf
-import com.markantoni.linies.util.scale
+import com.markantoni.linies.common.configuration.Configuration
+import com.markantoni.linies.common.configuration.Hand
+import com.markantoni.linies.common.util.calculatePercentage
+import com.markantoni.linies.common.util.calculatePercentageOf
+import com.markantoni.linies.common.util.scale
 import java.util.*
 
 abstract class SectorDrawer(color: Int, val type: Type,

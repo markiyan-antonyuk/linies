@@ -1,11 +1,12 @@
 @file:Suppress("DEPRECATION")
 
-package com.markantoni.linies.configuration
+package com.markantoni.linies.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.markantoni.linies.Type
+import com.markantoni.linies.util.Type
+import com.markantoni.linies.common.configuration.*
 import com.markantoni.linies.preference.WatchFacePreferences
 
 

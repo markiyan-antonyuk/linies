@@ -1,4 +1,4 @@
-package com.markantoni.linies.util
+package com.markantoni.linies.common.util
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

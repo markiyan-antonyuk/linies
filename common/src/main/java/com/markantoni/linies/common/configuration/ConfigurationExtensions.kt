@@ -1,15 +1,15 @@
-package com.markantoni.linies.configuration
+package com.markantoni.linies.common.configuration
 
-import android.content.Context
 import android.os.Bundle
-import com.markantoni.linies.ui.watch.drawers.DrawerType
+import com.markantoni.linies.common.drawers.DrawerType
 
-fun Bundle.withConfiguration(context: Context, setup: Configuration.() -> Unit) {
-    Preferences.configuration(context)
-            .also { it.setup() }
-            .write(::putInt, ::putBoolean, ::putString)
+
+//fixme
+fun Bundle.putConfiguration(configuration: Configuration) {
+    configuration.write(::putInt, ::putBoolean, ::putString)
 }
 
+//fixme
 fun Bundle.getConfiguration() = Configuration.read(::getInt, ::getBoolean, ::getString)
 
 fun Configuration.findHand(type: DrawerType): Hand = when (type) {

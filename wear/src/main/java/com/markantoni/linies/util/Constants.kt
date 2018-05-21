@@ -1,4 +1,4 @@
-package com.markantoni.linies
+package com.markantoni.linies.util
 
 @Deprecated("Soon to be removed")
 object Key {
