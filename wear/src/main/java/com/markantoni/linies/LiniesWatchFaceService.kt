@@ -9,6 +9,7 @@ import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
+import com.markantoni.linies.common.configuration.Complication.Companion.CENTER
 import com.markantoni.linies.preferences.Preferences
 import com.markantoni.linies.common.configuration.getConfiguration
 import com.markantoni.linies.common.drawers.DateDrawer
@@ -118,7 +119,7 @@ class LiniesWatchFaceService : CanvasWatchFaceService() {
                 translate(bounds.centerX().toFloat(), bounds.centerY().toFloat())
                 val digitalDrawerVisible = drawers.findInstance<DigitalDrawer>()?.visible ?: false
                 val complicationDrawer = drawers.findInstance<ComplicationsDrawer>()
-                if (complicationDrawer != null && complicationDrawer.isComplicationVisible(Complication.CENTER) || !digitalDrawerVisible) {
+                if (complicationDrawer != null && complicationDrawer.isComplicationVisible(CENTER) || !digitalDrawerVisible) {
                     val digitalDrawer = drawers.findInstance<DigitalDrawer>()
                     val dateDrawer = drawers.findInstance<DateDrawer>()
                     drawers.filter { it != digitalDrawer && it != dateDrawer }.forEach { it.draw(canvas, calendar) }

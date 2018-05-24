@@ -94,6 +94,9 @@ data class Date(override var color: Int, override var visible: Boolean, var form
 @Parcelize
 data class Complication(override var color: Int) : Hand(color), Parcelable {
     companion object {
+        const val CENTER = 0
+        const val BOTTOM = 1
+
         const val COLOR = "complication.color"
     }
 }

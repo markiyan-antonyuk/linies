@@ -1,11 +1,10 @@
 package com.markantoni.linies.complications
 
 import android.support.wearable.complications.ComplicationData
+import com.markantoni.linies.common.configuration.Complication.Companion.BOTTOM
+import com.markantoni.linies.common.configuration.Complication.Companion.CENTER
 
 object Complication {
-    const val CENTER = 0
-    const val BOTTOM = 1
-
     val IDS = intArrayOf(CENTER, BOTTOM)
     val SUPPORTED_TYPES = mapOf(
             CENTER to intArrayOf(ComplicationData.TYPE_ICON, ComplicationData.TYPE_LONG_TEXT, ComplicationData.TYPE_RANGED_VALUE),

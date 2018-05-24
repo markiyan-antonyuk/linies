@@ -6,8 +6,11 @@ import android.support.wearable.complications.ComplicationHelperActivity
 import android.support.wearable.complications.rendering.ComplicationDrawable
 import android.util.SparseArray
 import com.markantoni.linies.*
-import com.markantoni.linies.configuration.Complication
-import com.markantoni.linies.configuration.Configuration
+import com.markantoni.linies.common.configuration.Complication.Companion.BOTTOM
+import com.markantoni.linies.common.configuration.Complication.Companion.CENTER
+import com.markantoni.linies.common.configuration.Configuration
+import com.markantoni.linies.common.drawers.Drawer
+import com.markantoni.linies.complications.Complication
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
 import java.util.*
 
@@ -38,12 +41,12 @@ class ComplicationsDrawer(private val service: LiniesWatchFaceService, color: In
         var width = (radius / 2f).toInt()
         var height = (radius / 4f).toInt()
         var offset = -(radius / 1.5f).toInt()
-        drawables[Complication.BOTTOM].setBounds(-width / 2, -offset - height, width / 2, -offset)
+        drawables[BOTTOM].setBounds(-width / 2, -offset - height, width / 2, -offset)
 
         width = (radius * 1.3f).toInt()
         height = (radius / 3f).toInt()
         offset = 0
-        drawables[Complication.CENTER].setBounds(-width / 2, offset, width / 2, offset + height)
+        drawables[CENTER].setBounds(-width / 2, offset, width / 2, offset + height)
     }
 
     override fun updateAmbientMode(ambient: Boolean) = Complication.IDS.forEach { drawables[it].setInAmbientMode(ambient) }

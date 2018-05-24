@@ -7,6 +7,8 @@ import android.support.wearable.complications.ComplicationHelperActivity
 import android.widget.TextView
 import com.markantoni.linies.complications.Complication
 import com.markantoni.linies.R
+import com.markantoni.linies.common.configuration.Complication.Companion.BOTTOM
+import com.markantoni.linies.common.configuration.Complication.Companion.CENTER
 import com.markantoni.linies.complications.ComplicationsInfoRetriever
 import com.markantoni.linies.common.util.startActivityWithRevealAnimation
 import com.markantoni.linies.util.getWatchFaceServiceComponentName
@@ -18,8 +20,8 @@ class ComplicationsConfigActivity : Activity() {
         setContentView(R.layout.activity_complications_config)
         ComplicationsInfoRetriever.init(this)
 
-        configCenter.setOnClickListener { openComplicationConfig(Complication.CENTER) }
-        configBottom.setOnClickListener { openComplicationConfig(Complication.BOTTOM) }
+        configCenter.setOnClickListener { openComplicationConfig(CENTER) }
+        configBottom.setOnClickListener { openComplicationConfig(BOTTOM) }
 
     }
 
@@ -29,8 +31,8 @@ class ComplicationsConfigActivity : Activity() {
         ComplicationsInfoRetriever.retrieveInfo(this, { id, icon, name ->
             val drawable = icon.loadDrawable(this)
             when (id) {
-                Complication.CENTER -> configCenter.setupWithComplication(drawable, name)
-                Complication.BOTTOM -> configBottom.setupWithComplication(drawable, name)
+                CENTER -> configCenter.setupWithComplication(drawable, name)
+                BOTTOM -> configBottom.setupWithComplication(drawable, name)
             }
         })
     }
