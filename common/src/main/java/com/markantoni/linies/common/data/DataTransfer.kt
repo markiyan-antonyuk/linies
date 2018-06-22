@@ -23,7 +23,7 @@ interface DataTransfer {
     val dataClient: DataClient
 }
 
-class DataSender(private val context: Context, private val useFallback: Boolean) : DataTransfer {
+class DataSender(private val context: Context, private val useFallback: Boolean = false) : DataTransfer {
     override val dataClient: DataClient
         get() = Wearable.getDataClient(context)
 
@@ -42,7 +42,7 @@ class DataSender(private val context: Context, private val useFallback: Boolean)
     }
 }
 
-class DataReceiver(private val context: Context, private val useFallback: Boolean, private val onDataListener: (Bundle) -> Unit) : BroadcastReceiver(), DataTransfer, DataClient.OnDataChangedListener {
+class DataReceiver(private val context: Context, private val useFallback: Boolean = false, private val onDataListener: (Bundle) -> Unit) : BroadcastReceiver(), DataTransfer, DataClient.OnDataChangedListener {
     override val dataClient: DataClient
         get() = Wearable.getDataClient(context)
 

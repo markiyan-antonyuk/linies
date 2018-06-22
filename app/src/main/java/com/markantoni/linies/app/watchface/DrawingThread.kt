@@ -1,4 +1,4 @@
-package com.markantoni.linies.watchface
+package com.markantoni.linies.app.watchface
 
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable

@@ -1,4 +1,4 @@
-package com.markantoni.linies.watchface
+package com.markantoni.linies.app.watchface
 
 import android.graphics.Color
 import com.markantoni.linies.common.configuration.*
