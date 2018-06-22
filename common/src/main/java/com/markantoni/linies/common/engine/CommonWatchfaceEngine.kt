@@ -10,13 +10,14 @@ import com.markantoni.linies.common.drawers.DateDrawer
 import com.markantoni.linies.common.drawers.DigitalDrawer
 import com.markantoni.linies.common.drawers.Drawer
 import com.markantoni.linies.common.drawers.Drawers
-import com.markantoni.linies.common.util.SecondsTimer
+import com.markantoni.linies.common.util.Timer
 import com.markantoni.linies.common.util.findInstance
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 abstract class CommonWatchfaceEngine : WatchfaceEngine {
 
-    private val secondsTimer = SecondsTimer { invalidate() }
+    private val secondsTimer = Timer(TimeUnit.SECONDS) { invalidate() }
     protected val calendar = Calendar.getInstance()
     protected lateinit var drawers: MutableList<Drawer>
 
