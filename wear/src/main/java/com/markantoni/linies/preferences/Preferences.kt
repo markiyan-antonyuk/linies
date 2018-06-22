@@ -3,7 +3,6 @@
 package com.markantoni.linies.preferences
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.markantoni.linies.util.Type
 import com.markantoni.linies.common.configuration.*
@@ -13,8 +12,6 @@ import com.markantoni.linies.preference.WatchFacePreferences
 class Preferences(context: Context) {
 
     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-    private lateinit var editor: SharedPreferences.Editor
-
     private val oldPrefs = WatchFacePreferences(context)
 
     var configuration: Configuration

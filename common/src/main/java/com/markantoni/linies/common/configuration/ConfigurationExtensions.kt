@@ -4,13 +4,11 @@ import android.os.Bundle
 import com.markantoni.linies.common.drawers.DrawerType
 
 
-//fixme
 fun Bundle.putConfiguration(configuration: Configuration) {
-    configuration.write(::putInt, ::putBoolean, ::putString)
+    configuration.write(::putInt, { s, v -> putBoolean(s, v) }, ::putString)
 }
 
-//fixme
-fun Bundle.getConfiguration() = Configuration.read(::getInt, ::getBoolean, ::getString)
+fun Bundle.getConfiguration() = Configuration.read(::getInt, { getBoolean(it) }, ::getString)
 
 fun Configuration.findHand(type: DrawerType): Hand = when (type) {
     DrawerType.SECOND -> second

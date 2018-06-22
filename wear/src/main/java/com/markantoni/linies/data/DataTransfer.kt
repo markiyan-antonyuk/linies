@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.support.v4.content.LocalBroadcastManager
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.wearable.*
 import com.markantoni.linies.data.DataTransfer.Companion.FALLBACK_ACTION
 import com.markantoni.linies.data.DataTransfer.Companion.FALLBACK_KEY
