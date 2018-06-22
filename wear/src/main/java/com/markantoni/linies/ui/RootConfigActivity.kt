@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.markantoni.linies.*
 import com.markantoni.linies.preferences.Preferences
-import com.markantoni.linies.data.DataSender
+import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.util.startActivityWithRevealAnimation
 import com.markantoni.linies.util.withConfiguration
 import kotlinx.android.synthetic.main.activity_root_config.*

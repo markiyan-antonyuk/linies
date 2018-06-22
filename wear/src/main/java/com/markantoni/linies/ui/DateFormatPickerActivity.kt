@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.RadioButton
 import com.markantoni.linies.*
 import com.markantoni.linies.preferences.Preferences
-import com.markantoni.linies.data.DataSender
+import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.util.moveElementToStart
 import com.markantoni.linies.util.withConfiguration
 import kotlinx.android.synthetic.main.activity_radio_group.*

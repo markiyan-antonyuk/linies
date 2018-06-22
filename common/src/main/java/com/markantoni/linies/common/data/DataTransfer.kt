@@ -1,4 +1,4 @@
-package com.markantoni.linies.data
+package com.markantoni.linies.common.data
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -7,8 +7,8 @@ import android.content.IntentFilter
 import android.os.Bundle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.wearable.*
-import com.markantoni.linies.data.DataTransfer.Companion.FALLBACK_ACTION
-import com.markantoni.linies.data.DataTransfer.Companion.FALLBACK_KEY
+import com.markantoni.linies.common.data.DataTransfer.Companion.FALLBACK_ACTION
+import com.markantoni.linies.common.data.DataTransfer.Companion.FALLBACK_KEY
 import com.markantoni.linies.common.util.logd
 
 interface DataTransfer {
@@ -30,15 +30,14 @@ class DataSender(private val context: Context, private val useFallback: Boolean)
     fun send(data: Bundle.() -> Unit) {
         val bundle = Bundle().apply { data() }
         logd("Sending data: $bundle")
+        PutDataMapRequest.create(DataTransfer.URI_PATH).apply {
+            dataMap.putDataMap(DataTransfer.KEY_DATA_MAP, DataMap.fromBundle(bundle))
+            dataClient.putDataItem(asPutDataRequest().setUrgent())
+        }
         if (useFallback) {
             LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(FALLBACK_ACTION).apply {
                 putExtra(FALLBACK_KEY, bundle)
             })
-        } else {
-            PutDataMapRequest.create(DataTransfer.URI_PATH).apply {
-                dataMap.putDataMap(DataTransfer.KEY_DATA_MAP, DataMap.fromBundle(bundle))
-                dataClient.putDataItem(asPutDataRequest().setUrgent())
-            }
         }
     }
 }
@@ -48,19 +47,13 @@ class DataReceiver(private val context: Context, private val useFallback: Boolea
         get() = Wearable.getDataClient(context)
 
     fun connect() {
-        if (useFallback) {
-            LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter(FALLBACK_ACTION))
-        } else {
-            dataClient.addListener(this)
-        }
+        dataClient.addListener(this)
+        if (useFallback) LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter(FALLBACK_ACTION))
     }
 
     fun disconnect() {
-        if (useFallback) {
-            LocalBroadcastManager.getInstance(context).unregisterReceiver(this)
-        } else {
-            dataClient.removeListener(this)
-        }
+        dataClient.removeListener(this)
+        if (useFallback) LocalBroadcastManager.getInstance(context).unregisterReceiver(this)
     }
 
     override fun onReceive(context: Context, intent: Intent) {

@@ -8,9 +8,8 @@ import com.markantoni.linies.preferences.Preferences
 import com.markantoni.linies.common.configuration.VisibleHand
 import com.markantoni.linies.common.configuration.findHand
 import com.markantoni.linies.common.configuration.putConfiguration
-import com.markantoni.linies.data.DataSender
+import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.drawers.DrawerType
-import com.markantoni.linies.util.withConfiguration
 import kotlinx.android.synthetic.main.activity_visibility_config.*
 
 class VisibilityConfigActivity : Activity() {

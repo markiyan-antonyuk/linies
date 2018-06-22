@@ -10,7 +10,7 @@ import com.markantoni.linies.common.configuration.Configuration
 import com.markantoni.linies.common.engine.CommonWatchfaceEngine
 import com.markantoni.linies.complications.Complication
 import com.markantoni.linies.complications.ComplicationsDrawer
-import com.markantoni.linies.data.DataReceiver
+import com.markantoni.linies.common.data.DataReceiver
 import com.markantoni.linies.preferences.Preferences
 import com.markantoni.linies.util.TimeZoneReceiver
 import java.util.*

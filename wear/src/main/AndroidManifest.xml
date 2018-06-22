@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:tools="http://schemas.android.com/tools"
-    package="com.markantoni.linies"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.markantoni.linies">
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -36,6 +36,9 @@
                 android:resource="@drawable/preview" />
             <meta-data
                 android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
+                android:value="com.markantoni.linies.CONFIG" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.companionConfigurationAction"
                 android:value="com.markantoni.linies.CONFIG" />
 
             <intent-filter>
