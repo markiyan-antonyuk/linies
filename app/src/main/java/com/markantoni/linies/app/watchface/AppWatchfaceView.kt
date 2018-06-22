@@ -7,7 +7,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 
 class AppWatchfaceView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : SurfaceView(context, attrs, defStyleAttr), SurfaceHolder.Callback {
-    private val engine = AppWatchfaceEngine(this)
+    val engine = AppWatchfaceEngine(this)
     private var drawingThread: DrawingThread? = null
 
     init {
@@ -35,4 +35,6 @@ class AppWatchfaceView @JvmOverloads constructor(context: Context, attrs: Attrib
         drawingThread?.stop()
         engine.onDestroy()
     }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) = super.onMeasure(widthMeasureSpec, widthMeasureSpec)
 }

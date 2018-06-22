@@ -35,6 +35,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     api 'com.google.android.gms:play-services-wearable:15.0.1'
+    api 'androidx.appcompat:appcompat:1.0.0-alpha3'
     api 'androidx.legacy:legacy-support-v4:1.0.0-alpha3'
     api 'androidx.percentlayout:percentlayout:1.0.0-alpha3'
     api 'androidx.constraintlayout:constraintlayout:1.1.2'

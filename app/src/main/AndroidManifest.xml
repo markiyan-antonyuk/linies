@@ -7,7 +7,7 @@
         android:allowBackup="false"
         android:icon="@android:drawable/ic_dialog_alert"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
+        android:theme="@style/LiniesTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ConfigurationActivity">
             <!-- fixme this filter is only for development -->

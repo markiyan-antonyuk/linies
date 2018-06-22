@@ -14,6 +14,7 @@ import android.widget.Toast
 fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) = Toast.makeText(this, message, duration).show()
 
 fun <T> MutableList<T>.moveToStart(index: Int) {
+    if (index == -1) return
     val item = removeAt(index)
     add(0, item)
 }
