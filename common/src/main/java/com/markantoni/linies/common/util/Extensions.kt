@@ -3,6 +3,7 @@ package com.markantoni.linies.common.util
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Canvas
 import android.graphics.RectF
 import androidx.annotation.LayoutRes
 import androidx.core.app.ActivityOptionsCompat
@@ -82,3 +83,5 @@ fun ByteArray.toMap(): Map<String, String> {
 }
 
 fun CompoundButton.setOnCheckedChangedListener(listener: (Boolean) -> Unit) = setOnCheckedChangeListener { _, b -> listener(b) }
+
+val Canvas.radius: Float get() = width / 2f

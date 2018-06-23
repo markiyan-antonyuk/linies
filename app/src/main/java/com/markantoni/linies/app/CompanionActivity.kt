@@ -22,7 +22,7 @@ class CompanionActivity : AppCompatActivity() {
             })
         }
 
-        ambientCheckBox.setOnCheckedChangedListener {
+        ambientSwitch.setOnCheckedChangedListener {
             engine.apply {
                 isInAmbientMode = it
                 onAmbientModeChanged(it)
