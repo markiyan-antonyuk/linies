@@ -4,12 +4,16 @@
     package="com.markantoni.linies.app">
 
     <application
+        android:name=".CompanionApp"
         android:allowBackup="false"
         android:icon="@android:drawable/ic_dialog_alert"
         android:label="@string/app_name"
         android:theme="@style/LiniesTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ConfigurationActivity">
+
+        <activity
+            android:name=".CompanionActivity"
+            android:screenOrientation="portrait">
             <!-- fixme this filter is only for development -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +27,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-    </application>
 
+    </application>
 </manifest>

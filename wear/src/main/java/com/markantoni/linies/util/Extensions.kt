@@ -9,7 +9,7 @@ import com.markantoni.linies.preferences.Preferences
 
 fun Context.getWatchFaceServiceComponentName() = ComponentName(this, LiniesWatchFaceService::class.java)
 
-fun Bundle.withConfiguration(context: Context, setup: Configuration.() -> Unit) {
+fun Bundle.withConfiguration(context: Context, setup: Configuration.() -> Unit = {}) {
     Preferences.configuration(context)
             .also { it.setup() }
             .write(::putInt, ::putBoolean, ::putString)

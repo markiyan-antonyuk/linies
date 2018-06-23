@@ -5,9 +5,15 @@ import android.graphics.Rect
 import android.support.wearable.complications.ComplicationData
 import android.support.wearable.watchface.CanvasWatchFaceService
 import android.view.SurfaceHolder
+import com.markantoni.linies.common.util.Logger
 
 
 class LiniesWatchFaceService : CanvasWatchFaceService() {
+    override fun onCreate() {
+        super.onCreate()
+        Logger.init("Wear")
+    }
+
     override fun onCreateEngine() = Engine()
 
     inner class Engine : CanvasWatchFaceService.Engine() {

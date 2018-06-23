@@ -9,12 +9,17 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.wearable.*
 import com.markantoni.linies.common.data.DataTransfer.Companion.FALLBACK_ACTION
 import com.markantoni.linies.common.data.DataTransfer.Companion.FALLBACK_KEY
+import com.markantoni.linies.common.data.DataTransfer.Companion.KEY_REQUEST
 import com.markantoni.linies.common.util.logd
 
 interface DataTransfer {
     companion object {
         const val URI_PATH = "/com.markantoni.linies.data_transfer"
+        const val WEAR_URI_PATH = "/com.markantoni.linies.data.wear"
+        const val COMPANION_URI_PATH = "/com.markantoni.linies.data.companion"
+
         const val KEY_DATA_MAP = "key.data.map"
+        const val KEY_REQUEST = "key.data.request"
 
         const val FALLBACK_ACTION = "fallback.intent"
         const val FALLBACK_KEY = "fallback.key"
@@ -40,11 +45,12 @@ class DataSender(private val context: Context, private val useFallback: Boolean 
             })
         }
     }
+
+    fun sendRequestData() = send { putBoolean(KEY_REQUEST, true) }
 }
 
 class DataReceiver(private val context: Context, private val useFallback: Boolean = false, private val onDataListener: (Bundle) -> Unit) : BroadcastReceiver(), DataTransfer, DataClient.OnDataChangedListener {
-    override val dataClient: DataClient
-        get() = Wearable.getDataClient(context)
+    override val dataClient: DataClient = Wearable.getDataClient(context)
 
     fun connect() {
         dataClient.addListener(this)
@@ -58,7 +64,7 @@ class DataReceiver(private val context: Context, private val useFallback: Boolea
 
     override fun onReceive(context: Context, intent: Intent) {
         val bundle = intent.getBundleExtra(FALLBACK_KEY)
-        logd("Received data: $bundle ")
+        logd("Received fallback data: $bundle ")
         onDataListener(bundle)
     }
 

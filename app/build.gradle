@@ -11,9 +11,6 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -28,6 +25,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation "androidx.drawerlayout:drawerlayout:1.0.0-alpha3"
+    implementation "com.google.android.material:material:1.0.0-alpha3"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-alpha1"
 
     implementation project(':common')
 }
