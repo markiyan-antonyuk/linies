@@ -9,7 +9,7 @@ import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.util.logd
 
 class CompanionViewModel(application: Application) : AndroidViewModel(application) {
-    private val dataReceiver = DataReceiver(application, onDataListener = ::onDataReceived)
+    private val dataReceiver = DataReceiver(application)
 
     val isLoading = MutableLiveData<Boolean>()
 
@@ -24,7 +24,7 @@ class CompanionViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun requestConfiguration() {
         isLoading.value = true
-        DataSender(getApplication()).sendRequestData()
+        DataSender(getApplication()).send("request config")
     }
 
     private fun onDataReceived(bundle: Bundle) {

@@ -13,7 +13,7 @@ import com.markantoni.linies.common.drawers.DrawerType
 import kotlinx.android.synthetic.main.activity_visibility_config.*
 
 class VisibilityConfigActivity : Activity() {
-    private val dataSender by lazy { DataSender(this, true) }
+    private val dataSender by lazy { DataSender(this) }
     private val configuration by lazy { Preferences.configuration(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

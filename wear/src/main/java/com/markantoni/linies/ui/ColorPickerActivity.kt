@@ -26,7 +26,7 @@ class ColorPickerActivity : Activity() {
         }
     }
 
-    private val dataSender by lazy { DataSender(this, true) }
+    private val dataSender by lazy { DataSender(this) }
     private val type by lazy { intent.getSerializableExtra(EXTRA_TYPE) as DrawerType }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,6 +1,5 @@
 package com.markantoni.linies
 
-import android.os.Bundle
 import android.support.wearable.complications.ComplicationData
 import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceService
@@ -8,15 +7,13 @@ import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
 import com.markantoni.linies.common.configuration.Complication.Companion.CENTER
 import com.markantoni.linies.common.configuration.Configuration
+import com.markantoni.linies.common.data.DataReceiver
 import com.markantoni.linies.common.engine.CommonWatchfaceEngine
+import com.markantoni.linies.common.util.logd
 import com.markantoni.linies.complications.Complication
 import com.markantoni.linies.complications.ComplicationsDrawer
-import com.markantoni.linies.common.data.DataReceiver
-import com.markantoni.linies.common.data.DataSender
-import com.markantoni.linies.common.data.DataTransfer
 import com.markantoni.linies.preferences.Preferences
 import com.markantoni.linies.util.TimeZoneReceiver
-import com.markantoni.linies.util.withConfiguration
 import java.util.*
 
 class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, private val engine: CanvasWatchFaceService.Engine) : CommonWatchfaceEngine() {
@@ -27,7 +24,7 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
 
     private val preferences by lazy { Preferences(service) }
     private val timeZoneReceiver = TimeZoneReceiver { updateTimeZone(true) }
-    private val dataReceiver by lazy { DataReceiver(service, true, ::handleNewData) }
+    private val dataReceiver by lazy { DataReceiver(service) }
     private lateinit var complicationsDrawer: ComplicationsDrawer
 
     override fun onCreate(holder: SurfaceHolder) {
@@ -45,7 +42,10 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
         complicationsDrawer = ComplicationsDrawer(service, configuration.complication.color)
         drawers.add(complicationsDrawer)
 
-        dataReceiver.connect()
+        dataReceiver.listenData(::updateConfiguration)
+        dataReceiver.listenMessages {
+            logd("message received")
+        }
     }
 
     override fun onDestroy() {
@@ -77,13 +77,5 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
     private fun updateTimeZone(invalidate: Boolean = false) {
         calendar.timeZone = TimeZone.getDefault()
         if (invalidate) invalidate()
-    }
-
-    private fun handleNewData(bundle: Bundle) {
-        if (bundle.getBoolean(DataTransfer.KEY_REQUEST, false)) {
-            DataSender(service, false).send { withConfiguration(service) }
-        } else {
-            updateConfiguration(bundle)
-        }
     }
 }
