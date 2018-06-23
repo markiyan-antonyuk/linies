@@ -9,6 +9,8 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import android.widget.Switch
 import android.widget.Toast
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -68,6 +70,7 @@ fun Map<String, String>.toByteArray(): ByteArray {
     return bytes
 }
 
+@Suppress("UNCHECKED_CAST")
 fun ByteArray.toMap(): Map<String, String> {
     val byteIn = ByteArrayInputStream(this)
     val objectIn = ObjectInputStream(byteIn)
@@ -77,3 +80,5 @@ fun ByteArray.toMap(): Map<String, String> {
     byteIn.close()
     return map
 }
+
+fun CompoundButton.setOnCheckedChangedListener(listener: (Boolean) -> Unit) = setOnCheckedChangeListener { _, b -> listener(b) }

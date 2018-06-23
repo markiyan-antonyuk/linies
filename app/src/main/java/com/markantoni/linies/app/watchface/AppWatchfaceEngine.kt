@@ -6,8 +6,10 @@ import com.markantoni.linies.common.engine.CommonWatchfaceEngine
 
 class AppWatchfaceEngine(private val view: AppWatchfaceView) : CommonWatchfaceEngine() {
     override val isVisible: Boolean get() = true
-    override val isInAmbientMode: Boolean get() = false
-    override val isCentralComplicationVisible: Boolean get() = false
+
+    override var isInAmbientMode: Boolean = false
+    override var isCentralComplicationVisible: Boolean = false
+
     override var configuration: Configuration = Configuration(
             Second(Color.WHITE),
             Minute(Color.WHITE),

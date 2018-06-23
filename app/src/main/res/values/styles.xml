@@ -6,4 +6,12 @@
         <item name="android:colorPrimaryDark">@color/primary_dark</item>
         <item name="android:colorAccent">@color/accent</item>
     </style>
+
+    <style name="ConfigItem">
+        <item name="android:padding">4dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
 </resources>
