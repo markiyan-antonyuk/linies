@@ -5,16 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
-import com.markantoni.linies.*
-import com.markantoni.linies.common.data.DataProtocol
-import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.R
 import com.markantoni.linies.common.data.DataSender
+import com.markantoni.linies.common.data.DataTransfer
 import com.markantoni.linies.common.util.moveElementToStart
-import com.markantoni.linies.util.withConfiguration
+import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.util.configurationFrom
 import kotlinx.android.synthetic.main.activity_radio_group.*
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.Date
 
 class DateFormatPickerActivity : Activity() {
     private val dataSender by lazy { DataSender(this) }
@@ -41,9 +40,6 @@ class DateFormatPickerActivity : Activity() {
         }
     }
 
-    private fun sendUpdateDateFormat(format: String) = dataSender.send(DataProtocol.WEAR) {
-        withConfiguration(this@DateFormatPickerActivity) {
-            date.format = format
-        }
-    }
+    private fun sendUpdateDateFormat(format: String) = dataSender.send(DataTransfer.Protocol.LOCAL,
+            configurationFrom(this) { date.format = format })
 }

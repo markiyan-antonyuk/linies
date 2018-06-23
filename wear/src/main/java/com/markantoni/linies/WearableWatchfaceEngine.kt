@@ -7,8 +7,8 @@ import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
 import com.markantoni.linies.common.configuration.Complication.Companion.CENTER
 import com.markantoni.linies.common.configuration.Configuration
-import com.markantoni.linies.common.data.DataProtocol
 import com.markantoni.linies.common.data.DataReceiver
+import com.markantoni.linies.common.data.DataTransfer
 import com.markantoni.linies.common.engine.CommonWatchfaceEngine
 import com.markantoni.linies.complications.Complication
 import com.markantoni.linies.complications.ComplicationsDrawer
@@ -42,8 +42,7 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
         complicationsDrawer = ComplicationsDrawer(service, configuration.complication.color)
         drawers.add(complicationsDrawer)
 
-        dataReceiver.listenData(DataProtocol.WEAR, ::updateConfiguration)
-        dataReceiver.listenMessages(DataProtocol.COMPANION) {}
+        dataReceiver.listen(DataTransfer.MessageType.Config(DataTransfer.Protocol.LOCAL), config = ::updateConfiguration)
     }
 
     override fun onDestroy() {

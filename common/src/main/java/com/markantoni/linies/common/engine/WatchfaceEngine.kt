@@ -22,7 +22,7 @@ interface WatchfaceEngine {
     fun invalidate()
 
     //custom
-    fun updateConfiguration(bundle: Bundle)
+    fun updateConfiguration(configuration: Configuration)
     fun saveConfiguration(configuration: Configuration)
 
     fun onTimeTick() = invalidate()

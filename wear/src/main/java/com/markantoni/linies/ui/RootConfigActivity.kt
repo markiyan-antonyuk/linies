@@ -3,16 +3,15 @@ package com.markantoni.linies.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.markantoni.linies.*
-import com.markantoni.linies.common.data.DataProtocol
-import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.R
 import com.markantoni.linies.common.data.DataSender
+import com.markantoni.linies.common.data.DataTransfer
 import com.markantoni.linies.common.util.startActivityWithRevealAnimation
-import com.markantoni.linies.util.withConfiguration
+import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.util.configurationFrom
 import kotlinx.android.synthetic.main.activity_root_config.*
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.Date
 
 class RootConfigActivity : Activity() {
     private val dataSender by lazy { DataSender(this) }
@@ -28,21 +27,16 @@ class RootConfigActivity : Activity() {
         configAnimate.apply {
             isChecked = configuration.animation.enabled
             setOnCheckedChangeListener { _, checked ->
-                dataSender.send(DataProtocol.WEAR) {
-                    withConfiguration(this@RootConfigActivity) {
-                        animation.enabled = checked
-                    }
-                }
+                dataSender.send(DataTransfer.Protocol.LOCAL,
+                        configurationFrom(this@RootConfigActivity) { animation.enabled = checked })
             }
         }
+
         config24Hours.apply {
             isChecked = configuration.digital.is24
             setOnCheckedChangeListener { _, checked ->
-                dataSender.send(DataProtocol.WEAR) {
-                    withConfiguration(this@RootConfigActivity) {
-                        digital.is24 = checked
-                    }
-                }
+                dataSender.send(DataTransfer.Protocol.LOCAL,
+                        configurationFrom(this@RootConfigActivity) { digital.is24 = checked })
             }
         }
         configDateFormat.apply {

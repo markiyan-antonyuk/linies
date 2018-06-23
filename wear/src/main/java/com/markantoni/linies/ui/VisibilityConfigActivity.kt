@@ -3,14 +3,13 @@ package com.markantoni.linies.ui
 import android.app.Activity
 import android.os.Bundle
 import android.widget.CheckBox
-import com.markantoni.linies.*
-import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.R
 import com.markantoni.linies.common.configuration.VisibleHand
 import com.markantoni.linies.common.configuration.findHand
-import com.markantoni.linies.common.configuration.putConfiguration
-import com.markantoni.linies.common.data.DataProtocol
 import com.markantoni.linies.common.data.DataSender
+import com.markantoni.linies.common.data.DataTransfer
 import com.markantoni.linies.common.drawers.DrawerType
+import com.markantoni.linies.preferences.Preferences
 import kotlinx.android.synthetic.main.activity_visibility_config.*
 
 class VisibilityConfigActivity : Activity() {
@@ -29,10 +28,7 @@ class VisibilityConfigActivity : Activity() {
         val hand = configuration.findHand(type) as VisibleHand
         isChecked = hand.visible
         setOnCheckedChangeListener { _, checked ->
-            dataSender.send(DataProtocol.WEAR) {
-                hand.visible = checked
-                putConfiguration(configuration)
-            }
+            dataSender.send(DataTransfer.Protocol.LOCAL, configuration.apply { hand.visible = checked })
         }
     }
 }

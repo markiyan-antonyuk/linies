@@ -14,3 +14,6 @@ fun Bundle.withConfiguration(context: Context, setup: Configuration.() -> Unit =
             .also { it.setup() }
             .write(::putInt, ::putBoolean, ::putString)
 }
+
+fun configurationFrom(context: Context, setup: Configuration.() -> Unit = {}) =
+        Preferences.configuration(context).apply { setup() }

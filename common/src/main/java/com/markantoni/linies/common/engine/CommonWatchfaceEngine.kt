@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.SurfaceHolder
+import com.markantoni.linies.common.configuration.Configuration
 import com.markantoni.linies.common.configuration.getConfiguration
 import com.markantoni.linies.common.drawers.DateDrawer
 import com.markantoni.linies.common.drawers.DigitalDrawer
@@ -85,12 +86,12 @@ abstract class CommonWatchfaceEngine : WatchfaceEngine {
         if (isVisible && !isInAmbientMode && isAnimating) invalidate()
     }
 
-    override fun updateConfiguration(bundle: Bundle) {
-        bundle.getConfiguration().apply {
+    override fun updateConfiguration(configuration: Configuration) {
+        configuration.apply {
             saveConfiguration(this)
             drawers.forEach { it.updateConfiguration(this) }
             isAnimating = animation.enabled
+            invalidate()
         }
-        invalidate()
     }
 }

@@ -9,14 +9,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
-import com.markantoni.linies.*
-import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.R
 import com.markantoni.linies.common.configuration.findHand
-import com.markantoni.linies.common.data.DataProtocol
-import com.markantoni.linies.common.drawers.DrawerType
 import com.markantoni.linies.common.data.DataSender
+import com.markantoni.linies.common.data.DataTransfer
+import com.markantoni.linies.common.drawers.DrawerType
 import com.markantoni.linies.common.util.moveToStart
-import com.markantoni.linies.util.withConfiguration
+import com.markantoni.linies.preferences.Preferences
+import com.markantoni.linies.util.configurationFrom
 import kotlinx.android.synthetic.main.activity_radio_group.*
 
 class ColorPickerActivity : Activity() {
@@ -58,9 +58,6 @@ class ColorPickerActivity : Activity() {
         }
     }
 
-    private fun sendUpdatedColor(color: Int) = dataSender.send(DataProtocol.WEAR) {
-        withConfiguration(this@ColorPickerActivity) {
-            findHand(type).color = color
-        }
-    }
+    private fun sendUpdatedColor(color: Int) = dataSender.send(DataTransfer.Protocol.LOCAL,
+            configurationFrom(this@ColorPickerActivity) { findHand(type).color = color })
 }
