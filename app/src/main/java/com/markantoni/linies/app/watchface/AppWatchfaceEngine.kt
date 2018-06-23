@@ -8,19 +8,18 @@ class AppWatchfaceEngine(private val view: AppWatchfaceView) : CommonWatchfaceEn
     override val isVisible: Boolean get() = true
     override val isInAmbientMode: Boolean get() = false
     override val isCentralComplicationVisible: Boolean get() = false
-    override val configuration: Configuration
-        get() = Configuration(
-                Second(Color.WHITE),
-                Minute(Color.WHITE),
-                Hour(Color.WHITE),
-                Digital(Color.WHITE, true, true),
-                Date(Color.WHITE, true, "dd:MM"),
-                Complication(Color.WHITE),
-                Animation(true))
+    override var configuration: Configuration = Configuration(
+            Second(Color.WHITE),
+            Minute(Color.WHITE),
+            Hour(Color.WHITE),
+            Digital(Color.WHITE, true, true),
+            Date(Color.WHITE, true, "dd:MM"),
+            Complication(Color.WHITE),
+            Animation(true))
 
     override fun invalidate() = view.invalidate()
 
     override fun saveConfiguration(configuration: Configuration) {
-        //todo
+        this.configuration = configuration
     }
 }

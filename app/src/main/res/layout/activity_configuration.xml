@@ -6,8 +6,10 @@
     android:orientation="vertical">
 
     <com.markantoni.linies.app.watchface.AppWatchfaceView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/watchfaceView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
         android:layout_margin="16dp" />
 
 </LinearLayout>
