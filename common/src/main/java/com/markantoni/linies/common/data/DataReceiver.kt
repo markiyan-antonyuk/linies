@@ -19,8 +19,6 @@ class DataReceiver(private val context: Context) : DataTransfer, MessageClient.O
     private var configListener: ((Configuration) -> Unit)? = null
 
     fun listen(type: DataTransfer.MessageType, message: ((String) -> Unit)? = null, config: ((Configuration) -> Unit)? = null) {
-        disconnect()
-
         this.type = type
         if (type.protocol == DataTransfer.Protocol.LOCAL) {
             LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter(DataTransfer.BASE_PATH))
@@ -47,12 +45,12 @@ class DataReceiver(private val context: Context) : DataTransfer, MessageClient.O
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.hasExtra(DataTransfer.LOCAL_MESSAGE_PATH)) {
             val message = intent.getStringExtra(DataTransfer.LOCAL_MESSAGE_PATH)
-            logd("Local message [${type.protocol}] received: $message")
+            logd("Message [${type.protocol}] received: $message")
             messageListener?.invoke(message)
         }
         if (intent.hasExtra(DataTransfer.LOCAL_CONFIG_PATH)) {
             val configuration: Configuration = intent.getParcelableExtra(DataTransfer.LOCAL_CONFIG_PATH)
-            logd("Local Config [${type.protocol}] received: $configuration")
+            logd("Config [${type.protocol}] received: $configuration")
             configListener?.invoke(configuration)
         }
     }
@@ -63,7 +61,6 @@ class DataReceiver(private val context: Context) : DataTransfer, MessageClient.O
             DataTransfer.REMOTE_MESSAGE_PATH -> DataTransfer.MessageType.Message(DataTransfer.Protocol.REMOTE)
             else -> error("Not supported")
         }
-        if (this.type != type) return
 
         when (type) {
             is DataTransfer.MessageType.Config -> {
@@ -72,9 +69,9 @@ class DataReceiver(private val context: Context) : DataTransfer, MessageClient.O
                 configListener?.invoke(configuration)
             }
             is DataTransfer.MessageType.Message -> {
-                val message = String(message.data)
-                logd("Message [${type.protocol}] received: $message")
-                messageListener?.invoke(message)
+                val received = String(message.data)
+                logd("Message [${type.protocol}] received: $received")
+                messageListener?.invoke(received)
             }
         }
     }

@@ -8,6 +8,7 @@ import android.view.SurfaceHolder
 import com.markantoni.linies.common.configuration.Complication.Companion.CENTER
 import com.markantoni.linies.common.configuration.Configuration
 import com.markantoni.linies.common.data.DataReceiver
+import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.data.DataTransfer
 import com.markantoni.linies.common.engine.CommonWatchfaceEngine
 import com.markantoni.linies.complications.Complication
@@ -24,8 +25,11 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
 
     private val preferences by lazy { Preferences(service) }
     private val timeZoneReceiver = TimeZoneReceiver { updateTimeZone(true) }
-    private val dataReceiver by lazy { DataReceiver(service) }
     private lateinit var complicationsDrawer: ComplicationsDrawer
+
+    private val localConfigReceiver by lazy { DataReceiver(service) }
+    private val remoteMessageReceiver by lazy { DataReceiver(service) }
+    private val dataSender by lazy { DataSender(service) }
 
     override fun onCreate(holder: SurfaceHolder) {
         super.onCreate(holder)
@@ -42,11 +46,20 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
         complicationsDrawer = ComplicationsDrawer(service, configuration.complication.color)
         drawers.add(complicationsDrawer)
 
-        dataReceiver.listen(DataTransfer.MessageType.Config(DataTransfer.Protocol.LOCAL), config = ::updateConfiguration)
+        localConfigReceiver.listen(DataTransfer.MessageType.Config(DataTransfer.Protocol.LOCAL), config = {
+            updateConfiguration(it)
+            dataSender.send(DataTransfer.Protocol.REMOTE, it)
+        })
+        remoteMessageReceiver.listen(DataTransfer.MessageType.Message(DataTransfer.Protocol.REMOTE), message = {
+            if (it == DataTransfer.MESSAGE_REQUEST_CONFIGURATION) {
+                dataSender.send(DataTransfer.Protocol.REMOTE, Preferences.configuration(service))
+            }
+        })
     }
 
     override fun onDestroy() {
-        dataReceiver.disconnect()
+        localConfigReceiver.disconnect()
+        remoteMessageReceiver.disconnect()
         super.onDestroy()
     }
 

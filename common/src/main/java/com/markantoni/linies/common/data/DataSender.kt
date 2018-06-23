@@ -18,7 +18,7 @@ class DataSender(private val context: Context) : DataTransfer {
     fun send(protocol: DataTransfer.Protocol, configuration: Configuration) {
         val type = DataTransfer.MessageType.Config(protocol)
         if (protocol == DataTransfer.Protocol.LOCAL) {
-            logd("Sending local $type")
+            logd("Sending $type")
             LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(DataTransfer.BASE_PATH).apply {
                 putExtra(DataTransfer.LOCAL_CONFIG_PATH, configuration)
             })
@@ -31,7 +31,7 @@ class DataSender(private val context: Context) : DataTransfer {
     fun send(protocol: DataTransfer.Protocol, message: String) {
         val type = DataTransfer.MessageType.Message(protocol)
         if (protocol == DataTransfer.Protocol.LOCAL) {
-            logd("Sending local $type: $message")
+            logd("Sending $type: $message")
             LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(DataTransfer.BASE_PATH).apply {
                 putExtra(DataTransfer.LOCAL_MESSAGE_PATH, message)
             })

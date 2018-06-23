@@ -1,35 +1,32 @@
 package com.markantoni.linies.app
 
 import android.app.Application
-import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.markantoni.linies.common.data.DataProtocol
 import com.markantoni.linies.common.data.DataReceiver
 import com.markantoni.linies.common.data.DataSender
+import com.markantoni.linies.common.data.DataTransfer
 import com.markantoni.linies.common.util.logd
 
 class CompanionViewModel(application: Application) : AndroidViewModel(application) {
-    private val dataReceiver = DataReceiver(application)
+    private val configReceiver = DataReceiver(application)
 
     val isLoading = MutableLiveData<Boolean>()
 
     init {
-//        dataReceiver.connect()
+        configReceiver.listen(DataTransfer.MessageType.Config(DataTransfer.Protocol.REMOTE), config = {
+            isLoading.value = false
+            logd(it)
+        })
     }
 
     override fun onCleared() {
         super.onCleared()
-//        dataReceiver.disconnect()
+        configReceiver.disconnect()
     }
 
     fun requestConfiguration() {
         isLoading.value = true
-        DataSender(getApplication()).send(DataProtocol.COMPANION, "request config")
-    }
-
-    private fun onDataReceived(bundle: Bundle) {
-        isLoading.value = false
-        logd(bundle)
+        DataSender(getApplication()).send(DataTransfer.Protocol.REMOTE, DataTransfer.MESSAGE_REQUEST_CONFIGURATION)
     }
 }
