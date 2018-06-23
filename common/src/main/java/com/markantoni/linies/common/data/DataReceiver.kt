@@ -13,15 +13,20 @@ class DataReceiver(private val context: Context) : DataTransfer, DataClient.OnDa
     private var dataListener: ((Bundle) -> Unit)? = null
     private var messageListener: ((String) -> Unit)? = null
 
-    fun listenData(listener: (Bundle) -> Unit) {
+    private var dataProtocol = DataProtocol.BOTH
+    private var messageProtocol = DataProtocol.BOTH
+
+    fun listenData(protocol: DataProtocol = DataProtocol.BOTH, listener: (Bundle) -> Unit) {
         dataClient = Wearable.getDataClient(context)
         dataListener = listener
+        dataProtocol = protocol
         dataClient?.addListener(this)
     }
 
-    fun listenMessages(listener: (String) -> Unit) {
+    fun listenMessages(protocol: DataProtocol = DataProtocol.BOTH, listener: (String) -> Unit) {
         messageClient = Wearable.getMessageClient(context)
         messageListener = listener
+        messageProtocol = protocol
         messageClient?.addListener(this)
     }
 
@@ -31,9 +36,16 @@ class DataReceiver(private val context: Context) : DataTransfer, DataClient.OnDa
     }
 
     override fun onMessageReceived(message: MessageEvent) {
-        if (message.path == DataTransfer.URI_MESSAGE_PATH) {
+        val shouldHandle = when (messageProtocol) {
+            DataProtocol.COMPANION -> message.path == DataTransfer.COMPANION_MESSAGE_PATH
+            DataProtocol.WEAR -> message.path == DataTransfer.WEAR_MESSAGE_PATH
+            DataProtocol.BOTH ->
+                message.path == DataTransfer.COMPANION_MESSAGE_PATH || message.path == DataTransfer.WEAR_MESSAGE_PATH
+        }
+
+        if (shouldHandle) {
             val data = String(message.data)
-            logd("Received message: $data ")
+            logd("Received message [$messageProtocol]: $data ")
             messageListener?.invoke(data)
         }
     }
@@ -41,9 +53,15 @@ class DataReceiver(private val context: Context) : DataTransfer, DataClient.OnDa
     override fun onDataChanged(dataEvents: DataEventBuffer) {
         dataEvents.apply {
             forEach {
-                if (it.type == DataEvent.TYPE_CHANGED && it.dataItem.uri.path == DataTransfer.URI_DATA_PATH) {
+                val shouldHandle = when (dataProtocol) {
+                    DataProtocol.COMPANION -> it.dataItem.uri.path == DataTransfer.COMPANION_DATA_PATH
+                    DataProtocol.WEAR -> it.dataItem.uri.path == DataTransfer.WEAR_DATA_PATH
+                    DataProtocol.BOTH ->
+                        it.dataItem.uri.path == DataTransfer.COMPANION_DATA_PATH || it.dataItem.uri.path == DataTransfer.WEAR_DATA_PATH
+                }
+                if (it.type == DataEvent.TYPE_CHANGED && shouldHandle) {
                     val bundle = DataMapItem.fromDataItem(it.dataItem).dataMap.getDataMap(DataTransfer.KEY_DATA_MAP).toBundle()
-                    logd("Received data: $bundle ")
+                    logd("Received data [$dataProtocol]: $bundle ")
                     dataListener?.invoke(bundle)
                 }
             }

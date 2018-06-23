@@ -57,9 +57,9 @@ class ColorPickerActivity : Activity() {
         }
     }
 
-    private fun sendUpdatedColor(color: Int) = dataSender.send({
+    private fun sendUpdatedColor(color: Int) = dataSender.send {
         withConfiguration(this@ColorPickerActivity) {
             findHand(type).color = color
         }
-    })
+    }
 }

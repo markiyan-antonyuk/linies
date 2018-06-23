@@ -42,7 +42,7 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
         complicationsDrawer = ComplicationsDrawer(service, configuration.complication.color)
         drawers.add(complicationsDrawer)
 
-        dataReceiver.listenData(::updateConfiguration)
+        dataReceiver.listenData(listener = ::updateConfiguration)
         dataReceiver.listenMessages {
             logd("message received")
         }
