@@ -12,6 +12,7 @@ import android.widget.RadioButton
 import com.markantoni.linies.*
 import com.markantoni.linies.preferences.Preferences
 import com.markantoni.linies.common.configuration.findHand
+import com.markantoni.linies.common.data.DataProtocol
 import com.markantoni.linies.common.drawers.DrawerType
 import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.util.moveToStart
@@ -57,7 +58,7 @@ class ColorPickerActivity : Activity() {
         }
     }
 
-    private fun sendUpdatedColor(color: Int) = dataSender.send {
+    private fun sendUpdatedColor(color: Int) = dataSender.send(DataProtocol.WEAR) {
         withConfiguration(this@ColorPickerActivity) {
             findHand(type).color = color
         }

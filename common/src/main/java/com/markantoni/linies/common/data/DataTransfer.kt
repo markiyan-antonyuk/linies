@@ -14,5 +14,5 @@ interface DataTransfer {
 }
 
 enum class DataProtocol {
-    WEAR, COMPANION, BOTH
+    WEAR, COMPANION, NONE
 }

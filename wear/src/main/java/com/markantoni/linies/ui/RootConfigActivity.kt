@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.markantoni.linies.*
+import com.markantoni.linies.common.data.DataProtocol
 import com.markantoni.linies.preferences.Preferences
 import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.util.startActivityWithRevealAnimation
@@ -27,7 +28,7 @@ class RootConfigActivity : Activity() {
         configAnimate.apply {
             isChecked = configuration.animation.enabled
             setOnCheckedChangeListener { _, checked ->
-                dataSender.send {
+                dataSender.send(DataProtocol.WEAR) {
                     withConfiguration(this@RootConfigActivity) {
                         animation.enabled = checked
                     }
@@ -37,7 +38,7 @@ class RootConfigActivity : Activity() {
         config24Hours.apply {
             isChecked = configuration.digital.is24
             setOnCheckedChangeListener { _, checked ->
-                dataSender.send {
+                dataSender.send(DataProtocol.WEAR) {
                     withConfiguration(this@RootConfigActivity) {
                         digital.is24 = checked
                     }

@@ -13,17 +13,17 @@ class DataReceiver(private val context: Context) : DataTransfer, DataClient.OnDa
     private var dataListener: ((Bundle) -> Unit)? = null
     private var messageListener: ((String) -> Unit)? = null
 
-    private var dataProtocol = DataProtocol.BOTH
-    private var messageProtocol = DataProtocol.BOTH
+    private var dataProtocol = DataProtocol.NONE
+    private var messageProtocol = DataProtocol.NONE
 
-    fun listenData(protocol: DataProtocol = DataProtocol.BOTH, listener: (Bundle) -> Unit) {
+    fun listenData(protocol: DataProtocol, listener: (Bundle) -> Unit) {
         dataClient = Wearable.getDataClient(context)
         dataListener = listener
         dataProtocol = protocol
         dataClient?.addListener(this)
     }
 
-    fun listenMessages(protocol: DataProtocol = DataProtocol.BOTH, listener: (String) -> Unit) {
+    fun listenMessages(protocol: DataProtocol, listener: (String) -> Unit) {
         messageClient = Wearable.getMessageClient(context)
         messageListener = listener
         messageProtocol = protocol
@@ -39,8 +39,7 @@ class DataReceiver(private val context: Context) : DataTransfer, DataClient.OnDa
         val shouldHandle = when (messageProtocol) {
             DataProtocol.COMPANION -> message.path == DataTransfer.COMPANION_MESSAGE_PATH
             DataProtocol.WEAR -> message.path == DataTransfer.WEAR_MESSAGE_PATH
-            DataProtocol.BOTH ->
-                message.path == DataTransfer.COMPANION_MESSAGE_PATH || message.path == DataTransfer.WEAR_MESSAGE_PATH
+            DataProtocol.NONE -> false
         }
 
         if (shouldHandle) {
@@ -56,8 +55,7 @@ class DataReceiver(private val context: Context) : DataTransfer, DataClient.OnDa
                 val shouldHandle = when (dataProtocol) {
                     DataProtocol.COMPANION -> it.dataItem.uri.path == DataTransfer.COMPANION_DATA_PATH
                     DataProtocol.WEAR -> it.dataItem.uri.path == DataTransfer.WEAR_DATA_PATH
-                    DataProtocol.BOTH ->
-                        it.dataItem.uri.path == DataTransfer.COMPANION_DATA_PATH || it.dataItem.uri.path == DataTransfer.WEAR_DATA_PATH
+                    DataProtocol.NONE -> false
                 }
                 if (it.type == DataEvent.TYPE_CHANGED && shouldHandle) {
                     val bundle = DataMapItem.fromDataItem(it.dataItem).dataMap.getDataMap(DataTransfer.KEY_DATA_MAP).toBundle()

@@ -8,6 +8,7 @@ import com.markantoni.linies.preferences.Preferences
 import com.markantoni.linies.common.configuration.VisibleHand
 import com.markantoni.linies.common.configuration.findHand
 import com.markantoni.linies.common.configuration.putConfiguration
+import com.markantoni.linies.common.data.DataProtocol
 import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.drawers.DrawerType
 import kotlinx.android.synthetic.main.activity_visibility_config.*
@@ -28,7 +29,7 @@ class VisibilityConfigActivity : Activity() {
         val hand = configuration.findHand(type) as VisibleHand
         isChecked = hand.visible
         setOnCheckedChangeListener { _, checked ->
-            dataSender.send {
+            dataSender.send(DataProtocol.WEAR) {
                 hand.visible = checked
                 putConfiguration(configuration)
             }

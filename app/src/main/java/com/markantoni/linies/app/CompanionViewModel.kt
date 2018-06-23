@@ -4,6 +4,7 @@ import android.app.Application
 import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.markantoni.linies.common.data.DataProtocol
 import com.markantoni.linies.common.data.DataReceiver
 import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.util.logd
@@ -24,7 +25,7 @@ class CompanionViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun requestConfiguration() {
         isLoading.value = true
-        DataSender(getApplication()).send("request config")
+        DataSender(getApplication()).send(DataProtocol.COMPANION, "request config")
     }
 
     private fun onDataReceived(bundle: Bundle) {

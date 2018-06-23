@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
 import com.markantoni.linies.*
+import com.markantoni.linies.common.data.DataProtocol
 import com.markantoni.linies.preferences.Preferences
 import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.util.moveElementToStart
@@ -40,7 +41,7 @@ class DateFormatPickerActivity : Activity() {
         }
     }
 
-    private fun sendUpdateDateFormat(format: String) = dataSender.send {
+    private fun sendUpdateDateFormat(format: String) = dataSender.send(DataProtocol.WEAR) {
         withConfiguration(this@DateFormatPickerActivity) {
             date.format = format
         }
