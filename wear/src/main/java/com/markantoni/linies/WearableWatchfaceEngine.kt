@@ -9,9 +9,7 @@ import com.markantoni.linies.common.configuration.Complication.Companion.CENTER
 import com.markantoni.linies.common.configuration.Configuration
 import com.markantoni.linies.common.data.DataProtocol
 import com.markantoni.linies.common.data.DataReceiver
-import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.engine.CommonWatchfaceEngine
-import com.markantoni.linies.common.util.logd
 import com.markantoni.linies.complications.Complication
 import com.markantoni.linies.complications.ComplicationsDrawer
 import com.markantoni.linies.preferences.Preferences
@@ -45,13 +43,7 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
         drawers.add(complicationsDrawer)
 
         dataReceiver.listenData(DataProtocol.WEAR, ::updateConfiguration)
-        dataReceiver.listenMessages(DataProtocol.COMPANION) {
-            logd("message received")
-            DataSender(service).send(DataProtocol.COMPANION, {
-                putBoolean("xyi", true)
-            })
-            DataSender(service).send(DataProtocol.COMPANION,"pizda")
-        }
+        dataReceiver.listenMessages(DataProtocol.COMPANION) {}
     }
 
     override fun onDestroy() {

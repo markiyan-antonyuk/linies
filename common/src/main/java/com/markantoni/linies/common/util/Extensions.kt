@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 
 fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) = Toast.makeText(this, message, duration).show()
 
@@ -52,3 +56,24 @@ fun Float.calculatePercentage(percent: Float) = this * percent / 100f
 fun Float.calculatePercentageOf(value: Float) = value * 100 / this
 
 fun Context.getCenterOfScreen() = intArrayOf(resources.displayMetrics.widthPixels / 2, resources.displayMetrics.heightPixels / 2)
+
+fun Map<String, String>.toByteArray(): ByteArray {
+    val byteOut = ByteArrayOutputStream()
+    val objectOut = ObjectOutputStream(byteOut)
+    objectOut.writeObject(this)
+    val bytes = byteOut.toByteArray()
+
+    objectOut.close()
+    byteOut.close()
+    return bytes
+}
+
+fun ByteArray.toMap(): Map<String, String> {
+    val byteIn = ByteArrayInputStream(this)
+    val objectIn = ObjectInputStream(byteIn)
+    val map = objectIn.readObject() as Map<String, String>
+
+    objectIn.close()
+    byteIn.close()
+    return map
+}
