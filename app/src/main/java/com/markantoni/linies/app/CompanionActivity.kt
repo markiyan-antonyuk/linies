@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_configuration.*
 
 class CompanionActivity : AppCompatActivity() {
     private lateinit var viewModel: CompanionViewModel
-    private val engine get() = watchfaceView.engine
+//    private val engine get() = watchfaceView.engine
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,16 +18,16 @@ class CompanionActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(CompanionViewModel::class.java)
         viewModel.apply {
             configuration.observe(this@CompanionActivity, Observer {
-                it?.let { watchfaceView.engine.updateConfiguration(it) }
+//                it?.let { watchfaceView.engine.updateConfiguration(it) }
             })
         }
 
-        ambientSwitch.setOnCheckedChangedListener {
-            engine.apply {
-                isInAmbientMode = it
-                onAmbientModeChanged(it)
-            }
-        }
+//        ambientSwitch.setOnCheckedChangedListener {
+//            engine.apply {
+//                isInAmbientMode = it
+//                onAmbientModeChanged(it)
+//            }
+//        }
     }
 
     override fun onStart() {
