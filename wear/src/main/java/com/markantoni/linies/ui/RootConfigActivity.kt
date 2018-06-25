@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.markantoni.linies.R
 import com.markantoni.linies.common.data.DataSender
-import com.markantoni.linies.common.data.DataTransfer
+import com.markantoni.linies.common.data.Protocol
 import com.markantoni.linies.common.util.startActivityWithRevealAnimation
 import com.markantoni.linies.preferences.Preferences
 import com.markantoni.linies.util.configurationFrom
@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class RootConfigActivity : Activity() {
-    private val dataSender by lazy { DataSender(this) }
+    private val dataSender by lazy { DataSender(this, Protocol.Local()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,16 +27,14 @@ class RootConfigActivity : Activity() {
         configAnimate.apply {
             isChecked = configuration.animation.enabled
             setOnCheckedChangeListener { _, checked ->
-                dataSender.send(DataTransfer.Protocol.LOCAL,
-                        configurationFrom(this@RootConfigActivity) { animation.enabled = checked })
+                dataSender.send(configurationFrom(this@RootConfigActivity) { animation.enabled = checked })
             }
         }
 
         config24Hours.apply {
             isChecked = configuration.digital.is24
             setOnCheckedChangeListener { _, checked ->
-                dataSender.send(DataTransfer.Protocol.LOCAL,
-                        configurationFrom(this@RootConfigActivity) { digital.is24 = checked })
+                dataSender.send(configurationFrom(this@RootConfigActivity) { digital.is24 = checked })
             }
         }
         configDateFormat.apply {

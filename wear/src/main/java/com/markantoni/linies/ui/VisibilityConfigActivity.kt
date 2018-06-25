@@ -7,13 +7,13 @@ import com.markantoni.linies.R
 import com.markantoni.linies.common.configuration.VisibleHand
 import com.markantoni.linies.common.configuration.findHand
 import com.markantoni.linies.common.data.DataSender
-import com.markantoni.linies.common.data.DataTransfer
+import com.markantoni.linies.common.data.Protocol
 import com.markantoni.linies.common.drawers.DrawerType
 import com.markantoni.linies.preferences.Preferences
 import kotlinx.android.synthetic.main.activity_visibility_config.*
 
 class VisibilityConfigActivity : Activity() {
-    private val dataSender by lazy { DataSender(this) }
+    private val dataSender by lazy { DataSender(this, Protocol.Local()) }
     private val configuration by lazy { Preferences.configuration(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class VisibilityConfigActivity : Activity() {
         val hand = configuration.findHand(type) as VisibleHand
         isChecked = hand.visible
         setOnCheckedChangeListener { _, checked ->
-            dataSender.send(DataTransfer.Protocol.LOCAL, configuration.apply { hand.visible = checked })
+            dataSender.send(configuration.apply { hand.visible = checked })
         }
     }
 }

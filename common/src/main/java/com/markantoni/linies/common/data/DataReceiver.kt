@@ -10,17 +10,18 @@ import com.markantoni.linies.common.configuration.Configuration
 import com.markantoni.linies.common.configuration.toConfiguration
 import com.markantoni.linies.common.util.logd
 import com.markantoni.linies.common.util.toMap
+import kotlin.reflect.KClass
 
-class DataReceiver(private val context: Context) : DataTransfer, MessageClient.OnMessageReceivedListener, BroadcastReceiver() {
+class DataReceiver(private val context: Context, override val protocol: Protocol) : DataTransfer, MessageClient.OnMessageReceivedListener, BroadcastReceiver() {
     private lateinit var messageClient: MessageClient
-    private lateinit var type: DataTransfer.MessageType
+    private lateinit var type: KClass<out MessageType>
 
     private var messageListener: ((String) -> Unit)? = null
     private var configListener: ((Configuration) -> Unit)? = null
 
-    fun listen(type: DataTransfer.MessageType, message: ((String) -> Unit)? = null, config: ((Configuration) -> Unit)? = null) {
+    fun listen(type: KClass<out MessageType>, message: ((String) -> Unit)? = null, config: ((Configuration) -> Unit)? = null) {
         this.type = type
-        if (type.protocol == DataTransfer.Protocol.LOCAL) {
+        if (protocol is Protocol.Local) {
             LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter(DataTransfer.BASE_PATH))
         } else {
             if (!::messageClient.isInitialized) {
@@ -45,30 +46,30 @@ class DataReceiver(private val context: Context) : DataTransfer, MessageClient.O
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.hasExtra(DataTransfer.LOCAL_MESSAGE_PATH)) {
             val message = intent.getStringExtra(DataTransfer.LOCAL_MESSAGE_PATH)
-            logd("Message [${type.protocol}] received: $message")
+            logd("Message [$protocol] received: $message")
             messageListener?.invoke(message)
         }
         if (intent.hasExtra(DataTransfer.LOCAL_CONFIG_PATH)) {
             val configuration: Configuration = intent.getParcelableExtra(DataTransfer.LOCAL_CONFIG_PATH)
-            logd("Config [${type.protocol}] received: $configuration")
+            logd("Config [$protocol] received: $configuration")
             configListener?.invoke(configuration)
         }
     }
 
     override fun onMessageReceived(message: MessageEvent) {
         val type = when (message.path) {
-            DataTransfer.REMOTE_CONFIG_PATH -> DataTransfer.MessageType.Config(DataTransfer.Protocol.REMOTE)
-            DataTransfer.REMOTE_MESSAGE_PATH -> DataTransfer.MessageType.Message(DataTransfer.Protocol.REMOTE)
+            DataTransfer.REMOTE_CONFIG_PATH -> MessageType.Config(Protocol.Remote())
+            DataTransfer.REMOTE_MESSAGE_PATH -> MessageType.Message(Protocol.Remote())
             else -> error("Not supported")
         }
 
         when (type) {
-            is DataTransfer.MessageType.Config -> {
+            is MessageType.Config -> {
                 val configuration = message.data.toMap().toConfiguration()
                 logd("Config [${type.protocol}] received: $configuration")
                 configListener?.invoke(configuration)
             }
-            is DataTransfer.MessageType.Message -> {
+            is MessageType.Message -> {
                 val received = String(message.data)
                 logd("Message [${type.protocol}] received: $received")
                 messageListener?.invoke(received)

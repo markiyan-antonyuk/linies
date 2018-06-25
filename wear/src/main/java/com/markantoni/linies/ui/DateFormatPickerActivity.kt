@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.RadioButton
 import com.markantoni.linies.R
 import com.markantoni.linies.common.data.DataSender
-import com.markantoni.linies.common.data.DataTransfer
+import com.markantoni.linies.common.data.Protocol
 import com.markantoni.linies.common.util.moveElementToStart
 import com.markantoni.linies.preferences.Preferences
 import com.markantoni.linies.util.configurationFrom
@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DateFormatPickerActivity : Activity() {
-    private val dataSender by lazy { DataSender(this) }
+    private val dataSender by lazy { DataSender(this, Protocol.Local()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +40,5 @@ class DateFormatPickerActivity : Activity() {
         }
     }
 
-    private fun sendUpdateDateFormat(format: String) = dataSender.send(DataTransfer.Protocol.LOCAL,
-            configurationFrom(this) { date.format = format })
+    private fun sendUpdateDateFormat(format: String) = dataSender.send(configurationFrom(this) { date.format = format })
 }

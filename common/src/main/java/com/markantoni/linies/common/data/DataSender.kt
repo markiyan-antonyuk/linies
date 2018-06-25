@@ -8,42 +8,45 @@ import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.Wearable
 import com.markantoni.linies.common.configuration.Configuration
 import com.markantoni.linies.common.configuration.toMap
-import com.markantoni.linies.common.util.EXECUTOR
+import com.markantoni.linies.common.data.DataTransfer.Companion.BASE_PATH
+import com.markantoni.linies.common.data.DataTransfer.Companion.LOCAL_CONFIG_PATH
+import com.markantoni.linies.common.data.DataTransfer.Companion.LOCAL_MESSAGE_PATH
 import com.markantoni.linies.common.util.logd
 import com.markantoni.linies.common.util.toByteArray
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.launch
 
-class DataSender(private val context: Context) : DataTransfer {
+class DataSender(private val context: Context, override val protocol: Protocol) : DataTransfer {
     private val messageClient by lazy { Wearable.getMessageClient(context) }
 
-    fun send(protocol: DataTransfer.Protocol, configuration: Configuration) {
-        val type = DataTransfer.MessageType.Config(protocol)
-        if (protocol == DataTransfer.Protocol.LOCAL) {
+    fun send(configuration: Configuration) {
+        val type = MessageType.Config(protocol)
+        if (protocol is Protocol.Remote) {
             logd("Sending $type")
-            LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(DataTransfer.BASE_PATH).apply {
-                putExtra(DataTransfer.LOCAL_CONFIG_PATH, configuration)
-            })
+            messageClient.sendMessage(type, configuration.toMap().toByteArray(), protocol.nodeId)
         } else {
             logd("Sending $type")
-            messageClient.sendMessage(type, configuration.toMap().toByteArray())
+            LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(BASE_PATH).apply {
+                putExtra(LOCAL_CONFIG_PATH, configuration)
+            })
         }
     }
 
-    fun send(protocol: DataTransfer.Protocol, message: String) {
-        val type = DataTransfer.MessageType.Message(protocol)
-        if (protocol == DataTransfer.Protocol.LOCAL) {
+    fun send(message: String) {
+        val type = MessageType.Message(protocol)
+        if (protocol is Protocol.Remote) {
             logd("Sending $type: $message")
-            LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(DataTransfer.BASE_PATH).apply {
-                putExtra(DataTransfer.LOCAL_MESSAGE_PATH, message)
-            })
+            messageClient.sendMessage(type, message.toByteArray(), protocol.nodeId)
         } else {
             logd("Sending $type: $message")
-            messageClient.sendMessage(type, message.toByteArray())
+            LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(BASE_PATH).apply {
+                putExtra(LOCAL_MESSAGE_PATH, message)
+            })
         }
     }
 
-    private fun MessageClient.sendMessage(type: DataTransfer.MessageType, message: ByteArray) =
-            EXECUTOR.submit {
-                val nodes = Tasks.await(Wearable.getNodeClient(context).connectedNodes).map { it.id }
-                nodes.forEach { sendMessage(it, type.uri, message) }
-            }
+    private fun MessageClient.sendMessage(type: MessageType, message: ByteArray, nodeId: String?) = launch(CommonPool) {
+        val nodes = if (nodeId == null) Tasks.await(Wearable.getNodeClient(context).connectedNodes).map { it.id } else listOf(nodeId)
+        nodes.forEach { sendMessage(it, type.uri, message) }
+    }
 }

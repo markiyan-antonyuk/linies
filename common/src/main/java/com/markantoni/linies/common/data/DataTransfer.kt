@@ -13,29 +13,38 @@ interface DataTransfer {
         const val MESSAGE_REQUEST_CONFIGURATION = "message.request.configuration"
     }
 
-    enum class Protocol {
-        LOCAL, REMOTE
+    val protocol: Protocol
+}
+
+sealed class Protocol {
+
+    class Local : Protocol() {
+        override fun toString(): String = "Local"
     }
 
-    sealed class MessageType(val protocol: Protocol) {
-        abstract val uri: String
+    class Remote(val nodeId: String? = null) : Protocol() {
+        override fun toString(): String = "Remote"
+    }
+}
 
-        class Config(protocol: Protocol) : MessageType(protocol) {
-            override val uri: String = when (protocol) {
-                Protocol.LOCAL -> LOCAL_CONFIG_PATH
-                Protocol.REMOTE -> REMOTE_CONFIG_PATH
-            }
+sealed class MessageType(val protocol: Protocol) {
+    abstract val uri: String
 
-            override fun toString(): String = "[Config $protocol]"
+    class Config(protocol: Protocol) : MessageType(protocol) {
+        override val uri: String = when (protocol) {
+            is Protocol.Local -> DataTransfer.LOCAL_CONFIG_PATH
+            is Protocol.Remote -> DataTransfer.REMOTE_CONFIG_PATH
         }
 
-        class Message(protocol: Protocol) : MessageType(protocol) {
-            override val uri: String = when (protocol) {
-                Protocol.LOCAL -> LOCAL_MESSAGE_PATH
-                Protocol.REMOTE -> REMOTE_MESSAGE_PATH
-            }
+        override fun toString(): String = "[Config $protocol]"
+    }
 
-            override fun toString(): String = "[Message $protocol]"
+    class Message(protocol: Protocol) : MessageType(protocol) {
+        override val uri: String = when (protocol) {
+            is Protocol.Local -> DataTransfer.LOCAL_MESSAGE_PATH
+            is Protocol.Remote -> DataTransfer.REMOTE_MESSAGE_PATH
         }
+
+        override fun toString(): String = "[Message $protocol]"
     }
 }
