@@ -34,7 +34,7 @@ class Message(
         val text: String?,
         val configuration: Configuration?,
         val filter: String = FILTER_ANY,
-        val senderId: String,
+        var senderId: String,
         val respondBack: Boolean = false,
         val protocolVersion: Int = Protocol.VERSION
 ) {

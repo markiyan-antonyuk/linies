@@ -13,10 +13,10 @@ import com.markantoni.linies.common.util.logd
 class DataReceiver(private val context: Context, override val protocol: Protocol) : DataTransfer, MessageClient.OnMessageReceivedListener, BroadcastReceiver() {
     private lateinit var messageClient: MessageClient
 
-    private var filter = ""
+    private var filter = Message.FILTER_ANY
     private var listener: ((Message) -> Unit)? = null
 
-    fun listen(filter: String = "", listener: ((Message) -> Unit)) {
+    fun listen(filter: String = Message.FILTER_ANY, listener: ((Message) -> Unit)) {
 
         if (protocol is Protocol.Local) {
             LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter(DataTransfer.BASE_PATH))

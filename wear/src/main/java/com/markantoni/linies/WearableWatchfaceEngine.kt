@@ -25,9 +25,9 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
     private val timeZoneReceiver = TimeZoneReceiver { updateTimeZone(true) }
     private lateinit var complicationsDrawer: ComplicationsDrawer
 
-    private val localConfigReceiver by lazy { DataReceiver(service, Protocol.Local()) }
-    private val remoteMessageReceiver by lazy { DataReceiver(service, Protocol.Remote()) }
-    private val dataSender by lazy { DataSender(service, Protocol.Remote()) }
+    private val localReceiver by lazy { DataReceiver(service, Protocol.Local()) }
+    private val removeReceiver by lazy { DataReceiver(service, Protocol.Remote()) }
+    private val remoteSender by lazy { DataSender(service, Protocol.Remote()) }
 
     override fun onCreate(holder: SurfaceHolder) {
         super.onCreate(holder)
@@ -44,20 +44,22 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
         complicationsDrawer = ComplicationsDrawer(service, configuration.complication.color)
         drawers.add(complicationsDrawer)
 
-        localConfigReceiver.listen(Message.FILTER_CONFIG) {
-            it.configuration?.let { updateConfiguration(it) }
-//            dataSender.send(DataTransfer.Protocol.REMOTE, it)
+        localReceiver.listen(Message.FILTER_CONFIG) {
+            it.configuration?.let {
+                updateConfiguration(it)
+                remoteSender.sendConfiguration(it)
+            }
         }
-        remoteMessageReceiver.listen(Message.FILTER_TEXT) {
-            //            if (it == DataTransfer.MESSAGE_REQUEST_CONFIGURATION) {
-//                dataSender.send(DataTransfer.Protocol.REMOTE, Preferences.configuration(service))
-//            }
+        removeReceiver.listen(Message.FILTER_TEXT) {
+            if (it.text == DataTransfer.MESSAGE_REQUEST_CONFIGURATION) {
+                remoteSender.sendConfiguration(Preferences.configuration(service))
+            }
         }
     }
 
     override fun onDestroy() {
-        localConfigReceiver.disconnect()
-        remoteMessageReceiver.disconnect()
+        localReceiver.disconnect()
+        removeReceiver.disconnect()
         super.onDestroy()
     }
 

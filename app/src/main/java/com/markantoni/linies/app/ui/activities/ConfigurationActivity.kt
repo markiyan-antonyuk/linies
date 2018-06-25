@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.support.wearable.companion.WatchFaceCompanion
 import androidx.appcompat.app.AppCompatActivity
 import com.markantoni.linies.app.R
+import com.markantoni.linies.common.data.*
 import com.markantoni.linies.common.util.logd
+import kotlinx.android.synthetic.main.activity_configuration.*
 
 class ConfigurationActivity : AppCompatActivity() {
 
@@ -27,5 +29,14 @@ class ConfigurationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_configuration)
 
         logd("Configuring $nodeId")
+
+        DataReceiver(this, Protocol.Remote()).listen {
+            it.configuration?.let { watchfaceView.engine.updateConfiguration(it) }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        DataSender(this, Protocol.Remote()).sendText(DataTransfer.MESSAGE_REQUEST_CONFIGURATION)
     }
 }
