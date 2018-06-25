@@ -13,6 +13,7 @@ import com.markantoni.linies.R
 import com.markantoni.linies.common.configuration.findHand
 import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.data.Protocol
+import com.markantoni.linies.common.data.sendConfiguration
 import com.markantoni.linies.common.drawers.DrawerType
 import com.markantoni.linies.common.util.moveToStart
 import com.markantoni.linies.preferences.Preferences
@@ -58,5 +59,5 @@ class ColorPickerActivity : Activity() {
         }
     }
 
-    private fun sendUpdatedColor(color: Int) = dataSender.send(configurationFrom(this@ColorPickerActivity) { findHand(type).color = color })
+    private fun sendUpdatedColor(color: Int) = dataSender.sendConfiguration(configurationFrom(this@ColorPickerActivity) { findHand(type).color = color })
 }

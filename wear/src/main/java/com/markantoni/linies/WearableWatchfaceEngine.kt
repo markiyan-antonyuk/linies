@@ -44,15 +44,15 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
         complicationsDrawer = ComplicationsDrawer(service, configuration.complication.color)
         drawers.add(complicationsDrawer)
 
-        localConfigReceiver.listen(MessageType.Config::class, config = {
-            updateConfiguration(it)
+        localConfigReceiver.listen(Message.FILTER_CONFIG) {
+            it.configuration?.let { updateConfiguration(it) }
 //            dataSender.send(DataTransfer.Protocol.REMOTE, it)
-        })
-        remoteMessageReceiver.listen(MessageType.Message::class, message = {
-            if (it == DataTransfer.MESSAGE_REQUEST_CONFIGURATION) {
+        }
+        remoteMessageReceiver.listen(Message.FILTER_TEXT) {
+            //            if (it == DataTransfer.MESSAGE_REQUEST_CONFIGURATION) {
 //                dataSender.send(DataTransfer.Protocol.REMOTE, Preferences.configuration(service))
-            }
-        })
+//            }
+        }
     }
 
     override fun onDestroy() {

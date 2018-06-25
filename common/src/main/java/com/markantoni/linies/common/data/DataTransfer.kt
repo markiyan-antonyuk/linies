@@ -1,22 +1,25 @@
 package com.markantoni.linies.common.data
 
+import com.markantoni.linies.common.configuration.Configuration
+import com.markantoni.linies.common.util.GSON
+
 interface DataTransfer {
     companion object {
         const val BASE_PATH = "/com.markantoni.linies"
 
-        const val LOCAL_CONFIG_PATH = "$BASE_PATH.wear.config"
-        const val REMOTE_CONFIG_PATH = "$BASE_PATH.companion.config"
+        const val LOCAL_PATH = "$BASE_PATH.local"
+        const val REMOTE_PATH = "$BASE_PATH.remote"
 
-        const val LOCAL_MESSAGE_PATH = "$BASE_PATH.wear.message"
-        const val REMOTE_MESSAGE_PATH = "$BASE_PATH.companion.message"
-
-        const val MESSAGE_REQUEST_CONFIGURATION = "message.request.configuration"
+        const val MESSAGE_REQUEST_CONFIGURATION = "text.request.configuration"
     }
 
     val protocol: Protocol
 }
 
 sealed class Protocol {
+    companion object {
+        const val VERSION = 1
+    }
 
     class Local : Protocol() {
         override fun toString(): String = "Local"
@@ -27,24 +30,35 @@ sealed class Protocol {
     }
 }
 
-sealed class MessageType(val protocol: Protocol) {
-    abstract val uri: String
+class Message(
+        val text: String?,
+        val configuration: Configuration?,
+        val filter: String = FILTER_ANY,
+        val senderId: String,
+        val respondBack: Boolean = false,
+        val protocolVersion: Int = Protocol.VERSION
+) {
+    companion object {
+        fun fromJson(json: String) = GSON.fromJson(json, Message::class.java)
 
-    class Config(protocol: Protocol) : MessageType(protocol) {
-        override val uri: String = when (protocol) {
-            is Protocol.Local -> DataTransfer.LOCAL_CONFIG_PATH
-            is Protocol.Remote -> DataTransfer.REMOTE_CONFIG_PATH
-        }
+        fun fromBytes(bytes: ByteArray) = fromJson(String(bytes))
 
-        override fun toString(): String = "[Config $protocol]"
+        const val FILTER_ANY = "any"
+        const val FILTER_CONFIG = "config"
+        const val FILTER_TEXT = "text"
     }
 
-    class Message(protocol: Protocol) : MessageType(protocol) {
-        override val uri: String = when (protocol) {
-            is Protocol.Local -> DataTransfer.LOCAL_MESSAGE_PATH
-            is Protocol.Remote -> DataTransfer.REMOTE_MESSAGE_PATH
-        }
+    fun toJson() = GSON.toJson(this)
 
-        override fun toString(): String = "[Message $protocol]"
+    fun toBytes() = toJson().toByteArray()
+
+    override fun toString(): String {
+        return "\n" +
+                "Text: $text\n" +
+                "Configuration: $configuration\n" +
+                "Filter: $filter\n" +
+                "SenderId: $senderId\n" +
+                "RespondBack: $respondBack\n" +
+                "ProtocolVersion: $protocolVersion"
     }
 }

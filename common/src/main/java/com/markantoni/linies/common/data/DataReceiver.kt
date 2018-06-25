@@ -5,22 +5,19 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.google.android.gms.wearable.*
-import com.markantoni.linies.common.configuration.Configuration
-import com.markantoni.linies.common.configuration.toConfiguration
+import com.google.android.gms.wearable.MessageClient
+import com.google.android.gms.wearable.MessageEvent
+import com.google.android.gms.wearable.Wearable
 import com.markantoni.linies.common.util.logd
-import com.markantoni.linies.common.util.toMap
-import kotlin.reflect.KClass
 
 class DataReceiver(private val context: Context, override val protocol: Protocol) : DataTransfer, MessageClient.OnMessageReceivedListener, BroadcastReceiver() {
     private lateinit var messageClient: MessageClient
-    private lateinit var type: KClass<out MessageType>
 
-    private var messageListener: ((String) -> Unit)? = null
-    private var configListener: ((Configuration) -> Unit)? = null
+    private var filter = ""
+    private var listener: ((Message) -> Unit)? = null
 
-    fun listen(type: KClass<out MessageType>, message: ((String) -> Unit)? = null, config: ((Configuration) -> Unit)? = null) {
-        this.type = type
+    fun listen(filter: String = "", listener: ((Message) -> Unit)) {
+
         if (protocol is Protocol.Local) {
             LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter(DataTransfer.BASE_PATH))
         } else {
@@ -30,8 +27,8 @@ class DataReceiver(private val context: Context, override val protocol: Protocol
             }
         }
 
-        messageListener = message
-        configListener = config
+        this.filter = filter
+        this.listener = listener
     }
 
     fun disconnect() {
@@ -43,37 +40,19 @@ class DataReceiver(private val context: Context, override val protocol: Protocol
         }
     }
 
-    override fun onReceive(context: Context, intent: Intent) {
-        if (intent.hasExtra(DataTransfer.LOCAL_MESSAGE_PATH)) {
-            val message = intent.getStringExtra(DataTransfer.LOCAL_MESSAGE_PATH)
+    private fun filterAndFire(message: Message) {
+        if (filter == Message.FILTER_ANY || message.filter == filter) {
             logd("Message [$protocol] received: $message")
-            messageListener?.invoke(message)
-        }
-        if (intent.hasExtra(DataTransfer.LOCAL_CONFIG_PATH)) {
-            val configuration: Configuration = intent.getParcelableExtra(DataTransfer.LOCAL_CONFIG_PATH)
-            logd("Config [$protocol] received: $configuration")
-            configListener?.invoke(configuration)
+            listener?.invoke(message)
         }
     }
 
-    override fun onMessageReceived(message: MessageEvent) {
-        val type = when (message.path) {
-            DataTransfer.REMOTE_CONFIG_PATH -> MessageType.Config(Protocol.Remote())
-            DataTransfer.REMOTE_MESSAGE_PATH -> MessageType.Message(Protocol.Remote())
-            else -> error("Not supported")
-        }
-
-        when (type) {
-            is MessageType.Config -> {
-                val configuration = message.data.toMap().toConfiguration()
-                logd("Config [${type.protocol}] received: $configuration")
-                configListener?.invoke(configuration)
-            }
-            is MessageType.Message -> {
-                val received = String(message.data)
-                logd("Message [${type.protocol}] received: $received")
-                messageListener?.invoke(received)
-            }
+    override fun onReceive(context: Context, intent: Intent) {
+        if (intent.hasExtra(DataTransfer.LOCAL_PATH)) {
+            val message = intent.getStringExtra(DataTransfer.LOCAL_PATH)
+            filterAndFire(Message.fromJson(message))
         }
     }
+
+    override fun onMessageReceived(event: MessageEvent) = filterAndFire(Message.fromBytes(event.data))
 }

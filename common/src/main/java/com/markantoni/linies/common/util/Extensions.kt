@@ -60,28 +60,6 @@ fun Float.calculatePercentageOf(value: Float) = value * 100 / this
 
 fun Context.getCenterOfScreen() = intArrayOf(resources.displayMetrics.widthPixels / 2, resources.displayMetrics.heightPixels / 2)
 
-fun Map<String, String>.toByteArray(): ByteArray {
-    val byteOut = ByteArrayOutputStream()
-    val objectOut = ObjectOutputStream(byteOut)
-    objectOut.writeObject(this)
-    val bytes = byteOut.toByteArray()
-
-    objectOut.close()
-    byteOut.close()
-    return bytes
-}
-
-@Suppress("UNCHECKED_CAST")
-fun ByteArray.toMap(): Map<String, String> {
-    val byteIn = ByteArrayInputStream(this)
-    val objectIn = ObjectInputStream(byteIn)
-    val map = objectIn.readObject() as Map<String, String>
-
-    objectIn.close()
-    byteIn.close()
-    return map
-}
-
 fun CompoundButton.setOnCheckedChangedListener(listener: (Boolean) -> Unit) = setOnCheckedChangeListener { _, b -> listener(b) }
 
 val Canvas.radius: Float get() = width / 2f
