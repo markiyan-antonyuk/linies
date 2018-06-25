@@ -1,4 +1,4 @@
-package com.markantoni.linies.app
+package com.markantoni.linies.app.ui.configuration
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -8,7 +8,7 @@ import com.markantoni.linies.common.data.DataReceiver
 import com.markantoni.linies.common.data.DataSender
 import com.markantoni.linies.common.data.DataTransfer
 
-class CompanionViewModel(application: Application) : AndroidViewModel(application) {
+class ConfigurationViewModel(application: Application) : AndroidViewModel(application) {
     private val configReceiver = DataReceiver(application)
 
     val isLoading = MutableLiveData<Boolean>()

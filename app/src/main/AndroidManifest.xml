@@ -12,14 +12,19 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".CompanionActivity"
-            android:screenOrientation="portrait">
-            <!-- fixme this filter is only for development -->
+            android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LiniesTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.configuration.ConfigurationActivity"
+            android:theme="@style/LiniesTheme">
             <intent-filter>
                 <action android:name="com.markantoni.linies.CONFIG" />
 

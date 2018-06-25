@@ -16,4 +16,9 @@
     <string name="config_24_hours_format">24 hours</string>
     <string name="config_date_format">Date format:</string>
     <string name="config_colors">Colors</string>
+
+    <!-- Companion -->
+    <string name="no_watch_found">Linies couldn\'t detect\nitself on your watch.\nAlternatively you can explore watchface on this device.</string>
+    <string name="retry">Retry</string>
+    <string name="explore">Explore</string>
 </resources>
