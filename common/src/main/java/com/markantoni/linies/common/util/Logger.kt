@@ -13,6 +13,6 @@ object Logger {
     }
 }
 
-fun logd(message: Any) {
+fun logd(message: Any?) {
     if (Logger.DEBUG) Log.d("${Logger.TAG} [${Logger.APP_TYPE}]", "$message")
 }

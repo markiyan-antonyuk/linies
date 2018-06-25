@@ -39,7 +39,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compileOnly 'com.google.android.wearable:wearable:2.3.0'
     implementation 'androidx.wear:wear:1.0.0-alpha3'
-    implementation 'com.google.android.support:wearable:2.3.0'
 
     implementation project(':common')
 }

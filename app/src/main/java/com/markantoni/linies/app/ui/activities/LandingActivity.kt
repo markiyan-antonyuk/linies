@@ -1,16 +1,17 @@
-package com.markantoni.linies.app.ui.main
+package com.markantoni.linies.app.ui.activities
 
 import android.app.Application
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.wearable.Node
 import com.markantoni.linies.app.R
 import com.markantoni.linies.app.animateToSet
 import com.markantoni.linies.app.observe
 import com.markantoni.linies.app.viewModel
 import com.markantoni.linies.common.util.DeviceExplorer
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_landing.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
@@ -19,20 +20,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_landing)
 
         viewModel.apply {
             observe(isLoading) {
-                if (it) mainRoot.animateToSet(R.layout.activity_main)
+                if (it) landingRoot.animateToSet(R.layout.activity_landing)
             }
 
-            observe(devicesFound) {
-                if (it) Unit
-                else mainRoot.animateToSet(R.layout.activity_main_explore)
+            observe(devices) {
+                if (it.isEmpty()) {
+                    landingRoot.animateToSet(R.layout.activity_landing_explore)
+                } else {
+                    //todo maybe show chooser dialog?
+                    ConfigurationActivity.startActivity(this@MainActivity, it[0].id)
+                }
             }
         }
 
-        mainRetryBtn.setOnClickListener { viewModel.searchForDevices() }
+        landingRetryBtn.setOnClickListener { viewModel.searchForDevices() }
     }
 
     override fun onStart() {
@@ -43,12 +48,11 @@ class MainActivity : AppCompatActivity() {
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     val isLoading = MutableLiveData<Boolean>()
-    val devicesFound = MutableLiveData<Boolean>()
+    val devices = MutableLiveData<List<Node>>()
 
     fun searchForDevices() = launch(UI) {
         isLoading.value = true
-        val devices = DeviceExplorer.findDevices(getApplication())
-        devicesFound.value = devices.isNotEmpty()
+        devices.value = DeviceExplorer.findDevices(getApplication())
         isLoading.value = false
     }
 }

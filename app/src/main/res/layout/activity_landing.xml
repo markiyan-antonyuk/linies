@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainRoot"
+    android:id="@+id/landingRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/mainWatchfaceIv"
+        android:id="@+id/landingWatchfaceIv"
         android:layout_width="@dimen/watchface_size"
         android:layout_height="@dimen/watchface_size"
         android:layout_marginStart="16dp"
@@ -22,14 +22,14 @@
         app:srcCompat="@drawable/complications_bg" />
 
     <View
-        android:id="@+id/mainWatchfaceFg"
+        android:id="@+id/landingWatchfaceFg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         android:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/mainExploreBtn"
+        android:id="@+id/landingExploreBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/mainRetryBtn"
+        android:id="@+id/landingRetryBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -53,10 +53,10 @@
         app:icon="@drawable/ic_reload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainExploreBtn" />
+        app:layout_constraintTop_toTopOf="@+id/landingExploreBtn" />
 
     <ProgressBar
-        android:id="@+id/mainProgressBar"
+        android:id="@+id/landingProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/mainErrorTv"
+        android:id="@+id/landingErrorTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -78,7 +78,7 @@
         android:gravity="center"
         android:text="@string/no_watch_found"
         app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/mainWatchfaceIv"
-        app:layout_constraintStart_toStartOf="@+id/mainWatchfaceIv" />
+        app:layout_constraintEnd_toEndOf="@+id/landingWatchfaceIv"
+        app:layout_constraintStart_toStartOf="@+id/landingWatchfaceIv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
