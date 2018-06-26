@@ -30,8 +30,9 @@ class ConfigurationActivity : AppCompatActivity() {
 
         logd("Configuring $nodeId")
 
-        DataReceiver(this, Protocol.Remote()).listen {
-            it.configuration?.let { watchfaceView.engine.updateConfiguration(it) }
+        DataReceiver(this, Protocol.Remote()).listen(Message.Type.CONFIG) {
+            it as ConfigurationMessage
+            it.configuration.let { watchfaceView.engine.updateConfiguration(it) }
         }
     }
 

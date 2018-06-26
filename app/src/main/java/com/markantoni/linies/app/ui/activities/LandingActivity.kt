@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.activity_landing.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
-class MainActivity : AppCompatActivity() {
-    private val viewModel by viewModel<MainViewModel>()
+class LandingActivity : AppCompatActivity() {
+    private val viewModel by viewModel<LandingViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                     landingRoot.animateToSet(R.layout.activity_landing_explore)
                 } else {
                     //todo maybe show chooser dialog?
-                    ConfigurationActivity.startActivity(this@MainActivity, it[0].id)
+                    ConfigurationActivity.startActivity(this@LandingActivity, it[0].id)
                 }
             }
         }
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class LandingViewModel(application: Application) : AndroidViewModel(application) {
     val isLoading = MutableLiveData<Boolean>()
     val devices = MutableLiveData<List<Node>>()
 

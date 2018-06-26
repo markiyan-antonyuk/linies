@@ -13,11 +13,9 @@ import com.markantoni.linies.common.util.logd
 class DataReceiver(private val context: Context, override val protocol: Protocol) : DataTransfer, MessageClient.OnMessageReceivedListener, BroadcastReceiver() {
     private lateinit var messageClient: MessageClient
 
-    private var filter = Message.FILTER_ANY
-    private var listener: ((Message) -> Unit)? = null
+    private var listeners: MutableList<Pair<Message.Type, (Message) -> Unit>> = mutableListOf()
 
-    fun listen(filter: String = Message.FILTER_ANY, listener: ((Message) -> Unit)) {
-
+    fun listen(type: Message.Type, listener: ((Message) -> Unit)) {
         if (protocol is Protocol.Local) {
             LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter(DataTransfer.BASE_PATH))
         } else {
@@ -27,11 +25,11 @@ class DataReceiver(private val context: Context, override val protocol: Protocol
             }
         }
 
-        this.filter = filter
-        this.listener = listener
+        listeners.add(type to listener)
     }
 
     fun disconnect() {
+        listeners.clear()
         if (::messageClient.isInitialized) messageClient.removeListener(this)
         try {
             LocalBroadcastManager.getInstance(context).unregisterReceiver(this)
@@ -41,10 +39,10 @@ class DataReceiver(private val context: Context, override val protocol: Protocol
     }
 
     private fun filterAndFire(message: Message) {
-        if (filter == Message.FILTER_ANY || message.filter == filter) {
-            logd("Message [$protocol] received: $message")
-            listener?.invoke(message)
-        }
+        listeners
+                .filter { it.first == message.type }
+                .onEach { logd("Message [$protocol] received: $message") }
+                .forEach { it.second.invoke(message) }
     }
 
     override fun onReceive(context: Context, intent: Intent) {

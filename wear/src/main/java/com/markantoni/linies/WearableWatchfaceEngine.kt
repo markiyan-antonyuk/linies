@@ -26,7 +26,7 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
     private lateinit var complicationsDrawer: ComplicationsDrawer
 
     private val localReceiver by lazy { DataReceiver(service, Protocol.Local()) }
-    private val removeReceiver by lazy { DataReceiver(service, Protocol.Remote()) }
+    private val remoteReceiver by lazy { DataReceiver(service, Protocol.Remote()) }
     private val remoteSender by lazy { DataSender(service, Protocol.Remote()) }
 
     override fun onCreate(holder: SurfaceHolder) {
@@ -44,13 +44,14 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
         complicationsDrawer = ComplicationsDrawer(service, configuration.complication.color)
         drawers.add(complicationsDrawer)
 
-        localReceiver.listen(Message.FILTER_CONFIG) {
-            it.configuration?.let {
-                updateConfiguration(it)
-                remoteSender.sendConfiguration(it)
-            }
+        localReceiver.listen(Message.Type.CONFIG) {
+            it as ConfigurationMessage
+            updateConfiguration(it.configuration)
+            remoteSender.sendConfiguration(it.configuration)
         }
-        removeReceiver.listen(Message.FILTER_TEXT) {
+
+        remoteReceiver.listen(Message.Type.TEXT) {
+            it as TextMessage
             if (it.text == DataTransfer.MESSAGE_REQUEST_CONFIGURATION) {
                 remoteSender.sendConfiguration(Preferences.configuration(service))
             }
@@ -59,7 +60,7 @@ class WearableWatchfaceEngine(private val service: LiniesWatchFaceService, priva
 
     override fun onDestroy() {
         localReceiver.disconnect()
-        removeReceiver.disconnect()
+        remoteReceiver.disconnect()
         super.onDestroy()
     }
 

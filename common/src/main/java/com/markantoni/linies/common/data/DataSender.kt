@@ -14,10 +14,10 @@ import kotlinx.coroutines.experimental.launch
 
 class DataSender(private val context: Context, override val protocol: Protocol) : DataTransfer {
     private val messageClient by lazy { Wearable.getMessageClient(context) }
+    private var receiverId: String? = null
 
-    fun send(text: String? = null, configuration: Configuration? = null, filter: String = Message.FILTER_ANY, respondBack: Boolean = false) {
-        val message = Message(text, configuration, filter,
-                (protocol as? Protocol.Remote)?.nodeId ?: "", respondBack)
+    fun send(message: Message, receiverId: String? = null) {
+        this.receiverId = receiverId
         if (protocol is Protocol.Remote) {
             messageClient.sendMessage(message)
         } else {
@@ -29,14 +29,13 @@ class DataSender(private val context: Context, override val protocol: Protocol) 
     }
 
     private fun MessageClient.sendMessage(message: Message) = launch(CommonPool) {
-        val nodes = if (message.senderId.isEmpty()) Tasks.await(Wearable.getNodeClient(context).connectedNodes).map { it.id } else listOf(message.senderId)
+        val nodes = if (receiverId == null) Tasks.await(Wearable.getNodeClient(context).connectedNodes).map { it.id } else listOf(receiverId!!)
         nodes.forEach {
-            message.senderId = it
             logd("Sending $protocol $message")
             sendMessage(it, DataTransfer.REMOTE_PATH, message.toBytes())
         }
     }
 }
 
-fun DataSender.sendConfiguration(configuration: Configuration) = send(configuration = configuration, filter = Message.FILTER_CONFIG)
-fun DataSender.sendText(text: String) = send(text = text, filter = Message.FILTER_TEXT)
+fun DataSender.sendConfiguration(configuration: Configuration) = send(ConfigurationMessage(configuration, false))
+fun DataSender.sendText(text: String) = send(TextMessage(text, false))
