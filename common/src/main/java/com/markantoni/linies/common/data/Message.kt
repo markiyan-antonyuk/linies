@@ -33,13 +33,13 @@ abstract class Message(
 class TextMessage(val text: String, respondBack: Boolean = false) :
         Message(respondBack, Type.TEXT) {
 
-    override fun toString(): String = "{${super.toString()}\n" +
+    override fun toString(): String = "${super.toString()}\n" +
             "Text: $text"
 }
 
 class ConfigurationMessage(val configuration: Configuration, respondBack: Boolean = false) :
         Message(respondBack, Type.CONFIG) {
 
-    override fun toString(): String = "{${super.toString()}\n" +
+    override fun toString(): String = "${super.toString()}\n" +
             "Configuration: $configuration"
 }

@@ -9,11 +9,15 @@ import kotlinx.coroutines.experimental.withContext
 import java.util.concurrent.TimeUnit
 
 object DeviceExplorer {
-    suspend fun findDevices(context: Context): List<Node> = withContext(CommonPool) {
+    private const val DEBOUNCE_TIME_MS = 1000L
+
+    suspend fun findDevices(context: Context, debounce: Boolean = false): List<Node> = withContext(CommonPool) {
         try {
-            Tasks.await(Wearable.getNodeClient(context).connectedNodes, 2, TimeUnit.SECONDS)
+            Tasks.await(Wearable.getNodeClient(context).connectedNodes, 2, TimeUnit.SECONDS).also {
+                if (it.isEmpty() && debounce) Thread.sleep(DEBOUNCE_TIME_MS)
+            }
         } catch (e: Exception) {
-            Thread.sleep(1000)
+            if (debounce) Thread.sleep(DEBOUNCE_TIME_MS)
             emptyList<Node>()
         }
     }

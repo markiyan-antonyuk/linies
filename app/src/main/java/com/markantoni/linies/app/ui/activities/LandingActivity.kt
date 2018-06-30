@@ -52,7 +52,7 @@ class LandingViewModel(application: Application) : AndroidViewModel(application)
 
     fun searchForDevices() = launch(UI) {
         isLoading.value = true
-        devices.value = DeviceExplorer.findDevices(getApplication())
+        devices.value = DeviceExplorer.findDevices(getApplication(), true)
         isLoading.value = false
     }
 }

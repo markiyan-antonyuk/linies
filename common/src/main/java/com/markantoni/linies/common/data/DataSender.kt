@@ -21,7 +21,7 @@ class DataSender(private val context: Context, override val protocol: Protocol) 
         if (protocol is Protocol.Remote) {
             messageClient.sendMessage(message)
         } else {
-            logd("Sending $protocol $message")
+            logd("Sending [$protocol] $message")
             LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(BASE_PATH).apply {
                 putExtra(DataTransfer.LOCAL_PATH, message.toJson())
             })
@@ -31,7 +31,7 @@ class DataSender(private val context: Context, override val protocol: Protocol) 
     private fun MessageClient.sendMessage(message: Message) = launch(CommonPool) {
         val nodes = if (receiverId == null) Tasks.await(Wearable.getNodeClient(context).connectedNodes).map { it.id } else listOf(receiverId!!)
         nodes.forEach {
-            logd("Sending $protocol $message")
+            logd("Sending [$protocol] to $it $message")
             sendMessage(it, DataTransfer.REMOTE_PATH, message.toBytes())
         }
     }
